@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2219F1442043307200282BC1 /* PrincipalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2219F1432043307200282BC1 /* PrincipalTableViewController.m */; };
 		262F66E52041C5DC006BD39B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 262F66E42041C5DC006BD39B /* main.m */; };
 		262F66E82041C5DC006BD39B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 262F66E72041C5DC006BD39B /* AppDelegate.m */; };
 		262F66EB2041C5DC006BD39B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262F66EA2041C5DC006BD39B /* RootViewController.m */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2219F1422043307200282BC1 /* PrincipalTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrincipalTableViewController.h; sourceTree = "<group>"; };
+		2219F1432043307200282BC1 /* PrincipalTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrincipalTableViewController.m; sourceTree = "<group>"; };
 		262F66E02041C5DC006BD39B /* drones.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drones.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		262F66E42041C5DC006BD39B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		262F66E62041C5DC006BD39B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -113,6 +116,8 @@
 				262F66EA2041C5DC006BD39B /* RootViewController.m */,
 				262F66EC2041C5DC006BD39B /* DataViewController.h */,
 				262F66ED2041C5DC006BD39B /* DataViewController.m */,
+				2219F1422043307200282BC1 /* PrincipalTableViewController.h */,
+				2219F1432043307200282BC1 /* PrincipalTableViewController.m */,
 				262F66EF2041C5DC006BD39B /* ModelController.h */,
 				262F66F02041C5DC006BD39B /* ModelController.m */,
 				262F66F22041C5DC006BD39B /* Main.storyboard */,
@@ -217,6 +222,7 @@
 				TargetAttributes = {
 					262F66DF2041C5DC006BD39B = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 26GT9RT6UP;
 						ProvisioningStyle = Automatic;
 					};
 					262F66FE2041C5DD006BD39B = {
@@ -287,6 +293,7 @@
 				262F66E82041C5DC006BD39B /* AppDelegate.m in Sources */,
 				262F66F12041C5DC006BD39B /* ModelController.m in Sources */,
 				262F66E52041C5DC006BD39B /* main.m in Sources */,
+				2219F1442043307200282BC1 /* PrincipalTableViewController.m in Sources */,
 				262F66EB2041C5DC006BD39B /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,9 +445,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 26GT9RT6UP;
 				INFOPLIST_FILE = drones/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = psar.drones;
+				PRODUCT_BUNDLE_IDENTIFIER = "psar-drones-lucie";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -449,9 +457,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 26GT9RT6UP;
 				INFOPLIST_FILE = drones/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = psar.drones;
+				PRODUCT_BUNDLE_IDENTIFIER = "psar-drones-lucie";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -521,6 +530,7 @@
 				262F67152041C5DD006BD39B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		262F67162041C5DD006BD39B /* Build configuration list for PBXNativeTarget "dronesTests" */ = {
 			isa = XCConfigurationList;
@@ -529,6 +539,7 @@
 				262F67182041C5DD006BD39B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		262F67192041C5DD006BD39B /* Build configuration list for PBXNativeTarget "dronesUITests" */ = {
 			isa = XCConfigurationList;
@@ -537,6 +548,7 @@
 				262F671B2041C5DD006BD39B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
