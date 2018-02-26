@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22102BBC2044ADA3004C7336 /* WifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22102BBB2044ADA3004C7336 /* WifiViewController.m */; };
+		22102BBF2044AE62004C7336 /* LivemodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22102BBE2044AE62004C7336 /* LivemodeViewController.m */; };
+		22102BC22044B40A004C7336 /* PlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22102BC12044B40A004C7336 /* PlaybackViewController.m */; };
 		2219F1442043307200282BC1 /* PrincipalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2219F1432043307200282BC1 /* PrincipalTableViewController.m */; };
 		262F66E52041C5DC006BD39B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 262F66E42041C5DC006BD39B /* main.m */; };
 		262F66E82041C5DC006BD39B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 262F66E72041C5DC006BD39B /* AppDelegate.m */; };
@@ -38,6 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22102BBA2044ADA3004C7336 /* WifiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiViewController.h; sourceTree = "<group>"; };
+		22102BBB2044ADA3004C7336 /* WifiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiViewController.m; sourceTree = "<group>"; };
+		22102BBD2044AE62004C7336 /* LivemodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LivemodeViewController.h; sourceTree = "<group>"; };
+		22102BBE2044AE62004C7336 /* LivemodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LivemodeViewController.m; sourceTree = "<group>"; };
+		22102BC02044B40A004C7336 /* PlaybackViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
+		22102BC12044B40A004C7336 /* PlaybackViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybackViewController.m; sourceTree = "<group>"; };
 		2219F1422043307200282BC1 /* PrincipalTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrincipalTableViewController.h; sourceTree = "<group>"; };
 		2219F1432043307200282BC1 /* PrincipalTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrincipalTableViewController.m; sourceTree = "<group>"; };
 		262F66E02041C5DC006BD39B /* drones.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drones.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +130,12 @@
 				262F66EF2041C5DC006BD39B /* ModelController.h */,
 				262F66F02041C5DC006BD39B /* ModelController.m */,
 				262F66F22041C5DC006BD39B /* Main.storyboard */,
+				22102BC02044B40A004C7336 /* PlaybackViewController.h */,
+				22102BC12044B40A004C7336 /* PlaybackViewController.m */,
+				22102BBD2044AE62004C7336 /* LivemodeViewController.h */,
+				22102BBE2044AE62004C7336 /* LivemodeViewController.m */,
+				22102BBA2044ADA3004C7336 /* WifiViewController.h */,
+				22102BBB2044ADA3004C7336 /* WifiViewController.m */,
 				262F66F52041C5DC006BD39B /* Assets.xcassets */,
 				262F66F72041C5DC006BD39B /* LaunchScreen.storyboard */,
 				262F66FA2041C5DC006BD39B /* Info.plist */,
@@ -293,8 +308,11 @@
 				262F66E82041C5DC006BD39B /* AppDelegate.m in Sources */,
 				262F66F12041C5DC006BD39B /* ModelController.m in Sources */,
 				262F66E52041C5DC006BD39B /* main.m in Sources */,
+				22102BBC2044ADA3004C7336 /* WifiViewController.m in Sources */,
 				2219F1442043307200282BC1 /* PrincipalTableViewController.m in Sources */,
 				262F66EB2041C5DC006BD39B /* RootViewController.m in Sources */,
+				22102BBF2044AE62004C7336 /* LivemodeViewController.m in Sources */,
+				22102BC22044B40A004C7336 /* PlaybackViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
