@@ -31,7 +31,7 @@ class DanceEditorViewController: UIViewController, UIImagePickerControllerDelega
         
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -42,9 +42,39 @@ class DanceEditorViewController: UIViewController, UIImagePickerControllerDelega
         self.dataLabel!.text = dataObject
     }
     //qioashan :
+   
     func updateNowPlayingInfo(){
         self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(ViewController.timerFired(_:)), userInfo: nil, repeats: true)
         self.timer.tolerance = 0.1
+    }
+    
+    //Function to make adjusting the slider move through the song.
+    @IBAction func sliderTimeChanged(sender: AnyObject) {
+        mp.currentPlaybackTime = NSTimeInterval(sliderTime.value)
+    }
+    
+    @IBAction func buttonUp(sender: AnyObject) {
+        mp.play()
+    }
+    
+    @IBAction func buttonDown(sender: AnyObject) {
+        mp.pause()
+    }
+    
+    @IBAction func buttonLeft(sender: AnyObject) {
+        mp.skipToPreviousItem()
+    }
+    
+    @IBAction func buttonRight(sender: AnyObject) {
+        mp.skipToBeginning()
+    }
+    
+    @IBAction func buttonForward(sender: AnyObject) {
+        mp.skipToNextItem()
+    }
+    
+    @IBAction func buttonBackward(sender: AnyObject) {
+        mp.skipToNextItem()
     }
 
 }
