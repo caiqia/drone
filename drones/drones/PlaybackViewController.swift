@@ -1,5 +1,5 @@
 //
-//  LivemodeViewController.swift
+//  PlaybackViewController.swift
 //  drones
 //
 //  Created by Qiaoshan Cai on 18/03/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LivemodeViewController: UIViewController {
+class PlaybackViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class LivemodeViewController: UIViewController {
     }
     */
     @IBAction func cancelTomain(_ sender: Any) {
-        performSegue(withIdentifier: "liveTomain", sender: self)
+        performSegue(withIdentifier: "playbackTomain", sender: self)
     }
     
 }

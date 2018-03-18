@@ -76,6 +76,10 @@ class DanceEditorViewController: UIViewController, UIImagePickerControllerDelega
     @IBAction func buttonBackward(sender: AnyObject) {
         mp.skipToNextItem()
     }
-
+    
+    @IBAction func cancelTomain(_ sender: Any) {
+        performSegue(withIdentifier: "editorTomain", sender: self)
+    }
+    
 }
 

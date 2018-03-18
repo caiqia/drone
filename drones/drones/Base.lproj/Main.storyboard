@@ -58,6 +58,10 @@
                     </view>
                     <connections>
                         <outlet property="MainMenuPicker" destination="goV-E4-5Vt" id="1rH-rl-1Vd"/>
+                        <segue destination="QE7-7r-CS8" kind="presentation" identifier="mainTolive" id="0Fd-y8-3Vt"/>
+                        <segue destination="yoh-cn-4Db" kind="presentation" identifier="mainTooption" id="lGg-jB-PXf"/>
+                        <segue destination="S4R-Ja-viH" kind="presentation" identifier="mainToeditor" id="5Nj-Dq-H4K"/>
+                        <segue destination="cLp-rP-LxM" kind="presentation" identifier="mainToplayback" id="95P-ff-Y2a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3h-pU-vEd" sceneMemberID="firstResponder"/>
@@ -87,19 +91,26 @@
                                 <rect key="frame" x="442" y="239" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="cancelTomain:" destination="QE7-7r-CS8" eventType="touchUpInside" id="AST-dh-QOG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <connections>
+                        <segue destination="al1-I5-fYR" kind="unwind" identifier="liveTomain" unwindAction="unwindToVC1WithSegue:" id="FVK-7D-rJW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7eB-jV-dQ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="al1-I5-fYR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-888" y="684"/>
         </scene>
-        <!--View Controller-->
+        <!--Option View Controller-->
         <scene sceneID="7eH-2o-eqI">
             <objects>
-                <viewController id="yoh-cn-4Db" sceneMemberID="viewController">
+                <viewController id="yoh-cn-4Db" customClass="OptionViewController" customModule="drones" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Qz-dZ-Zph"/>
                         <viewControllerLayoutGuide type="bottom" id="qAA-YW-Nwv"/>
@@ -130,13 +141,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OE0-sU-loK">
+                                <rect key="frame" x="415" y="227" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="cancelTomain:" destination="yoh-cn-4Db" eventType="touchUpInside" id="1qe-DI-hKV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="Zgv-r2-K3W" kind="unwind" identifier="optionTomain" unwindAction="unwindToVC1WithSegue:" id="KIb-xj-aLm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MHT-O6-GQh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Zgv-r2-K3W" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-112" y="664"/>
+            <point key="canvasLocation" x="-113.02816901408451" y="663.75"/>
         </scene>
         <!--DanceEditorView-->
         <scene sceneID="snT-py-3hH">
@@ -168,6 +191,9 @@
                                         <rect key="frame" x="391" y="195" width="48" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancelTomain:" destination="S4R-Ja-viH" eventType="touchUpInside" id="2ru-2h-gz9"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3c-IV-BzX">
                                         <rect key="frame" x="51" y="195" width="97" height="30"/>
@@ -228,16 +254,18 @@
                     <connections>
                         <outlet property="dataLabel" destination="cF2-Le-7mQ" id="3EH-BK-JV6"/>
                         <outlet property="sliderTimer" destination="22K-ep-nMG" id="wUg-pY-cAJ"/>
+                        <segue destination="jfq-EX-n3s" kind="unwind" identifier="editorTomain" unwindAction="unwindToVC1WithSegue:" id="aUN-24-92J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GmD-Rr-ZGN" sceneMemberID="firstResponder"/>
+                <exit id="jfq-EX-n3s" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="795" y="-313"/>
         </scene>
-        <!--View Controller-->
+        <!--Playback View Controller-->
         <scene sceneID="TcU-kG-ZHQ">
             <objects>
-                <viewController id="cLp-rP-LxM" sceneMemberID="viewController">
+                <viewController id="cLp-rP-LxM" customClass="PlaybackViewController" customModule="drones" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bxL-51-ISA"/>
                         <viewControllerLayoutGuide type="bottom" id="m9y-rI-2NL"/>
@@ -269,11 +297,23 @@
                                 <rect key="frame" x="153" y="28" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Crp-EY-B3N">
+                                <rect key="frame" x="461" y="248" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="cancelTomain:" destination="cLp-rP-LxM" eventType="touchUpInside" id="og3-ud-wxm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="2eo-Vc-ojz" kind="unwind" identifier="playbackTomain" unwindAction="unwindToVC1WithSegue:" id="eP2-Jj-tCA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Pc-vb-aQH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="2eo-Vc-ojz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="874.64788732394368" y="789.375"/>
         </scene>

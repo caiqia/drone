@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2267E0EF205EBD2600463E56 /* LivemodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267E0EE205EBD2600463E56 /* LivemodeViewController.swift */; };
+		2267E0F1205EBEE100463E56 /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267E0F0205EBEE100463E56 /* OptionViewController.swift */; };
+		2267E0F3205EBF0100463E56 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267E0F2205EBF0100463E56 /* PlaybackViewController.swift */; };
 		61009F4D205817190056824A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61009F4C205817190056824A /* MediaPlayer.framework */; };
 		69F81F9D2056BCCD00DAF74C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F81F9C2056BCCD00DAF74C /* AppDelegate.swift */; };
 		69F81F9F2056BCCD00DAF74C /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F81F9E2056BCCD00DAF74C /* MainMenuViewController.swift */; };
@@ -38,6 +40,8 @@
 
 /* Begin PBXFileReference section */
 		2267E0EE205EBD2600463E56 /* LivemodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivemodeViewController.swift; sourceTree = "<group>"; };
+		2267E0F0205EBEE100463E56 /* OptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionViewController.swift; sourceTree = "<group>"; };
+		2267E0F2205EBF0100463E56 /* PlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
 		61009F4C205817190056824A /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		69F81F992056BCCD00DAF74C /* drones.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drones.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69F81F9C2056BCCD00DAF74C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +121,8 @@
 				69F81F9E2056BCCD00DAF74C /* MainMenuViewController.swift */,
 				69F81FA02056BCCD00DAF74C /* DanceEditorViewController.swift */,
 				69F81FA42056BCCD00DAF74C /* Main.storyboard */,
+				2267E0F2205EBF0100463E56 /* PlaybackViewController.swift */,
+				2267E0F0205EBEE100463E56 /* OptionViewController.swift */,
 				2267E0EE205EBD2600463E56 /* LivemodeViewController.swift */,
 				69F81FA72056BCCD00DAF74C /* Assets.xcassets */,
 				69F81FA92056BCCD00DAF74C /* LaunchScreen.storyboard */,
@@ -278,7 +284,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				69F81F9F2056BCCD00DAF74C /* MainMenuViewController.swift in Sources */,
+				2267E0F1205EBEE100463E56 /* OptionViewController.swift in Sources */,
 				69F81FA12056BCCD00DAF74C /* DanceEditorViewController.swift in Sources */,
+				2267E0F3205EBF0100463E56 /* PlaybackViewController.swift in Sources */,
 				69F81F9D2056BCCD00DAF74C /* AppDelegate.swift in Sources */,
 				2267E0EF205EBD2600463E56 /* LivemodeViewController.swift in Sources */,
 			);
