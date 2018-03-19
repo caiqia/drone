@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainMenuViewController: UIViewController, UIPageViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource,UITapGestureRecognizer {
+class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -28,7 +28,6 @@ class MainMenuViewController: UIViewController, UIPageViewControllerDelegate, UI
         self.view.endEditing(true)
     }
     
-    var pageViewController: UIPageViewController?
 
     @IBOutlet weak var MainMenuPicker: UIPickerView!
      var pickerData: [NSString] = [NSString]()
@@ -39,29 +38,27 @@ class MainMenuViewController: UIViewController, UIPageViewControllerDelegate, UI
         self.MainMenuPicker.delegate = self
         self.MainMenuPicker.dataSource = self
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(OCAccountSettingsViewController.pickerTapped(_:)))
-        tap.cancelsTouchesInView = false
-        tap.delegate = self
-        pickerView.addGestureRecognizer(tap)
         
     }
-    // Add listener to picker menu
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true}
-    // Callback for listener when user touchs an item
-    func pickerTapped(tapRecognizer:UITapGestureRecognizer)
-    {
-        if (tapRecognizer.state == UIGestureRecognizerState.Ended)
-        {
-            let rowHeight : CGFloat  = self.pickerView.rowSizeForComponent(0).height
-            let selectedRowFrame: CGRect = CGRectInset(self.pickerView.bounds, 0.0, (CGRectGetHeight(self.pickerView.frame) - rowHeight) / 2.0 )
-            let userTappedOnSelectedRow = (CGRectContainsPoint(selectedRowFrame, tapRecognizer.locationInView(pickerView)))
-            if (userTappedOnSelectedRow)
-            {
-                let selectedRow = self.pickerView.selectedRowInComponent(0)
-                //here goes the transitions to other screens
-            }
+   
+    @IBAction func selectAction(_ sender: Any) {
+        switch userpicked{
+        case "Create a new dance":
+            performSegue(withIdentifier: "mainToeditor", sender: self)
+        case "Playback a dance":
+            performSegue(withIdentifier: "mainToplayback", sender: self)
+        case "Live mode":
+            performSegue(withIdentifier: "mainTolive", sender: self)
+        case "Edit a dance":
+            performSegue(withIdentifier: "mainToeditor", sender: self)
+        case "Options":
+            performSegue(withIdentifier: "mainTooption", sender: self)
+        case "Help":
+            performSegue(withIdentifier: "mainTooption", sender: self)
+        default:
+            print("welcome")
         }
+        
     }
     
     @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }

@@ -9,25 +9,42 @@
 import UIKit
 import MediaPlayer
 
-class DanceEditorViewController: UIViewController, UIImagePickerControllerDelegate {
-
+class DanceEditorViewController: UIViewController, UIImagePickerControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    var pickerData: [NSString] = [NSString]()
     @IBOutlet weak var dataLabel: UILabel!
     @IBOutlet weak var sliderTimer: UISlider!
     var dataObject: String = ""
     // qiaoshan :
-    var audioPlayer = AVAudioPlayer()
-    let mp = MPMusicPlayerController.systemMusicPlayer()
-    var timer = NSTimer()
-
+   
+    @IBOutlet weak var editorPicker: UIPickerView!
+    var userpicked = NSString();
+    
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row] as String
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+        userpicked = pickerData[row]
+        self.view.endEditing(true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         // qiaoshan : The audio file is extracted from the Application's bundle
-        mp.prepareToPlay()
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(ViewController.timerFired(_:)), userInfo: nil, repeats: true)
-        self.timer.tolerance = 0.1
-        mp.beginGeneratingPlaybackNotifications()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ViewController.updateNowPlayingInfo), name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification, object: nil)
+        pickerData = ["Ascend", "Descend", "Move Left", "Move right", "Forward", "Backward"]
+        self.editorPicker.delegate = self
+        self.editorPicker.dataSource = self
         
         
     }
@@ -43,39 +60,12 @@ class DanceEditorViewController: UIViewController, UIImagePickerControllerDelega
     }
     //qioashan :
    
-    func updateNowPlayingInfo(){
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(ViewController.timerFired(_:)), userInfo: nil, repeats: true)
-        self.timer.tolerance = 0.1
-    }
     
     //Function to make adjusting the slider move through the song.
     @IBAction func sliderTimeChanged(sender: AnyObject) {
-        mp.currentPlaybackTime = NSTimeInterval(sliderTime.value)
+        
     }
     
-    @IBAction func buttonUp(sender: AnyObject) {
-        mp.play()
-    }
-    
-    @IBAction func buttonDown(sender: AnyObject) {
-        mp.pause()
-    }
-    
-    @IBAction func buttonLeft(sender: AnyObject) {
-        mp.skipToPreviousItem()
-    }
-    
-    @IBAction func buttonRight(sender: AnyObject) {
-        mp.skipToBeginning()
-    }
-    
-    @IBAction func buttonForward(sender: AnyObject) {
-        mp.skipToNextItem()
-    }
-    
-    @IBAction func buttonBackward(sender: AnyObject) {
-        mp.skipToNextItem()
-    }
     
     @IBAction func cancelTomain(_ sender: Any) {
         performSegue(withIdentifier: "editorTomain", sender: self)

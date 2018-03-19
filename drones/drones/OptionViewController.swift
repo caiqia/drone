@@ -8,12 +8,36 @@
 
 import UIKit
 
-class OptionViewController: UIViewController {
+class OptionViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    var pickerData: [String] = []
+    
+    var userpicked :String = ""
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row] as String
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+        userpicked = pickerData[row]
+        self.view.endEditing(true)
+    }
 
+    @IBOutlet weak var optionPicker: UIPickerView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        //qiaoshan :
+        pickerData = ["Manage My Choregraphes", "Calibration", "Wifi connexion"]
+        self.optionPicker.delegate = self
+        self.optionPicker.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
