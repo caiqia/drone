@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="703-4V-yAM">
-    <device id="retina4_0" orientation="landscape">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="703-4V-yAM">
+    <device id="retina3_5" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,34 +17,35 @@
         <scene sceneID="clB-vc-fyl">
             <objects>
                 <viewController title="MainMenuView" id="703-4V-yAM" customClass="MainMenuViewController" customModule="drones" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="xex-s3-du2"/>
-                        <viewControllerLayoutGuide type="bottom" id="jDH-nB-q8V"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="502-Ir-ELC">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PSAR Drones" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63F-AS-0gm">
-                                <rect key="frame" x="181" y="0.0" width="207" height="53"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PSAR Drones" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63F-AS-0gm">
+                                <rect key="frame" x="159.5" y="23" width="161" height="34"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="28"/>
                                 <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R8Q-U0-iWo" userLabel="MainMenuPicker">
-                                <rect key="frame" x="0.0" y="41" width="568" height="239"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8Q-U0-iWo" userLabel="MainMenuPicker">
+                                <rect key="frame" x="80" y="79" width="320" height="162"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zh6-9u-0bg" userLabel="back_btn">
-                                <rect key="frame" x="20" y="8" width="41" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zh6-9u-0bg" userLabel="back_btn">
+                                <rect key="frame" x="16" y="20" width="41" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zh6-9u-0bg" secondAttribute="height" multiplier="1:1" id="7Yn-aN-wAm"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="reS-XB-2Qx"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="exit_icon"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Y8-xY-5Ti" userLabel="forward_btn">
-                                <rect key="frame" x="247" y="236" width="74" height="76"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Y8-xY-5Ti" userLabel="forward_btn">
+                                <rect key="frame" x="202.5" y="235" width="75" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="75" id="3ft-J7-3Dt"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="75" id="Vtl-pT-ENh"/>
+                                    <constraint firstAttribute="width" secondItem="2Y8-xY-5Ti" secondAttribute="height" multiplier="1:1" id="oIS-Ye-0Z9"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="forward_icon"/>
                                 <connections>
                                     <action selector="forward_touched:" destination="703-4V-yAM" eventType="touchDown" id="MJh-3e-5ez"/>
@@ -48,6 +53,19 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="63F-AS-0gm" firstAttribute="centerX" secondItem="502-Ir-ELC" secondAttribute="centerX" id="1m1-tz-ukD"/>
+                            <constraint firstItem="2Y8-xY-5Ti" firstAttribute="centerX" secondItem="R8Q-U0-iWo" secondAttribute="centerX" id="A8u-Bd-bmc"/>
+                            <constraint firstItem="zh6-9u-0bg" firstAttribute="centerY" secondItem="63F-AS-0gm" secondAttribute="centerY" id="DXH-9m-hS5"/>
+                            <constraint firstItem="2Y8-xY-5Ti" firstAttribute="bottom" secondItem="Vcb-5c-DkN" secondAttribute="bottom" constant="-10" id="Fcz-b7-xaQ"/>
+                            <constraint firstItem="2Y8-xY-5Ti" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="Vcb-5c-DkN" secondAttribute="bottom" id="PI9-a2-v6d"/>
+                            <constraint firstItem="zh6-9u-0bg" firstAttribute="top" secondItem="502-Ir-ELC" secondAttribute="top" constant="20" symbolic="YES" id="YvC-Yk-GHf"/>
+                            <constraint firstItem="63F-AS-0gm" firstAttribute="centerY" secondItem="502-Ir-ELC" secondAttribute="top" constant="40" id="a6m-GY-eAT"/>
+                            <constraint firstItem="R8Q-U0-iWo" firstAttribute="centerX" secondItem="502-Ir-ELC" secondAttribute="centerX" id="a93-bq-BZc"/>
+                            <constraint firstItem="R8Q-U0-iWo" firstAttribute="centerY" secondItem="502-Ir-ELC" secondAttribute="centerY" id="eSG-H3-6C8"/>
+                            <constraint firstItem="zh6-9u-0bg" firstAttribute="leading" secondItem="502-Ir-ELC" secondAttribute="leadingMargin" id="fsL-eI-KXa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Vcb-5c-DkN"/>
                     </view>
                     <connections>
                         <outlet property="MainMenuPicker" destination="R8Q-U0-iWo" id="Vxe-hH-Xbo"/>
@@ -67,12 +85,8 @@
         <scene sceneID="1yq-sG-RT9">
             <objects>
                 <viewController id="QE7-7r-CS8" customClass="LivemodeViewController" customModule="drones" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="CKT-BR-r9o"/>
-                        <viewControllerLayoutGuide type="bottom" id="9nw-BD-LUo"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="LqK-ok-JeL">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hl1-eZ-D6Z">
@@ -97,6 +111,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="HQ9-fC-qtn"/>
                     </view>
                     <connections>
                         <segue destination="al1-I5-fYR" kind="unwind" identifier="liveTomain" unwindAction="unwindToVC1WithSegue:" id="FVK-7D-rJW"/>
@@ -111,118 +126,147 @@
         <scene sceneID="7eH-2o-eqI">
             <objects>
                 <viewController id="yoh-cn-4Db" customClass="OptionViewController" customModule="drones" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0Qz-dZ-Zph"/>
-                        <viewControllerLayoutGuide type="bottom" id="qAA-YW-Nwv"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xby-5H-D9B">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="OptionView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnN-Aj-XUr">
-                                <rect key="frame" x="240" y="8" width="88" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OptionView" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnN-Aj-XUr">
+                                <rect key="frame" x="196" y="20" width="88" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AjD-KK-Npw">
-                                <rect key="frame" x="453" y="270" width="95" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Select"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AjD-KK-Npw" userLabel="Save">
+                                <rect key="frame" x="405" y="245" width="75" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="75" id="6R7-N5-xAE"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="75" id="6YU-sJ-65a"/>
+                                    <constraint firstAttribute="width" secondItem="AjD-KK-Npw" secondAttribute="height" multiplier="1:1" id="ftu-dH-jSE"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="save_icon"/>
+                                <connections>
+                                    <action selector="save_options:" destination="yoh-cn-4Db" eventType="touchDown" id="Jxk-BT-UT4"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OE0-sU-loK">
-                                <rect key="frame" x="0.0" y="270" width="99" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OE0-sU-loK">
+                                <rect key="frame" x="0.0" y="245" width="75" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="OE0-sU-loK" secondAttribute="height" multiplier="1:1" id="GoV-nS-ZCJ"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="75" id="LnO-GS-eC1"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="75" id="tRn-TI-cFy"/>
+                                </constraints>
+                                <state key="normal" title="Back" image="back_icon"/>
                                 <connections>
                                     <action selector="cancelTomain:" destination="yoh-cn-4Db" eventType="touchUpInside" id="1qe-DI-hKV"/>
                                 </connections>
                             </button>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ydj-Wl-vsl">
-                                <rect key="frame" x="135" y="37" width="299" height="162"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </pickerView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ShL-4H-Wun" userLabel="ScrollOptions">
+                                <rect key="frame" x="0.0" y="49" width="480" height="188"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OE0-sU-loK" firstAttribute="top" secondItem="ShL-4H-Wun" secondAttribute="bottom" constant="8" symbolic="YES" id="3Ma-Kr-X2c"/>
+                            <constraint firstItem="OE0-sU-loK" firstAttribute="leading" secondItem="xby-5H-D9B" secondAttribute="leadingMargin" constant="-16" id="9Ln-AV-npS"/>
+                            <constraint firstItem="OE0-sU-loK" firstAttribute="trailing" secondItem="xby-5H-D9B" secondAttribute="trailing" constant="-405" id="N90-7V-f1w"/>
+                            <constraint firstItem="LnN-Aj-XUr" firstAttribute="centerX" secondItem="xby-5H-D9B" secondAttribute="centerX" id="QHw-yS-DzY"/>
+                            <constraint firstItem="OE0-sU-loK" firstAttribute="bottom" secondItem="97P-tW-cd8" secondAttribute="bottom" id="X3k-Uz-L7k"/>
+                            <constraint firstItem="LnN-Aj-XUr" firstAttribute="top" secondItem="xby-5H-D9B" secondAttribute="top" constant="20" symbolic="YES" id="hCL-de-2WM"/>
+                            <constraint firstItem="AjD-KK-Npw" firstAttribute="trailing" secondItem="97P-tW-cd8" secondAttribute="trailing" id="i6a-4G-3gf"/>
+                            <constraint firstItem="ShL-4H-Wun" firstAttribute="trailing" secondItem="AjD-KK-Npw" secondAttribute="trailing" id="nAV-0K-zqz"/>
+                            <constraint firstItem="ShL-4H-Wun" firstAttribute="top" secondItem="LnN-Aj-XUr" secondAttribute="bottom" constant="8" symbolic="YES" id="nBp-LY-EkS"/>
+                            <constraint firstItem="ShL-4H-Wun" firstAttribute="leading" secondItem="OE0-sU-loK" secondAttribute="leading" id="nyv-5G-ZH0"/>
+                            <constraint firstItem="AjD-KK-Npw" firstAttribute="bottom" secondItem="97P-tW-cd8" secondAttribute="bottom" id="pIY-eP-0r9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="97P-tW-cd8"/>
                     </view>
                     <connections>
-                        <outlet property="optionPicker" destination="Ydj-Wl-vsl" id="j9Z-uM-pqR"/>
                         <segue destination="Zgv-r2-K3W" kind="unwind" identifier="optionTomain" unwindAction="unwindToVC1WithSegue:" id="KIb-xj-aLm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MHT-O6-GQh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Zgv-r2-K3W" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-113.02816901408451" y="663.75"/>
+            <point key="canvasLocation" x="-113.75" y="663.75"/>
         </scene>
         <!--DanceEditorView-->
         <scene sceneID="snT-py-3hH">
             <objects>
                 <viewController storyboardIdentifier="DataViewController" title="DanceEditorView" id="S4R-Ja-viH" customClass="DanceEditorViewController" customModule="drones" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="H4R-am-eGS"/>
-                        <viewControllerLayoutGuide type="bottom" id="erY-ZS-hd1"/>
-                    </layoutGuides>
-                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="ZwX-cT-FIQ">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="ZwX-cT-FIQ">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="whd-UA-4jp">
-                                <rect key="frame" x="28" y="194" width="513" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </slider>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fh1-TY-du5" userLabel="Back">
-                                <rect key="frame" x="20" y="252" width="43" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="redraw" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fh1-TY-du5" userLabel="Back">
+                                <rect key="frame" x="48" y="275" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="2fE-XO-vBv"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="3aJ-8z-L9b"/>
+                                    <constraint firstAttribute="width" secondItem="Fh1-TY-du5" secondAttribute="height" multiplier="1:1" id="LN6-Nq-M1k"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="back_icon"/>
                                 <connections>
                                     <action selector="cancelTomain:" destination="S4R-Ja-viH" eventType="touchUpInside" id="c5y-0P-AqI"/>
                                 </connections>
                             </button>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FlQ-WB-7Do">
-                                <rect key="frame" x="20" y="24" width="224" height="162"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueR-YM-lWi" userLabel="Play">
-                                <rect key="frame" x="257" y="245" width="55" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="play_icon"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cnB-Lc-lZD" userLabel="Save">
-                                <rect key="frame" x="479" y="238" width="69" height="68"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cnB-Lc-lZD" userLabel="Save">
+                                <rect key="frame" x="410" y="262" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="YBb-is-R7j"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="ZJl-Ol-6tI"/>
+                                    <constraint firstAttribute="width" secondItem="cnB-Lc-lZD" secondAttribute="height" multiplier="1:1" id="vdE-kd-JaE"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="save_icon"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wnU-Pb-2vo" userLabel="Insert">
-                                <rect key="frame" x="260" y="136" width="49" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wnU-Pb-2vo" userLabel="Insert">
+                                <rect key="frame" x="214.5" y="117" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="2cF-Kc-sZQ"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="hiZ-On-6ZR"/>
+                                    <constraint firstAttribute="width" secondItem="wnU-Pb-2vo" secondAttribute="height" multiplier="1:1" id="v8W-Us-tIi"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="insert_icon"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueR-YM-lWi" userLabel="Play">
+                                <rect key="frame" x="215" y="262" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ueR-YM-lWi" secondAttribute="height" multiplier="1:1" id="God-2x-yTK"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="75" id="ZGz-5k-OG8"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="75" id="iqU-hZ-gEK"/>
+                                </constraints>
+                                <state key="normal" image="play_icon"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ueR-YM-lWi" firstAttribute="centerX" secondItem="wnU-Pb-2vo" secondAttribute="centerX" id="0br-pG-igc"/>
+                            <constraint firstItem="ueR-YM-lWi" firstAttribute="top" secondItem="wnU-Pb-2vo" secondAttribute="bottom" constant="95" id="7LQ-96-qxh"/>
+                            <constraint firstItem="Fh1-TY-du5" firstAttribute="centerX" secondItem="j1n-bo-CbA" secondAttribute="leading" constant="60" id="A1q-Qm-5Kv"/>
+                            <constraint firstItem="ueR-YM-lWi" firstAttribute="centerY" secondItem="Fh1-TY-du5" secondAttribute="centerY" id="EMb-aw-s0a"/>
+                            <constraint firstItem="ueR-YM-lWi" firstAttribute="top" secondItem="cnB-Lc-lZD" secondAttribute="top" id="FD6-bd-gVS"/>
+                            <constraint firstItem="cnB-Lc-lZD" firstAttribute="bottom" secondItem="j1n-bo-CbA" secondAttribute="bottom" constant="-8" id="gCr-Lb-Tdk"/>
+                            <constraint firstItem="ueR-YM-lWi" firstAttribute="centerX" secondItem="ZwX-cT-FIQ" secondAttribute="centerX" id="gaN-6h-ZXA"/>
+                            <constraint firstItem="cnB-Lc-lZD" firstAttribute="trailing" secondItem="j1n-bo-CbA" secondAttribute="trailing" constant="-20" id="oIH-b4-oDp"/>
+                            <constraint firstItem="Fh1-TY-du5" firstAttribute="bottom" secondItem="j1n-bo-CbA" secondAttribute="bottom" constant="-21" id="tfm-bX-OiV"/>
+                            <constraint firstItem="ueR-YM-lWi" firstAttribute="bottom" secondItem="cnB-Lc-lZD" secondAttribute="bottom" id="w5i-cm-YYx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="j1n-bo-CbA"/>
                     </view>
                     <connections>
-                        <outlet property="editorPicker" destination="FlQ-WB-7Do" id="o1p-LP-iXY"/>
-                        <outlet property="sliderTimer" destination="whd-UA-4jp" id="qUE-g0-kXD"/>
                         <segue destination="jfq-EX-n3s" kind="unwind" identifier="editorTomain" unwindAction="unwindToVC1WithSegue:" id="aUN-24-92J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GmD-Rr-ZGN" sceneMemberID="firstResponder"/>
                 <exit id="jfq-EX-n3s" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="794.36619718309862" y="-313.125"/>
+            <point key="canvasLocation" x="789.84375" y="-317.1875"/>
         </scene>
         <!--Playback View Controller-->
         <scene sceneID="TcU-kG-ZHQ">
             <objects>
                 <viewController id="cLp-rP-LxM" customClass="PlaybackViewController" customModule="drones" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="bxL-51-ISA"/>
-                        <viewControllerLayoutGuide type="bottom" id="m9y-rI-2NL"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="heb-YE-x8q">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="vNW-xZ-Yhc">
@@ -258,6 +302,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="vcp-Z8-1PS"/>
                     </view>
                     <connections>
                         <segue destination="2eo-Vc-ojz" kind="unwind" identifier="playbackTomain" unwindAction="unwindToVC1WithSegue:" id="eP2-Jj-tCA"/>

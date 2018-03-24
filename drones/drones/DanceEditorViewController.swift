@@ -13,7 +13,7 @@ class DanceEditorViewController: UIViewController, UIImagePickerControllerDelega
     
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 6
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -54,10 +54,6 @@ class DanceEditorViewController: UIViewController, UIImagePickerControllerDelega
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.dataLabel!.text = dataObject
-    }
     //qioashan :
    
     

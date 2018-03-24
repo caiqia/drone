@@ -1,11 +1,3 @@
-//
-//  MainMenuViewController.swift
-//  For PSAR Drones
-//
-//  Created by Chouki & Qiaoshan.
-//  Copyright © 2018 PSAR. All rights reserved.
-//
-
 import UIKit
 
 class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -14,12 +6,9 @@ class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-       return pickerData.count
+        return pickerData.count
     }
-    
     var userpicked = NSString();
-
-
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerData[row] as String
     }
@@ -28,20 +17,21 @@ class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         self.view.endEditing(true)
     }
     
-
-    @IBOutlet weak var MainMenuPicker: UIPickerView!
-     var pickerData: [NSString] = [NSString]()
+    @IBOutlet var MainMenuPicker: UIPickerView!
+    @IBOutlet var back_btn: UIButton!
+    @IBOutlet var forward_btn: UIButton!
+    
+    var pickerData: [NSString] = [NSString]()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Configure current view
         pickerData = ["Create a new dance", "Playback a dance", "Live mode", "Edit a dance", "Options", "Help"]
         self.MainMenuPicker.delegate = self
         self.MainMenuPicker.dataSource = self
-        
-        
+       userpicked = pickerData[0]
     }
-   
-    @IBAction func selectAction(_ sender: Any) {
+    
+    @IBAction func forward_touched(_ sender: Any) {
         switch userpicked{
         case "Create a new dance":
             performSegue(withIdentifier: "mainToeditor", sender: self)
@@ -58,12 +48,5 @@ class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         default:
             print("welcome")
         }
-        
     }
-    
-    @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
-    
-    
-
 }
-
