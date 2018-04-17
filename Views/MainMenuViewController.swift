@@ -6,6 +6,7 @@
 import UIKit
 
 class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    //Picker view delegation functions
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -21,34 +22,40 @@ class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         userpicked = pickerData[row]
         self.view.endEditing(true)
     }
-    
+    //Outlets and global variables
     @IBOutlet var MainMenuPicker: UIPickerView!
     @IBOutlet var back_btn: UIButton!
     @IBOutlet var forward_btn: UIButton!
-    
     var pickerData: [NSString] = [NSString]()
+    
+    //On load finished
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Configure current view
+        // Configure current pickerview options
         pickerData = ["Create a new dance", "Playback a dance", "Live mode", "Edit a dance", "Options", "Help"]
         self.MainMenuPicker.delegate = self
         self.MainMenuPicker.dataSource = self
        userpicked = pickerData[0]
     }
-    
+    //Back button touched
+    @IBAction func back_touched(_ sender: Any) {
+ UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
+    }
+    //Forward button touched
     @IBAction func forward_touched(_ sender: Any) {
+        //Switch option and perform segue
         switch userpicked{
-        case "Create a new dance":
+        case pickerData[0]:
             performSegue(withIdentifier: "mainToeditor", sender: self)
-        case "Playback a dance":
+        case pickerData[1]:
             performSegue(withIdentifier: "mainToplayback", sender: self)
-        case "Live mode":
+        case pickerData[2]:
             performSegue(withIdentifier: "mainTolive", sender: self)
-        case "Edit a dance":
+        case pickerData[3]:
             performSegue(withIdentifier: "mainToeditor", sender: self)
-        case "Options":
+        case pickerData[4]:
             performSegue(withIdentifier: "mainTooption", sender: self)
-        case "Help":
+        case pickerData[5]:
             performSegue(withIdentifier: "mainTooption", sender: self)
         default:
             print("welcome")

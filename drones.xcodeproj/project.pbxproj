@@ -10,6 +10,7 @@
 		2267E0EF205EBD2600463E56 /* LivemodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267E0EE205EBD2600463E56 /* LivemodeViewController.swift */; };
 		2267E0F1205EBEE100463E56 /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267E0F0205EBEE100463E56 /* OptionViewController.swift */; };
 		2267E0F3205EBF0100463E56 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267E0F2205EBF0100463E56 /* PlaybackViewController.swift */; };
+		6948658B2082AC76006DD6B4 /* CustomOptIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6948658A2082AC76006DD6B4 /* CustomOptIcons.swift */; };
 		694B5DD8207AB65400630CEF /* DroneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B5DD7207AB65400630CEF /* DroneController.m */; };
 		69DE79742076A9060091DCE4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DE79732076A9060091DCE4 /* QuartzCore.framework */; };
 		69DE798A2076BFC50091DCE4 /* UIWheelSector.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE79882076BFC50091DCE4 /* UIWheelSector.m */; };
@@ -45,8 +46,9 @@
 		2267E0F2205EBF0100463E56 /* PlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
 		300D987C9C42B58ECA764B53 /* Pods-dronesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dronesUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dronesUITests/Pods-dronesUITests.release.xcconfig"; sourceTree = "<group>"; };
 		45FE1C85983D77C9375644C1 /* Pods-dronesUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dronesUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dronesUITests/Pods-dronesUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		694B5DD5207A8C6E00630CEF /* dronesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = dronesTests.xctest; path = "/Users/shawky/Projects/april/drones/build/Debug-iphoneos/dronesTests.xctest"; sourceTree = "<absolute>"; };
-		694B5DD6207A8C6E00630CEF /* dronesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = dronesUITests.xctest; path = "/Users/shawky/Projects/april/drones/build/Debug-iphoneos/dronesUITests.xctest"; sourceTree = "<absolute>"; };
+		692E7B73207E7945006EF48C /* dronesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dronesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		692E7B74207E7945006EF48C /* dronesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dronesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6948658A2082AC76006DD6B4 /* CustomOptIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOptIcons.swift; sourceTree = "<group>"; };
 		694B5DD7207AB65400630CEF /* DroneController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DroneController.m; sourceTree = SOURCE_ROOT; };
 		694B5DDD207ABE0F00630CEF /* DroneController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DroneController.h; sourceTree = SOURCE_ROOT; };
 		69DE79692076A5E00091DCE4 /* drones.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drones.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,7 @@
 				69DE79872076BFC50091DCE4 /* UIWheelSector.h */,
 				69DE79882076BFC50091DCE4 /* UIWheelSector.m */,
 				69DE796D2076A8900091DCE4 /* drones-Bridging-Header.h */,
+				6948658A2082AC76006DD6B4 /* CustomOptIcons.swift */,
 			);
 			path = CustomUIControls;
 			sourceTree = "<group>";
@@ -138,6 +141,8 @@
 				A5001E4AB3481E0693BAF9FC /* Pods */,
 				69DE79692076A5E00091DCE4 /* drones.app */,
 				69DE79722076A9060091DCE4 /* Frameworks */,
+				692E7B73207E7945006EF48C /* dronesTests.xctest */,
+				692E7B74207E7945006EF48C /* dronesUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -209,7 +214,7 @@
 			);
 			name = dronesTests;
 			productName = dronesTests;
-			productReference = 694B5DD5207A8C6E00630CEF /* dronesTests.xctest */;
+			productReference = 692E7B73207E7945006EF48C /* dronesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		69F81FBB2056BCCD00DAF74C /* dronesUITests */ = {
@@ -230,7 +235,7 @@
 			);
 			name = dronesUITests;
 			productName = dronesUITests;
-			productReference = 694B5DD6207A8C6E00630CEF /* dronesUITests.xctest */;
+			productReference = 692E7B74207E7945006EF48C /* dronesUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -467,6 +472,7 @@
 				694B5DD8207AB65400630CEF /* DroneController.m in Sources */,
 				2267E0F1205EBEE100463E56 /* OptionViewController.swift in Sources */,
 				69F81FA12056BCCD00DAF74C /* DanceEditorViewController.swift in Sources */,
+				6948658B2082AC76006DD6B4 /* CustomOptIcons.swift in Sources */,
 				2267E0F3205EBF0100463E56 /* PlaybackViewController.swift in Sources */,
 				69F81F9D2056BCCD00DAF74C /* AppDelegate.swift in Sources */,
 				2267E0EF205EBD2600463E56 /* LivemodeViewController.swift in Sources */,

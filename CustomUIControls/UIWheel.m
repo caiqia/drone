@@ -15,6 +15,7 @@
     - (float) calculateDistanceFromCenter:(CGPoint)point;
     - (void) buildClovesEven;
     - (void) buildClovesOdd;
+    - (int) getCloveValue:(NSString *)ino;
     - (UIImageView *) getCloveByValue:(int)value;
     - (NSString *) getCloveName:(int)position;
 @end
@@ -25,16 +26,18 @@ static float maxAlphavalue = 1.0;
 
 @implementation UIWheel
 
-@synthesize delegate, container, numberOfSections, startTransform, cloves, currentValue;
+@synthesize delegate, container, numberOfSections, startTransform, cloves, currentValue, background_img_name, resource_icons_name_prefix, center_icon, options_list;
 
 
-- (id) initWithFrame:(CGRect)frame andDelegate:(id)del withSections:(int)sectionsNumber {
+- (id) initWithFrame:(CGRect)frame andDelegate:(id)del withSections:(int)sectionsNumber withBackground:(NSString *)bg_name withIconsPrefix:(NSString *)icons_prefix withCenterIcon:(NSString *)center_button{
     
     if ((self = [super initWithFrame:frame])) {
-		
         self.currentValue = 0;
         self.numberOfSections = sectionsNumber;
         self.delegate = del;
+        self.background_img_name = bg_name;
+        self.resource_icons_name_prefix = icons_prefix;
+        self.center_icon = center_button;
 		[self drawWheel];
         
 	}
@@ -65,7 +68,7 @@ static float maxAlphavalue = 1.0;
         }
         
         UIImageView *cloveImage = [[UIImageView alloc] initWithFrame:CGRectMake(12, 15, 40, 40)];
-        cloveImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon%i.png", i]];
+        cloveImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@%i.png",resource_icons_name_prefix ,i]];
         [im addSubview:cloveImage];
         
         [container addSubview:im];
@@ -78,11 +81,11 @@ static float maxAlphavalue = 1.0;
     cloves = [NSMutableArray arrayWithCapacity:numberOfSections];
     
     UIImageView *bg = [[UIImageView alloc] initWithFrame:self.frame];
-    bg.image = [UIImage imageNamed:@"bg.png"];
+    bg.image = [UIImage imageNamed:background_img_name];
     [self addSubview:bg];
     
     UIImageView *mask = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 58, 58)];
-    mask.image =[UIImage imageNamed:@"centerButton.png"] ;
+    mask.image =[UIImage imageNamed:center_icon] ;
     mask.center = self.center;
     mask.center = CGPointMake(mask.center.x, mask.center.y+3);
     [self addSubview:mask];
@@ -347,10 +350,22 @@ static float maxAlphavalue = 1.0;
         default:
             break;
     }
-    
+    res = options_list[position];
     return res;
 }
 
-
+- (int) getCloveValue:(NSString*) ino
+{
+    NSArray *views = [container subviews];
+    int i=0;
+    for (UILabel *im in views)
+    {
+        i++;
+        if ([im.text isEqual:ino])
+            break;
+    }
+    
+    return i;
+}
 
 @end

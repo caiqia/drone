@@ -32,7 +32,7 @@ class PlaybackViewController: UIViewController {
     }
     */
     @IBAction func cancelTomain(_ sender: Any) {
-        performSegue(withIdentifier: "playbackTomain", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
 }
