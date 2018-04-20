@@ -20,6 +20,7 @@ class LivemodeViewController: UIViewController {
     var gaz = 0
     var motionManager = CMMotionManager()
     var timer = Timer()
+    var started = false
     //   var stateSem : dispatch_semaphore_t
     //   var bebopDrone : DroneController
     
@@ -55,9 +56,9 @@ class LivemodeViewController: UIViewController {
                                repeats: true, block: { (timer) in
                                 // Get the gyro data.
                                 if let data = self.motionManager.gyroData {
-                                   self.gxlbl.text = String(data.rotationRate.x)
+                                    self.gxlbl.text = String(data.rotationRate.x)
                                     self.gylbl.text = String(data.rotationRate.y)
-                                self.gzlbl.text = String(data.rotationRate.z)
+                                    self.gzlbl.text = String(data.rotationRate.z)
                                     
                                     // Use the gyroscope data in your app.
                                     self.start_touched(self)
@@ -95,11 +96,11 @@ class LivemodeViewController: UIViewController {
                     }
                     if data!.acceleration.z < 0 {
                         //drone will move backword.
-                       // print("backward")
+                        // print("backward")
                     }
                     else if data!.acceleration.z > 0 {
                         //drone will move forwardsssss.
-                       // print("forward")
+                        // print("forward")
                     }
                 })
             }
@@ -118,9 +119,9 @@ class LivemodeViewController: UIViewController {
     }
     
     func stopGyros() {
-            self.timer.invalidate()
+        self.timer.invalidate()
         self.motionManager.stopGyroUpdates()
-        }
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -223,15 +224,20 @@ class LivemodeViewController: UIViewController {
     }
     
     @IBAction func start_touched(_ sender: Any) {
-        let x = Int(gxlbl.text!)
-        let y = Int(gylbl.text!)
-        let z = Int(gzlbl.text!)
-        if(x != nil && y != nil && z != nil){
-        DroneController.send_pilot_data(1, (Int32((x!*10)+5)), (Int32((y!*10)+5)), (Int32((z!*10)+5)), Int32(gaz))
+        if (started == false)
+        {
+            started = true
+            let x = Int(gxlbl.text!)
+            let y = Int(gylbl.text!)
+            let z = Int(gzlbl.text!)
+            if(x != nil && y != nil && z != nil){
+                DroneController.send_pilot_data(1, (Int32((x!*10)+5)), (Int32((y!*10)+5)), (Int32((z!*10)+5)), Int32(gaz))
+            }
         }
     }
     @IBAction func back_touched(_ sender: Any) {
         timer.invalidate()
+        started = false
         dismiss(animated: true, completion: nil)
     }
     

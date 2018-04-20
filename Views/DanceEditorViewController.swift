@@ -88,33 +88,10 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     }
     
     @IBAction func save_touched(_ sender: Any) {
-        showSaveFileNameInputDialog()
+        FileTools.showSaveFileNameInputDialog(current_view: self)
     }
     //Ask for fileName
-    func showSaveFileNameInputDialog() {
-        //Setting title and message for the alert dialog
-        let alertController = UIAlertController(title: "Save Song", message: "Enter song file name:", preferredStyle: .alert)
-        //the confirm action taking the inputs
-        let confirmAction = UIAlertAction(title: "OK", style: .default)
-        {
-            (_) in
-            //getting File input value from user
-            let myname = alertController.textFields?[0].text
-            self.save(name : myname!)
-        }
-        //the cancel action doing nothing
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-        
-        //adding textfields to our dialog box
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Enter File Name"
-        }
-        //adding the action to dialog box
-        alertController.addAction(confirmAction)
-        alertController.addAction(cancelAction)
-        //finally presenting the dialog box
-        self.present(alertController, animated: true, completion: nil)
-    }
+    
     
     // Play button touched
     @IBAction func play_touched(_ sender: UIButton) {
@@ -181,7 +158,7 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     //Funtion to delete last option
     @IBAction func delete_option(_ sender: Any) {
         let opt_col = self.view.subviews.compactMap { $0 as? CustomOpticons }
-        if(opt_col.count != 0)
+        if(opt_col.count != 0 && opt_curr != 0)
         {
             opt_col[opt_curr-1].isHidden = true
             opt_curr-=1
@@ -218,23 +195,8 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     @IBAction func back_pressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    func save(name : String)
-    {
-        let file = name //this is the file. we will write to and read from it
-        
-        let text = "some text" //just a text
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileURL = dir.appendingPathComponent(file)
-            
-            //writing
-            do {
-                try text.write(to: fileURL, atomically: false, encoding: .utf8)
-            }
-            catch {
-                /* error handling here */
-            }
-        }
-    }
+    //Save dance to file
+    
     //Requiered Constructors
     init(sectorLbl: UILabel, aDecoder: NSCoder) {
         self.sectorLabel = sectorLbl
