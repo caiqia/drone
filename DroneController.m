@@ -14,7 +14,11 @@ static  ARCONTROLLER_Device_t *deviceController;
 static  ARCONTROLLER_Device_t *_deviceController;
 static  ARService *service;
 static  NSArray *deviceList;
+static  bool ready = false;
 
++ (bool)isReady{
+    return ready;
+}
 + (NSArray*)getDeviceList{
     return deviceList;
 }
@@ -64,23 +68,47 @@ static  NSArray *deviceList;
     deviceList = [[notification userInfo] objectForKey:kARDiscoveryServicesList];
     service = deviceList[0];
     // Do what you want with the device list (deviceList is an array of ARService*)
+    NSLog(@"Got Service");
+    dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+    dispatch_async(q, ^{
+        ARDISCOVERY_Device_t *discoveryDevice = [self createDiscoveryDeviceWithService:service];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [DroneController continueregister:discoveryDevice];
+        });
+    });
+}
+
++ (void) continueregister:(ARDISCOVERY_Device_t*)device
+{
+    NSLog(@"created with servcie");
+    eARCONTROLLER_ERROR error = ARCONTROLLER_OK;
+    deviceController = ARCONTROLLER_Device_New (device, &error);
+    NSLog(@"Passed Device of discovery");
+    NSLog(@"%@",error);
+    //NSLog(@"%@",deviceController);
+    //error =    ARCONTROLLER_Device_AddStateChangedCallback(deviceController, stateChanged, (__bridge void *)(self));
+    NSLog(@"%@",error);
+    //error = ARCONTROLLER_Device_AddCommandReceivedCallback(deviceController, onCommandReceived, (__bridge void *)(self));
+    error = ARCONTROLLER_Device_Start (deviceController);
+    
+    NSLog(@"%@",error);
+    if (error == ARCONTROLLER_OK)
+    {
+        NSLog(@"error is ok, should fly");
+        _deviceController = deviceController;
+    }
+    //[self unregisterReceivers];
+   // [self stopDiscovery];
+    ready = true;
 }
 
 + (void) DroneControllerInit
 {
     @try {
         [self startDiscovery];
+        NSLog(@"passed discovery");
         [self registerReceivers];
-        ARDISCOVERY_Device_t *discoveryDevice = [self createDiscoveryDeviceWithService:service];
-        eARCONTROLLER_ERROR error = ARCONTROLLER_OK;
-        deviceController = ARCONTROLLER_Device_New (discoveryDevice, &error);
-        error = ARCONTROLLER_Device_AddStateChangedCallback(deviceController, stateChanged, (__bridge void *)(self));
-        error = ARCONTROLLER_Device_AddCommandReceivedCallback(deviceController, onCommandReceived, (__bridge void *)(self));
-        error = ARCONTROLLER_Device_Start (deviceController);
-        if (error == ARCONTROLLER_OK)
-        {
-            _deviceController = deviceController;
-        }
+        NSLog(@"passed register");
     }
     @catch (NSException *exception){
         NSLog(@"%@",exception.reason);
@@ -135,12 +163,10 @@ void stateChanged (eARCONTROLLER_DEVICE_STATE newState, eARCONTROLLER_ERROR erro
     return flyingState;
 }
 
-- (void)takeoff
++ (void)takeoff
 {
-    if ([self getFlyingState] == ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_LANDED)
-    {
+    NSLog(@"Taking Off :) ");
         _deviceController->aRDrone3->sendPilotingTakeOff(_deviceController->aRDrone3);
-    }
 }
 
 // called when a command has been received from the drone
@@ -161,24 +187,21 @@ void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DI
             
             if (arg != NULL)
             {
-                eARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE flyingState = arg->value.I32;
+        eARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE flyingState = arg->value.I32;
             }
         }
     }
 }
 
-- (void)land
++ (void)land
 {
-    eARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE flyingState = [self getFlyingState];
-    if (flyingState == ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_FLYING || flyingState == ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_HOVERING)
-    {
+    NSLog(@"Landing");
         _deviceController->aRDrone3->sendPilotingLanding(_deviceController->aRDrone3);
-    }
 }
 
 
 + (void) send_pilot_data:(int)flag :(int)roll :(int)pitch :(int)yaw :(int)gas {
-    /*
+
     _deviceController->aRDrone3->setPilotingPCMDFlag(_deviceController->aRDrone3, flag);
     _deviceController->aRDrone3->setPilotingPCMDRoll(_deviceController->aRDrone3, roll);
     _deviceController->aRDrone3->setPilotingPCMDPitch(_deviceController->aRDrone3, pitch);

@@ -12,6 +12,7 @@
 		2267E0F3205EBF0100463E56 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267E0F2205EBF0100463E56 /* PlaybackViewController.swift */; };
 		6948658B2082AC76006DD6B4 /* CustomOptIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6948658A2082AC76006DD6B4 /* CustomOptIcons.swift */; };
 		694B5DD8207AB65400630CEF /* DroneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B5DD7207AB65400630CEF /* DroneController.m */; };
+		697AB2B42087B1630092D6F1 /* FileTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697AB2B32087B1630092D6F1 /* FileTools.swift */; };
 		69DE79742076A9060091DCE4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DE79732076A9060091DCE4 /* QuartzCore.framework */; };
 		69DE798A2076BFC50091DCE4 /* UIWheelSector.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE79882076BFC50091DCE4 /* UIWheelSector.m */; };
 		69DE798B2076BFC50091DCE4 /* UIWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE79892076BFC50091DCE4 /* UIWheel.m */; };
@@ -51,6 +52,7 @@
 		6948658A2082AC76006DD6B4 /* CustomOptIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOptIcons.swift; sourceTree = "<group>"; };
 		694B5DD7207AB65400630CEF /* DroneController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DroneController.m; sourceTree = SOURCE_ROOT; };
 		694B5DDD207ABE0F00630CEF /* DroneController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DroneController.h; sourceTree = SOURCE_ROOT; };
+		697AB2B32087B1630092D6F1 /* FileTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTools.swift; sourceTree = "<group>"; };
 		69DE79692076A5E00091DCE4 /* drones.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drones.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69DE796D2076A8900091DCE4 /* drones-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "drones-Bridging-Header.h"; sourceTree = "<group>"; };
 		69DE79732076A9060091DCE4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -149,6 +151,7 @@
 		69F81F9B2056BCCD00DAF74C /* drones */ = {
 			isa = PBXGroup;
 			children = (
+				697AB2B32087B1630092D6F1 /* FileTools.swift */,
 				69F81F9C2056BCCD00DAF74C /* AppDelegate.swift */,
 				69F81FA42056BCCD00DAF74C /* Main.storyboard */,
 				69F81FA72056BCCD00DAF74C /* Assets.xcassets */,
@@ -476,6 +479,7 @@
 				2267E0F3205EBF0100463E56 /* PlaybackViewController.swift in Sources */,
 				69F81F9D2056BCCD00DAF74C /* AppDelegate.swift in Sources */,
 				2267E0EF205EBD2600463E56 /* LivemodeViewController.swift in Sources */,
+				697AB2B42087B1630092D6F1 /* FileTools.swift in Sources */,
 				69DE798B2076BFC50091DCE4 /* UIWheel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

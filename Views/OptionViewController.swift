@@ -18,17 +18,22 @@ class OptionViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    @IBAction func land_touched(_ sender: Any) {
+        DroneController.land()
+    }
     @IBAction func Connect_touched(_ sender: Any) {
+        if (DroneController.isReady() == false){
         DroneController.droneControllerInit()
-        var devs = DroneController.getDeviceList()
-        if(devs != nil)
+            print("passed Init")}
+        if (DroneController.isReady())
         {
-            if((devs?.count)! > 0){DroneController.takeoff()}
+               print("ready and flying")
+                DroneController.takeoff()
         }
     }
     
     @IBAction func back_btn_touched(_ sender: Any)
-    {
+    { 
         dismiss(animated: true, completion: nil)
     }
     
