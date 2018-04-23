@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="703-4V-yAM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="703-4V-yAM">
     <device id="retina4_0" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -245,16 +245,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Options" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnN-Aj-XUr" userLabel="OptionsLabel">
-                                <rect key="frame" x="254" y="0.0" width="60" height="21"/>
+                                <rect key="frame" x="254" y="0.0" width="60" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ShL-4H-Wun" userLabel="ScrollOptions">
-                                <rect key="frame" x="30" y="29" width="508" height="242"/>
+                                <rect key="frame" x="30" y="28.5" width="508" height="242.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TakeOff" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syv-cQ-Qk3">
-                                        <rect key="frame" x="48" y="22" width="60" height="21"/>
+                                        <rect key="frame" x="48" y="22.5" width="60" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -267,7 +267,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9LQ-iS-gnE" userLabel="Data">
-                                        <rect key="frame" x="60" y="62" width="36" height="21"/>
+                                        <rect key="frame" x="60" y="62.5" width="36" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -465,7 +465,6 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="stop_icon"/>
                                 <connections>
-                                    <action selector="play_touched:" destination="S4R-Ja-viH" eventType="touchDown" id="p2q-nm-a6l"/>
                                     <action selector="stop_touched:" destination="S4R-Ja-viH" eventType="touchDown" id="Seg-gu-gWK"/>
                                 </connections>
                             </button>
@@ -552,7 +551,6 @@
                                 <state key="normal" backgroundImage="track_time"/>
                                 <connections>
                                     <action selector="change_track_time_touched:" destination="S4R-Ja-viH" eventType="touchDown" id="Nj9-bo-tRU"/>
-                                    <action selector="delete_option:" destination="S4R-Ja-viH" eventType="touchDown" id="CFv-xl-YuS"/>
                                 </connections>
                             </button>
                         </subviews>

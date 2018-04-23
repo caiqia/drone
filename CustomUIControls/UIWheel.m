@@ -350,7 +350,7 @@ static float maxAlphavalue = 1.0;
         default:
             break;
     }
-    res = options_list[position];
+    //res = options_list[position];
     return res;
 }
 

@@ -10,6 +10,7 @@
 		2267E0EF205EBD2600463E56 /* LivemodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267E0EE205EBD2600463E56 /* LivemodeViewController.swift */; };
 		2267E0F1205EBEE100463E56 /* OptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267E0F0205EBEE100463E56 /* OptionViewController.swift */; };
 		2267E0F3205EBF0100463E56 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2267E0F2205EBF0100463E56 /* PlaybackViewController.swift */; };
+		229DC691208E00CD00E8AFD5 /* Movement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229DC690208E00CC00E8AFD5 /* Movement.swift */; };
 		6948658B2082AC76006DD6B4 /* CustomOptIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6948658A2082AC76006DD6B4 /* CustomOptIcons.swift */; };
 		694B5DD8207AB65400630CEF /* DroneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B5DD7207AB65400630CEF /* DroneController.m */; };
 		697AB2B42087B1630092D6F1 /* FileTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697AB2B32087B1630092D6F1 /* FileTools.swift */; };
@@ -45,6 +46,7 @@
 		2267E0EE205EBD2600463E56 /* LivemodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivemodeViewController.swift; sourceTree = "<group>"; };
 		2267E0F0205EBEE100463E56 /* OptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionViewController.swift; sourceTree = "<group>"; };
 		2267E0F2205EBF0100463E56 /* PlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
+		229DC690208E00CC00E8AFD5 /* Movement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movement.swift; sourceTree = "<group>"; };
 		300D987C9C42B58ECA764B53 /* Pods-dronesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dronesUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dronesUITests/Pods-dronesUITests.release.xcconfig"; sourceTree = "<group>"; };
 		45FE1C85983D77C9375644C1 /* Pods-dronesUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dronesUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dronesUITests/Pods-dronesUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		692E7B73207E7945006EF48C /* dronesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dronesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,7 @@
 			children = (
 				69DE79852076BFC50091DCE4 /* UIWheel.h */,
 				69DE79892076BFC50091DCE4 /* UIWheel.m */,
+				229DC690208E00CC00E8AFD5 /* Movement.swift */,
 				69DE79862076BFC50091DCE4 /* UIWheelDelegate.h */,
 				69DE79872076BFC50091DCE4 /* UIWheelSector.h */,
 				69DE79882076BFC50091DCE4 /* UIWheelSector.m */,
@@ -478,6 +481,7 @@
 				6948658B2082AC76006DD6B4 /* CustomOptIcons.swift in Sources */,
 				2267E0F3205EBF0100463E56 /* PlaybackViewController.swift in Sources */,
 				69F81F9D2056BCCD00DAF74C /* AppDelegate.swift in Sources */,
+				229DC691208E00CD00E8AFD5 /* Movement.swift in Sources */,
 				2267E0EF205EBD2600463E56 /* LivemodeViewController.swift in Sources */,
 				697AB2B42087B1630092D6F1 /* FileTools.swift in Sources */,
 				69DE798B2076BFC50091DCE4 /* UIWheel.m in Sources */,
@@ -657,7 +661,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 58ZDCBF4RX;
+				DEVELOPMENT_TEAM = 26GT9RT6UP;
 				HEADER_SEARCH_PATHS = (
 					"./arsdk-ios/staging/usr/include",
 					"./arsdk-ios_sim/staging/usr/include",
@@ -699,7 +703,7 @@
 					"-lfutils",
 					"-lulog",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.drones.drones;
+				PRODUCT_BUNDLE_IDENTIFIER = com.drones.dro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CustomUIControls/drones-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -715,7 +719,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 58ZDCBF4RX;
+				DEVELOPMENT_TEAM = 26GT9RT6UP;
 				HEADER_SEARCH_PATHS = (
 					"./arsdk-ios/staging/usr/include",
 					"./arsdk-ios_sim/staging/usr/include",
@@ -757,7 +761,7 @@
 					"-lfutils",
 					"-lulog",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.drones.drones;
+				PRODUCT_BUNDLE_IDENTIFIER = com.drones.dro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CustomUIControls/drones-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

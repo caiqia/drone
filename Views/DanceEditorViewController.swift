@@ -23,6 +23,9 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     var opt_curr = 0
     var timer = Timer()
     var Timer_val = 0
+    var moveArray : [Movement] = []
+    
+    
     //Setup after load
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +45,7 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
     // Get Song time from user
     func showTimeInputDialog() {
         //Setting title and message for the alert dialog
@@ -61,6 +65,7 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
             self.slider.maximumValue = Float(hours!*60*60*100)
             self.slider.maximumValue += Float(minutes!*60*100)
             self.slider.maximumValue += Float(seconds!*100)
+            
         }
         
         //the cancel action doing nothing
@@ -157,7 +162,7 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     }
     //Funtion to delete last option
     @IBAction func delete_option(_ sender: Any) {
-        let opt_col = self.view.subviews.compactMap { $0 as? CustomOpticons }
+        let opt_col = self.view.subviews.flatMap { $0 as? CustomOpticons }
         if(opt_col.count != 0 && opt_curr != 0)
         {
             opt_col[opt_curr-1].isHidden = true
@@ -173,6 +178,13 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
         Timer_val-=1
         updateTimer()
     }
+    
+    // Get Song time from user
+    func insertTimeDialog() {
+        print(wheel.currentValue)
+        
+    }
+    
     //Wheel Rotation handling
     func wheelDidChangeValue(_ newValue: String?) {
         sectorLabel.text = newValue as String?
@@ -182,7 +194,7 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     @IBAction func insert_option(_ sender: Any) {
         //Get the image and set the holder to it
         let img = UIImage(named: "icon"+String(wheel.currentValue)+".png")
-        let opt_col = self.view.subviews.compactMap { $0 as? CustomOpticons }
+        let opt_col = self.view.subviews.flatMap { $0 as? CustomOpticons }
         opt_col[opt_curr].image = img
         opt_col[opt_curr].isHidden = false
         opt_curr+=1
@@ -190,7 +202,39 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
         if(opt_curr>11){insert_btn.isHidden = true}
         self.view.updateConstraints()
         //insert to options list
+        print(wheel.currentValue)
+        print(wheel.getCloveName(wheel.currentValue))
+        
+        //Setting title and message for the alert dialog
+        let insertAlert = UIAlertController(title: "movement Time", message: "Enter movement time:", preferredStyle: .alert)
+        //the confirm action taking the inputs
+        let confirmAction = UIAlertAction(title: "OK", style: .default)
+        {
+            (_) in
+            //getting the input values from user
+            var seconds = Int((insertAlert.textFields?[0].text)!)
+            //Set slider value
+            if(!(seconds != nil)){seconds = 0}
+            let newMove = Movement(name:self.wheel.getCloveName(self.wheel.currentValue),begin:self.slider.value,duration:seconds!)
+            self.moveArray.append(newMove)
+        }
+        //the cancel action doing nothing
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        //adding textfields to our dialog box
+        insertAlert.addTextField { (textField) in
+            textField.placeholder = "Enter seconds"
+            textField.keyboardType = .numberPad
+        }
+        //adding the action to dialog box
+        insertAlert.addAction(confirmAction)
+        insertAlert.addAction(cancelAction)
+        //finally presenting the dialog box
+        self.present(insertAlert, animated: true, completion: nil)
+        
+        
     }
+        
+    
     //Go back to main function
     @IBAction func back_pressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
