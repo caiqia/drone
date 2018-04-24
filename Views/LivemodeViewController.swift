@@ -244,6 +244,7 @@ class LivemodeViewController: UIViewController {
     @IBAction func back_touched(_ sender: Any) {
         timer.invalidate()
         started = false
+        DroneController.land()
         dismiss(animated: true, completion: nil)
     }
     
