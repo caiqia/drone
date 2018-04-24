@@ -212,7 +212,7 @@ void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DI
    //     distance *= -1;
    // }
    // float time = (float) distance/(VMAX*0.5);
-   
+   print(roll)
     eARCONTROLLER_ERROR error = ARCONTROLLER_OK;
     if(flag != nil){
     error = _deviceController->aRDrone3->setPilotingPCMDFlag(deviceController->aRDrone3, 1);

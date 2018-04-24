@@ -162,6 +162,7 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     }
     //Funtion to delete last option
     @IBAction func delete_option(_ sender: Any) {
+        self.moveArray.removeLast()
         let opt_col = self.view.subviews.flatMap { $0 as? CustomOpticons }
         if(opt_col.count != 0 && opt_curr != 0)
         {
@@ -172,6 +173,7 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
         }
         self.view.updateConstraints()
     }
+    
     //Function to make adjusting the slider move through the song.
     @IBAction func slider_value_changed(_ sender: Any) {
         Timer_val = Int(slider.value)

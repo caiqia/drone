@@ -224,9 +224,14 @@ class LivemodeViewController: UIViewController {
     }
     
     @IBAction func start_touched(_ sender: Any) {
-        if (started == false)
+        if (DroneController.isReady() == false){
+            DroneController.droneControllerInit()
+            print("passed Init")}
+        //if (started == false)
+        started = true
+        while(started)
         {
-            started = true
+            
             let x = Int(gxlbl.text!)
             let y = Int(gylbl.text!)
             let z = Int(gzlbl.text!)
@@ -235,6 +240,7 @@ class LivemodeViewController: UIViewController {
             }
         }
     }
+    
     @IBAction func back_touched(_ sender: Any) {
         timer.invalidate()
         started = false
