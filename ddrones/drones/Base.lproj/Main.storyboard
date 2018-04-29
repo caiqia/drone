@@ -671,9 +671,12 @@
                                 <rect key="frame" x="0.0" y="270" width="208" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Choose choregraphe"/>
+                                <connections>
+                                    <action selector="selectAction:" destination="cLp-rP-LxM" eventType="touchUpInside" id="fUD-Ar-1Q8"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSl-6v-aEv">
-                                <rect key="frame" x="269" y="270" width="30" height="30"/>
+                                <rect key="frame" x="269" y="270" width="51" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Play"/>
                             </button>

@@ -117,6 +117,13 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
                     print("fail to write")
                     print(error)
                 }
+                var readString = ""
+                do{
+                    readString = try String(contentsOf: filUrl)
+                }catch let error {
+                    print("Error: \(error.localizedDescription)")
+                }
+                print(readString)
             }
             
         }
