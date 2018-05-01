@@ -1,0 +1,6 @@
+framework module Pods_drones {
+  umbrella header "Pods-drones-umbrella.h"
+
+  export *
+  module * { export * }
+}
