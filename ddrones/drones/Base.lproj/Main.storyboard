@@ -666,9 +666,12 @@
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="vNW-xZ-Yhc">
                                 <rect key="frame" x="54" y="194" width="461" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+<<<<<<< HEAD
                                 <connections>
                                     <action selector="slider_value_changed:" destination="cLp-rP-LxM" eventType="valueChanged" id="Mwe-iC-iPn"/>
                                 </connections>
+=======
+>>>>>>> 6f0c5a4c7225c2e07d97aa9b99f6022e4c5f1ec9
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QpX-Ja-iIa">
                                 <rect key="frame" x="0.0" y="270" width="208" height="30"/>
@@ -682,9 +685,12 @@
                                 <rect key="frame" x="269" y="270" width="51" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Play"/>
+<<<<<<< HEAD
                                 <connections>
                                     <action selector="play_touched:" destination="cLp-rP-LxM" eventType="touchUpInside" id="BJB-uM-D5P"/>
                                 </connections>
+=======
+>>>>>>> 6f0c5a4c7225c2e07d97aa9b99f6022e4c5f1ec9
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ogx-My-Exo">
                                 <rect key="frame" x="164" y="38" width="240" height="128"/>
@@ -703,6 +709,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="PlaybackView"/>
                             </button>
+<<<<<<< HEAD
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-8L-DhS">
                                 <rect key="frame" x="356" y="270" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -710,15 +717,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+=======
+>>>>>>> 6f0c5a4c7225c2e07d97aa9b99f6022e4c5f1ec9
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="vcp-Z8-1PS"/>
                     </view>
                     <connections>
+<<<<<<< HEAD
                         <outlet property="myImage" destination="Ogx-My-Exo" id="1E9-ZB-Lfw"/>
                         <outlet property="playButton" destination="nSl-6v-aEv" id="bfL-zm-jZD"/>
                         <outlet property="slider" destination="vNW-xZ-Yhc" id="Z4H-9m-hNf"/>
                         <outlet property="timer_label" destination="HXu-8L-DhS" id="P50-8m-nGP"/>
+=======
+>>>>>>> 6f0c5a4c7225c2e07d97aa9b99f6022e4c5f1ec9
                         <segue destination="2eo-Vc-ojz" kind="unwind" identifier="playbackTomain" unwindAction="unwindToVC1WithSegue:" id="eP2-Jj-tCA"/>
                     </connections>
                 </viewController>

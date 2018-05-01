@@ -10,6 +10,7 @@ import UIKit
 
 
 class PlaybackViewController: UIViewController {
+
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var myImage: UIImageView!
@@ -21,6 +22,7 @@ class PlaybackViewController: UIViewController {
     var timer = Timer()
     var readString = ""
     var moveArray : [Movement] = []
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +94,7 @@ class PlaybackViewController: UIViewController {
         self.view.addSubview(myView)
     }
     
+
     //playing timer
     @objc func updateTimer() {
          self.Timer_val+=1
@@ -135,6 +138,7 @@ class PlaybackViewController: UIViewController {
         return res
     }
     
+
     func readFile(controller:UIAlertController){
         let dancename = String((controller.textFields?[0].text)!)
         let dirUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
@@ -212,6 +216,7 @@ class PlaybackViewController: UIViewController {
         self.Timer_val = Int(self.slider.value)
         self.Timer_val-=1
         self.updateTimer()
+
     }
     
     @IBAction func cancelTomain(_ sender: Any) {
