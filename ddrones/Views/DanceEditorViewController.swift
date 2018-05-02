@@ -25,10 +25,6 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     var timer = Timer()
     var Timer_val = 0
     var moveArray : [Movement] = []
-    let completePath = "/Users/sarah/Desktop/Files.playground"
-
-    
-    
     
     //Setup after load
     override func viewDidLoad() {
@@ -45,6 +41,7 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
         slider.maximumValue = 1000
         view.addSubview(wheel)
     }
+    
     // Iphone low on memory asking us to dispose of any resources that can be recreated.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -69,7 +66,6 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
             self.slider.maximumValue = Float(hours!*60*60*100)
             self.slider.maximumValue += Float(minutes!*60*100)
             self.slider.maximumValue += Float(seconds!*100)
-            
         }
         
         //the cancel action doing nothing
@@ -91,7 +87,6 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
         //adding the action to dialog box
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
-        
         //finally presenting the dialog box
         self.present(alertController, animated: true, completion: nil)
     }
@@ -107,16 +102,9 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
             let dancename = String((alertController.textFields?[0].text)!)
             let dirUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
             let filUrl = dirUrl.appendingPathComponent(dancename).appendingPathExtension("txt")
-            var maxTime = "time:"
-            maxTime.append(String(self.slider.maximumValue))
-            maxTime.append(";")
-            do{
-                try maxTime.write(to: filUrl, atomically: true, encoding: String.Encoding.utf8)
-            }catch let error as NSError{
-                print("fail to write time")
-                print(error)
-            }
-            var res = ""
+            var res = "time:"
+             res.append(String(self.slider.maximumValue))
+            res.append(";")
             self.moveArray.forEach { oneMove in
                 res.append(oneMove.writeMove())
             }
@@ -187,6 +175,7 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
             inFormatter.string(from: inFormatter.date(from: String(hours)+":"+String(minutes)+":"+String(seconds))!)
         if(Timer_val > Int(slider.maximumValue)){stop_touched(slider)}
     }
+    
     //Fast Reward button
     @IBAction func fast_reward_touched(_ sender: Any) {
         if(Timer_val > 500)
@@ -220,7 +209,7 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
         if(!self.moveArray.isEmpty){
             self.moveArray.removeLast()
         }
-        let opt_col = self.view.subviews.flatMap { $0 as? CustomOpticons }
+        let opt_col = self.view.subviews.compactMap { $0 as? CustomOpticons }
         if(opt_col.count != 0 && opt_curr != 0)
         {
             opt_col[opt_curr-1].isHidden = true
@@ -253,7 +242,7 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     @IBAction func insert_option(_ sender: Any) {
         //Get the image and set the holder to it
         let img = UIImage(named: "icon"+String(wheel.currentValue)+".png")
-        let opt_col = self.view.subviews.flatMap { $0 as? CustomOpticons }
+        let opt_col = self.view.subviews.compactMap { $0 as? CustomOpticons }
         opt_col[opt_curr].image = img
         opt_col[opt_curr].isHidden = false
         opt_curr+=1

@@ -153,9 +153,9 @@ class PlaybackViewController: UIViewController {
             print("Error: \(error.localizedDescription)")
         }
         print(self.readString)
+        self.moveArray.removeAll()
         let seperated = self.readString.split(separator: ";")
         seperated.forEach { element in
-
             let newlist = element.split(separator: ":")
             if(element.contains("time")){
                 self.slider.maximumValue = Float(newlist[1])!
@@ -166,21 +166,6 @@ class PlaybackViewController: UIViewController {
                 let newMove = Movement(name: String(name),begin: Float(begin)!,duration: Int(duration)!)
                 self.moveArray.append(newMove)
             }
-
-            var name = ""
-            var begin : Float = 0
-            var duration = 0
-            if(element.contains("name")){
-                name = String(element.suffix(element.count - 7))
-            }
-            if(element.contains("begin")){
-                begin = Float(element.suffix(element.count - 8))!
-            }
-            if(element.contains("duration")){
-                duration = Int(element.suffix(element.count - 11))!
-            }
-            let newMove = Movement(name: name,begin: begin,duration:duration)
-            self.moveArray.append(newMove)
         }
     }
     
