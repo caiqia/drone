@@ -28,6 +28,7 @@ class PlaybackViewController: UIViewController {
         super.viewDidLoad()
         self.slider.value = 0
         self.slider.maximumValue = 1000
+
         // Do any additional setup after loading the view.
     }
 
@@ -98,7 +99,6 @@ class PlaybackViewController: UIViewController {
 
     //playing timer
     @objc func updateTimer() {
-        
          self.Timer_val+=1
          self.slider.value+=1
          let hours = self.Timer_val / 360000;
@@ -110,11 +110,9 @@ class PlaybackViewController: UIViewController {
          self.timer_label.text =
          inFormatter.string(from: inFormatter.date(from: String(hours)+":"+String(minutes)+":"+String(seconds))!)
          self.moveArray.forEach { onemove in
-            dump(onemove)
          if(Int(onemove.begin) < self.Timer_val && self.Timer_val < (Int(onemove.begin) + onemove.duration)){
          self.myImage.image = UIImage(named: self.findImage(name: onemove.name))
             print("affich!!")
-            dump(onemove)
          }
          }
     }
@@ -144,6 +142,7 @@ class PlaybackViewController: UIViewController {
         return res
     }
 
+
     func readFile(controller:UIAlertController){
         let dancename = String((controller.textFields?[0].text)!)
         let dirUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
@@ -156,6 +155,7 @@ class PlaybackViewController: UIViewController {
         print(self.readString)
         let seperated = self.readString.split(separator: ";")
         seperated.forEach { element in
+
             let newlist = element.split(separator: ":")
             if(element.contains("time")){
                 self.slider.maximumValue = Float(newlist[1])!
@@ -166,6 +166,21 @@ class PlaybackViewController: UIViewController {
                 let newMove = Movement(name: String(name),begin: Float(begin)!,duration: Int(duration)!)
                 self.moveArray.append(newMove)
             }
+
+            var name = ""
+            var begin : Float = 0
+            var duration = 0
+            if(element.contains("name")){
+                name = String(element.suffix(element.count - 7))
+            }
+            if(element.contains("begin")){
+                begin = Float(element.suffix(element.count - 8))!
+            }
+            if(element.contains("duration")){
+                duration = Int(element.suffix(element.count - 11))!
+            }
+            let newMove = Movement(name: name,begin: begin,duration:duration)
+            self.moveArray.append(newMove)
         }
     }
     
