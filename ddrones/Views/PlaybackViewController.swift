@@ -60,10 +60,10 @@ class PlaybackViewController: UIViewController {
         button.setTitle("close", for: .normal)
         button.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
         myView.addSubview(button)
-        let posx = 0
+        let posx = 20
         let posy = 20
-        let cenx = 120
-        let ceny = 120
+    //    let cenx = 120
+    //    let ceny = 120
         var count = 0
         var nameArray = ""
         let dirUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
@@ -74,18 +74,24 @@ class PlaybackViewController: UIViewController {
                 print(filename)
                 nameArray.append(filename)
                 nameArray.append("; ")
-                if(count < 4){
-                    let label = UILabel(frame: CGRect(x: posx+count*120, y: posy, width: 200, height: 21))
-                    label.center = CGPoint(x: cenx+count*120, y: ceny)
-                    label.textAlignment = .center
-                    label.text = filename
+                if(count < 2){
+                    let label = UIButton(frame: CGRect(x: posx+count*250, y: posy, width: 150, height: 50))
+                    label.backgroundColor = .green
+                    //label.center = CGPoint(x: cenx+count*120, y: ceny)
+                    //label.textAlignment = .center
+                    label.setTitle(filename, for: .normal)
+                    label.addTarget(self, action: #selector(self.selectDance(sender:)), for: .touchUpInside)
+                    //label.text = filename
                     myView.addSubview(label)
                 }
-                if(3 < count && count < 8){
-                    let label = UILabel(frame: CGRect(x: posx+(count-4)*120, y: posy+20, width: 200, height: 21))
-                    label.center = CGPoint(x: cenx+count*120, y: ceny)
-                    label.textAlignment = .center
-                    label.text = filename
+                if(1 < count ){
+                    let label = UIButton(frame: CGRect(x: posx+(count-2)*250, y: posy+100, width: 150, height: 50))
+                    label.backgroundColor = .green
+                    //label.center = CGPoint(x: cenx+count*120, y: ceny)
+                    //label.textAlignment = .center
+                    label.setTitle(filename, for: .normal)
+                    label.addTarget(self, action: #selector(self.selectDance(sender:)), for: .touchUpInside)
+                    //label.text = filename
                     myView.addSubview(label)
                 }
                 count = count+1
@@ -96,15 +102,19 @@ class PlaybackViewController: UIViewController {
         self.view.addSubview(myView)
     }
     
+    @objc func selectDance(sender: UIButton!){
+        let filename = sender.title(for: .normal)
+        print(filename ?? "select button fail")
+    }
 
     //playing timer
     @objc func updateTimer() {
          self.Timer_val+=1
          self.slider.value+=1
+         var bgwood = true
          let hours = self.Timer_val / 360000;
          let minutes = (self.Timer_val - (hours * 360000)) / 6000;
          let seconds = (self.Timer_val - (hours * 360000) - (minutes * 6000)) / 100;
-         
          let inFormatter = DateFormatter()
          inFormatter.dateFormat = "HH:mm:ss"
          self.timer_label.text =
@@ -113,8 +123,12 @@ class PlaybackViewController: UIViewController {
          if(Int(onemove.begin) < self.Timer_val && self.Timer_val < (Int(onemove.begin) + onemove.duration)){
          self.myImage.image = UIImage(named: self.findImage(name: onemove.name))
             print("affich!!")
+            bgwood = false
          }
          }
+        if(bgwood){
+            self.myImage.image = UIImage(named: "bg_wood.png")
+        }
     }
     
     func findImage(name : String) -> String {
@@ -141,7 +155,6 @@ class PlaybackViewController: UIViewController {
         }
         return res
     }
-
 
     func readFile(controller:UIAlertController){
         let dancename = String((controller.textFields?[0].text)!)
@@ -190,23 +203,43 @@ class PlaybackViewController: UIViewController {
     @IBAction func selectAction(_ sender: Any) {
         let alertController = UIAlertController(title: "Select Dance", message: "Enter dance neme:", preferredStyle: .alert)
         //the confirm action taking the inputs
-        let confirmAction = UIAlertAction(title: "OK", style: .default){
-            (_) in
-            self.readFile(controller: alertController)
-        }
-        let listAction = UIAlertAction(title: "List", style: .default){
-            (_) in
-            self.listFile(controller: alertController)
+        let dirUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        do {
+            let filelist = try FileManager.default
+                .contentsOfDirectory(atPath: dirUrl.path)
+            for filename in filelist {
+                print(filename)
+                let myAction = UIAlertAction(title: filename, style: .default){
+                    (_) in
+                    let dancename = filename
+                    let filUrl = dirUrl.appendingPathComponent(dancename).appendingPathExtension("txt")
+                    do{
+                        self.readString = try String(contentsOf: filUrl)
+                    }catch let error {
+                        print("Error: \(error.localizedDescription)")
+                    }
+                    print(self.readString)
+                    self.moveArray.removeAll()
+                    let seperated = self.readString.split(separator: ";")
+                    seperated.forEach { element in
+                        let newlist = element.split(separator: ":")
+                        if(element.contains("time")){
+                            self.slider.maximumValue = Float(newlist[1])!
+                        }else{
+                            let name = newlist[1]
+                            let begin = newlist[3]
+                            let duration = newlist[5]
+                            let newMove = Movement(name: String(name),begin: Float(begin)!,duration: Int(duration)!)
+                            self.moveArray.append(newMove)
+                        }
+                    }
+                }
+                alertController.addAction(myAction)
+            }
+        }catch let error {
+            print("Error: \(error.localizedDescription)")
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-        
-        //adding textfields to our dialog box
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Enter dance name"
-            textField.keyboardType = .namePhonePad
-        }
-        alertController.addAction(confirmAction)
-        alertController.addAction(listAction)
         alertController.addAction(cancelAction)
         //finally presenting the dialog box
         self.present(alertController, animated: true, completion: nil)

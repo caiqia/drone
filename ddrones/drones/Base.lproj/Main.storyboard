@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="703-4V-yAM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="703-4V-yAM">
     <device id="retina4_0" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -663,25 +663,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="vNW-xZ-Yhc">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="vNW-xZ-Yhc">
                                 <rect key="frame" x="54" y="194" width="461" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="slider_value_changed:" destination="cLp-rP-LxM" eventType="valueChanged" id="Mwe-iC-iPn"/>
                                 </connections>
                             </slider>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QpX-Ja-iIa">
-                                <rect key="frame" x="0.0" y="270" width="208" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Choose choregraphe"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QpX-Ja-iIa">
+                                <rect key="frame" x="461" y="272" width="87" height="30"/>
+                                <state key="normal" title="Choose "/>
                                 <connections>
                                     <action selector="selectAction:" destination="cLp-rP-LxM" eventType="touchUpInside" id="fUD-Ar-1Q8"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSl-6v-aEv">
-                                <rect key="frame" x="269" y="270" width="51" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Play"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSl-6v-aEv">
+                                <rect key="frame" x="264" y="270" width="40" height="32"/>
+                                <state key="normal" image="play_icon"/>
                                 <connections>
                                     <action selector="play_touched:" destination="cLp-rP-LxM" eventType="touchUpInside" id="BJB-uM-D5P"/>
                                 </connections>
@@ -690,10 +687,9 @@
                                 <rect key="frame" x="164" y="38" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Crp-EY-B3N">
-                                <rect key="frame" x="442" y="270" width="106" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Crp-EY-B3N">
+                                <rect key="frame" x="20" y="270" width="32" height="32"/>
+                                <state key="normal" image="back_icon"/>
                                 <connections>
                                     <action selector="cancelTomain:" destination="cLp-rP-LxM" eventType="touchUpInside" id="og3-ud-wxm"/>
                                 </connections>
@@ -703,15 +699,26 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="PlaybackView"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-8L-DhS">
-                                <rect key="frame" x="356" y="270" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXu-8L-DhS">
+                                <rect key="frame" x="382" y="279" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HXu-8L-DhS" firstAttribute="top" secondItem="vNW-xZ-Yhc" secondAttribute="bottom" constant="55" id="6j6-3p-Ypc"/>
+                            <constraint firstItem="HXu-8L-DhS" firstAttribute="leading" secondItem="nSl-6v-aEv" secondAttribute="trailing" constant="78" id="GEN-lO-v0f"/>
+                            <constraint firstItem="QpX-Ja-iIa" firstAttribute="trailing" secondItem="heb-YE-x8q" secondAttribute="trailingMargin" id="Khk-Kl-cgB"/>
+                            <constraint firstAttribute="trailing" secondItem="HXu-8L-DhS" secondAttribute="trailing" constant="144" id="Rub-w3-IDv"/>
+                            <constraint firstItem="Crp-EY-B3N" firstAttribute="leading" secondItem="heb-YE-x8q" secondAttribute="leadingMargin" id="V0w-ee-ox3"/>
+                            <constraint firstItem="QpX-Ja-iIa" firstAttribute="leading" secondItem="HXu-8L-DhS" secondAttribute="trailing" constant="37" id="bUf-wO-FYs"/>
+                            <constraint firstItem="QpX-Ja-iIa" firstAttribute="bottom" secondItem="Crp-EY-B3N" secondAttribute="bottom" id="hIT-pY-hSx"/>
+                            <constraint firstAttribute="bottom" secondItem="HXu-8L-DhS" secondAttribute="bottom" constant="20" symbolic="YES" id="j8e-Km-MBg"/>
+                            <constraint firstItem="QpX-Ja-iIa" firstAttribute="top" secondItem="vNW-xZ-Yhc" secondAttribute="bottom" constant="48" id="jdr-fN-iXQ"/>
+                            <constraint firstItem="QpX-Ja-iIa" firstAttribute="bottom" secondItem="nSl-6v-aEv" secondAttribute="bottom" id="saM-LM-WYJ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vcp-Z8-1PS"/>
                     </view>
                     <connections>
