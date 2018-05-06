@@ -67,10 +67,8 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
             self.slider.maximumValue += Float(minutes!*60*100)
             self.slider.maximumValue += Float(seconds!*100)
         }
-        
         //the cancel action doing nothing
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-        
         //adding textfields to our dialog box
         alertController.addTextField { (textField) in
             textField.placeholder = "Enter Hours (24h)"
