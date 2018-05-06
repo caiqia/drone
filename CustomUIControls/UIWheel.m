@@ -100,7 +100,7 @@ static float maxAlphavalue = 1.0;
         
     }
     
-    [self.delegate wheelDidChangeValue:[self getCloveName:currentValue]];
+    [self.delegate wheelDidChangeValue:[self getCloveName:currentValue] withwheel:self];
 
     
 }
@@ -299,7 +299,7 @@ static float maxAlphavalue = 1.0;
     
     [UIView commitAnimations];
     
-    [self.delegate wheelDidChangeValue:[self getCloveName:currentValue]];
+    [self.delegate wheelDidChangeValue:[self getCloveName:currentValue] withwheel:self];
     
     UIImageView *im = [self getCloveByValue:currentValue];
     im.alpha = maxAlphavalue;
@@ -316,37 +316,41 @@ static float maxAlphavalue = 1.0;
             break;
             
         case 1:
-            res = @"land";
-            break;
-            
-        case 2:
             res = @"rotate";
             break;
-            
-        case 3:
+        
+        case 2:
             res = @"lockx";
             break;
             
-        case 4:
+        case 3:
             res = @"locky";
             break;
             
-        case 5:
+        case 4:
             res = @"lockz";
             break;
             
+        case 5:
+            res = @"land";
+            break;
+            
         case 6:
-            res = @"Swirl";
+            res = @"rotate_default";
             break;
             
         case 7:
-            res = @"3 circles";
+            res = @"unlockx";
             break;
             
         case 8:
-            res = @"Triangle";
+            res = @"unlocky";
             break;
             
+        case 9:
+            res = @"unlockz";
+            break;
+        
         default:
             break;
     }

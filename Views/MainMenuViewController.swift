@@ -32,14 +32,14 @@ class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
         // Configure current pickerview options
-        pickerData = ["Create a new dance", "Playback a dance", "Live mode", "Edit a dance", "Options", "Help"]
+        pickerData = ["Create a new dance", "Playback a dance", "Live mode", "Edit a dance", "Options", "About"]
         self.MainMenuPicker.delegate = self
         self.MainMenuPicker.dataSource = self
-       userpicked = pickerData[0]
+        userpicked = pickerData[0]
     }
     //Back button touched
     @IBAction func back_touched(_ sender: Any) {
- UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
+        UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
     }
     //Forward button touched
     @IBAction func forward_touched(_ sender: Any) {
@@ -52,11 +52,14 @@ class MainMenuViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         case pickerData[2]:
             performSegue(withIdentifier: "mainTolive", sender: self)
         case pickerData[3]:
-            performSegue(withIdentifier: "mainToeditor", sender: self)
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let newViewController = storyBoard.instantiateViewController(withIdentifier: "DanceEditorView") as! DanceEditorViewController
+            self.present(newViewController, animated: true, completion: nil)
+            newViewController.load()
         case pickerData[4]:
             performSegue(withIdentifier: "mainTooption", sender: self)
         case pickerData[5]:
-            performSegue(withIdentifier: "mainTooption", sender: self)
+            performSegue(withIdentifier: "maintohelp", sender: self)
         default:
             print("welcome")
         }

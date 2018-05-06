@@ -29,6 +29,7 @@ class LivemodeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //DroneController.controllerInit()
         // Create gesture recognizers and add them to super view
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(LivemodeViewController.swipeLeftOccured))
         swipeLeft.direction = .left
@@ -224,27 +225,30 @@ class LivemodeViewController: UIViewController {
     }
     
     @IBAction func start_touched(_ sender: Any) {
-        if (DroneController.isReady() == false){
-            DroneController.droneControllerInit()
-            print("passed Init")}
-        //if (started == false)
-        started = true
-        while(started)
+        if (started == false)
         {
-            
-            let x = Int(gxlbl.text!)
-            let y = Int(gylbl.text!)
-            let z = Int(gzlbl.text!)
-            if(x != nil && y != nil && z != nil){
-                DroneController.send_pilot_data(1, (Int32((x!*10)+5)), (Int32((y!*10)+5)), (Int32((z!*10)+5)), Int32(gaz))
+            if(DroneController.isReady())
+            {
+                started = true
+                DroneController.takeoff()
+                while(started)
+                {
+                    let x = Int(gxlbl.text!)
+                    let y = Int(gylbl.text!)
+                    let z = Int(gzlbl.text!)
+                    if(x != nil && y != nil && z != nil){
+                        DroneController.send_pilot_data(1, (Int32((x!*10)+5)), (Int32((y!*10)+5)), (Int32((z!*10)+5)), Int32(gaz))
+                    }
+                }
             }
         }
     }
     
     @IBAction func back_touched(_ sender: Any) {
+        if(DroneController.isReady())
+        {DroneController.land()}
         timer.invalidate()
         started = false
-        DroneController.land()
         dismiss(animated: true, completion: nil)
     }
     

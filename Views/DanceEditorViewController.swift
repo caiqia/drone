@@ -10,43 +10,81 @@ import UIKit
 import MediaPlayer
 
 class DanceEditorViewController: UIViewController, UIWheelDelegate{
+    
     //Outlets and Declarations
     @IBOutlet var wheel1: UIImageView!
+    @IBOutlet var wheel2: UIImageView!
     @IBOutlet var insert_btn: UIButton!
     @IBOutlet var slider: UISlider!
     @IBOutlet var play_btn: UIButton!
     @IBOutlet var timer_label: UILabel!
     @IBOutlet var delete_btn: UIButton!
+    @IBOutlet var show_all_btn: UIButton!
+    
     var playing = false
     var sectorLabel = UILabel()
     var wheel = UIWheel()
-    var opt_curr = 0
+    var swheel = UIWheel()
+    var cwheel = UIWheel()
+    var curr_wheel = 0
     var timer = Timer()
     var Timer_val = 0
     var moveArray : [Movement] = []
-    
-    
+    var readString = ""
     //Setup after load
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Add wheel to placeholder
+        //Add wheel to placeholder and initialise view
         sectorLabel = UILabel(frame: CGRect(x: 100, y: 350, width: 120, height: 30))
         sectorLabel.textAlignment = NSTextAlignment.center
         view.addSubview(sectorLabel)
-        wheel = UIWheel( frame: CGRect(x: 0, y: 0, width: 200, height: 200), andDelegate: self, withSections: 8, withBackground: "wheel1_bg.png", withIconsPrefix: "icon", withCenterIcon: "centerButton.png")
+        wheel = UIWheel( frame: CGRect(x: 0, y: 0, width: 200, height: 200), andDelegate: self, withSections: 5, withBackground: "wheel1_bg.png", withIconsPrefix: "icon", withCenterIcon: "centerButton.png")
         wheel.delegate = self
         wheel.center = wheel1.center
-        wheel1.isHidden = true
+        swheel = UIWheel( frame: CGRect(x: 0, y: 0, width: 200, height: 200), andDelegate: self, withSections: 5, withBackground: "wheel1_bg.png", withIconsPrefix: "sicon", withCenterIcon: "centerButton.png")
+        swheel.delegate = self
+        swheel.center = wheel2.center
         slider.value = 0
         slider.maximumValue = 1000
         view.addSubview(wheel)
+        view.addSubview(swheel)
+        cwheel = wheel
     }
+    
     // Iphone low on memory asking us to dispose of any resources that can be recreated.
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    // Get Song time from user
+    //Load handling
+    func load()
+    {
+     FileTools.showloadfilescreen(current_view: self)
+    }
+    //Funciton to load a Dance
+    func loaddance(read: String)
+    {
+        var i = 0
+        self.readString = read
+        self.moveArray.removeAll()
+        let seperated = self.readString.components(separatedBy: "/")
+        seperated.forEach { element in
+            if(i==0){
+                self.slider.maximumValue = Float(element)!
+                i+=1
+            }else{
+                let line = element.split(separator: ";")
+                if(line.count > 1)
+                {
+                let name = line[0]
+                let begin = line[1]
+                let duration = line[2]
+                let newMove = Movement(name: String(name),begin: Float(begin)!,duration: Int(duration)!)
+                self.moveArray.append(newMove)
+                }
+            }
+        }
+    }
+    //User touched change track time handler
     func showTimeInputDialog() {
         //Setting title and message for the alert dialog
         let alertController = UIAlertController(title: "Song Time", message: "Enter song time:", preferredStyle: .alert)
@@ -65,7 +103,6 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
             self.slider.maximumValue = Float(hours!*60*60*100)
             self.slider.maximumValue += Float(minutes!*60*100)
             self.slider.maximumValue += Float(seconds!*100)
-            
         }
         
         //the cancel action doing nothing
@@ -87,16 +124,14 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
         //adding the action to dialog box
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
-        
         //finally presenting the dialog box
         self.present(alertController, animated: true, completion: nil)
     }
     
+    // User touched save dance
     @IBAction func save_touched(_ sender: Any) {
         FileTools.showSaveFileNameInputDialog(current_view: self)
     }
-    //Ask for fileName
-    
     
     // Play button touched
     @IBAction func play_touched(_ sender: UIButton) {
@@ -115,10 +150,48 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
             timer = Timer.scheduledTimer(timeInterval: 0.01, target: self,   selector: (#selector(DanceEditorViewController.updateTimer)), userInfo: nil, repeats: true)
         }
     }
+    
     //Track time button
     @IBAction func change_track_time_touched(_ sender: Any) {
         showTimeInputDialog()
     }
+    
+    
+    
+    // Update the moves on GUI
+    func updateMoves()
+    {
+        //Get the options image holders
+        let opt_col = self.view.subviews.compactMap { $0 as? CustomOpticons }
+        //Get the options for the current second
+        let moves = getmovesofsec(value: Int(slider.value))
+        let moves_count = getnmovesof(value: Int(slider.value))
+        var i = 0
+        //For each movement get icon and put in holder
+        moves.forEach { (move) in
+            if(i <= moves_count)
+            {
+                opt_col[i].image = MoveManager.getOptionIcon(name: move.name)
+                opt_col[i].isHidden = false
+                i+=1
+            }
+        }
+        //hide the rest empty holders
+        while (i < 12)
+        {
+            opt_col[i].isHidden = true
+            i+=1
+        }
+        //Draw on screen
+        if(moves_count>0){delete_btn.isHidden = false}
+        else
+        {delete_btn.isHidden = true}
+        if(moves_count>11){insert_btn.isHidden = true}
+        else
+        {insert_btn.isHidden = false}
+        self.view.updateConstraints()
+    }
+    
     //playing timer
     @objc func updateTimer() {
         Timer_val+=1
@@ -131,7 +204,9 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
         timer_label.text =
             inFormatter.string(from: inFormatter.date(from: String(hours)+":"+String(minutes)+":"+String(seconds))!)
         if(Timer_val > Int(slider.maximumValue)){stop_touched(slider)}
+        updateMoves()
     }
+    
     //Fast Reward button
     @IBAction func fast_reward_touched(_ sender: Any) {
         if(Timer_val > 500)
@@ -160,18 +235,42 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
         playing = false
         timer_label.text = "00:00:00"
     }
+    
     //Funtion to delete last option
     @IBAction func delete_option(_ sender: Any) {
-        self.moveArray.removeLast()
-        let opt_col = self.view.subviews.flatMap { $0 as? CustomOpticons }
-        if(opt_col.count != 0 && opt_curr != 0)
-        {
-            opt_col[opt_curr-1].isHidden = true
-            opt_curr-=1
-            if(opt_curr<=11){insert_btn.isHidden = false}
-            if(opt_curr == 0){delete_btn.isHidden = true}
-        }
-        self.view.updateConstraints()
+        //Delete option from movement list
+        let m = getmovesofsec(value: Int(slider.value))
+        if(!self.moveArray.isEmpty){
+            if(!m.isEmpty){
+                self.moveArray.remove(at: moveArray.index(of: m.last!)!)
+            }}
+        updateMoves()
+    }
+    //Count moves in this second
+    func getnmovesof(value: Int) -> Int
+    {
+        var end = 0
+        var count = 0
+        moveArray.forEach { (move) in
+            end = Int(move.begin) + move.duration
+            if (Int(slider.value) <= end && Int(slider.value) >= Int(move.begin))
+            {
+                count+=1
+            }}
+        return count
+    }
+    //Get the moves
+    func getmovesofsec(value: Int) -> [Movement]
+    {
+        var moves : [Movement] = []
+        var end = 0
+        moveArray.forEach { (move) in
+            end = Int(move.begin) + move.duration
+            if (Int(slider.value) <= end && Int(slider.value) >= Int(move.begin))
+            {
+                moves.append(move)
+            }}
+        return moves
     }
     
     //Function to make adjusting the slider move through the song.
@@ -179,36 +278,43 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
         Timer_val = Int(slider.value)
         Timer_val-=1
         updateTimer()
-    }
-    
-    // Get Song time from user
-    func insertTimeDialog() {
-        print(wheel.currentValue)
-        
+        updateMoves()
     }
     
     //Wheel Rotation handling
-    func wheelDidChangeValue(_ newValue: String?) {
-        sectorLabel.text = newValue as String?
-        print(sectorLabel.tag)
+    func wheelDidChangeValue(_ newValue: String!, withwheel wheel: NSObject!) {
+        if (wheel == self.wheel)
+        {
+            swheel.alpha = 0.2
+            self.wheel.alpha = 1
+            curr_wheel=0
+        }
+        else
+        {
+            self.wheel.alpha = 0.2
+            swheel.alpha = 1
+            curr_wheel=1
+        }
     }
+    
+    //Get Selected Wheel
+    func getCurrWheel() -> UIWheel
+    {
+        if(curr_wheel > 0)
+        {
+            return swheel
+        }
+        else
+        {
+            return wheel
+        }
+    }
+    
     //Option Insertion handling
     @IBAction func insert_option(_ sender: Any) {
-        //Get the image and set the holder to it
-        let img = UIImage(named: "icon"+String(wheel.currentValue)+".png")
-        let opt_col = self.view.subviews.flatMap { $0 as? CustomOpticons }
-        opt_col[opt_curr].image = img
-        opt_col[opt_curr].isHidden = false
-        opt_curr+=1
-        if(opt_curr>0){delete_btn.isHidden = false}
-        if(opt_curr>11){insert_btn.isHidden = true}
-        self.view.updateConstraints()
-        //insert to options list
-        print(wheel.currentValue)
-        print(wheel.getCloveName(wheel.currentValue))
-        
+        //Ask user for movement duration
         //Setting title and message for the alert dialog
-        let insertAlert = UIAlertController(title: "movement Time", message: "Enter movement time:", preferredStyle: .alert)
+        let insertAlert = UIAlertController(title: "Movement Time", message: "Enter movement time:", preferredStyle: .alert)
         //the confirm action taking the inputs
         let confirmAction = UIAlertAction(title: "OK", style: .default)
         {
@@ -217,14 +323,16 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
             var seconds = Int((insertAlert.textFields?[0].text)!)
             //Set slider value
             if(!(seconds != nil)){seconds = 0}
-            let newMove = Movement(name:self.wheel.getCloveName(self.wheel.currentValue),begin:self.slider.value,duration:seconds!)
+            let newMove = Movement(name:MoveManager.getOptionName(wheel: self.curr_wheel, value: Int(self.getCurrWheel().currentValue))
+                ,begin:self.slider.value,duration:seconds!*100)
             self.moveArray.append(newMove)
+            self.updateMoves()
         }
         //the cancel action doing nothing
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
         //adding textfields to our dialog box
         insertAlert.addTextField { (textField) in
-            textField.placeholder = "Enter seconds"
+            textField.placeholder = "seconds"
             textField.keyboardType = .numberPad
         }
         //adding the action to dialog box
@@ -232,28 +340,34 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
         insertAlert.addAction(cancelAction)
         //finally presenting the dialog box
         self.present(insertAlert, animated: true, completion: nil)
-        
-        
     }
-        
+    
     
     //Go back to main function
     @IBAction func back_pressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    //Save dance to file
     
+    //Show last movement button touched
+    @IBAction func show_all_touched(_ sender: Any) {
+        if(!moveArray.isEmpty)
+        {
+            slider.value = Float((moveArray.last?.begin)!)
+        }
+    }
     //Requiered Constructors
-    init(sectorLbl: UILabel, aDecoder: NSCoder) {
-        self.sectorLabel = sectorLbl
-        self.wheel = UIWheel()
-        super.init(coder: aDecoder)!
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        self.sectorLabel = UILabel()
-        self.wheel = UIWheel()
-        super.init(coder: aDecoder)
-    }
+    /*
+     init(sectorLbl: UILabel, aDecoder: NSCoder) {
+     self.sectorLabel = sectorLbl
+     self.wheel = UIWheel()
+     super.init(coder: aDecoder)!
+     }
+     
+     required init?(coder aDecoder: NSCoder) {
+     self.sectorLabel = UILabel()
+     self.wheel = UIWheel()
+     super.init(coder: aDecoder)
+     }
+     */
 }
 

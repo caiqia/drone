@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UIWheel.h"
 
 @protocol UIWheelDelegate <NSObject>
 
-- (void) wheelDidChangeValue:(NSString *)newValue;
+- (void) wheelDidChangeValue:(NSString *)newValue withwheel:(NSObject *)wheel ;
 
 @end
