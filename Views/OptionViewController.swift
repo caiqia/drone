@@ -21,6 +21,7 @@ class OptionViewController: UIViewController {
     @IBAction func land_touched(_ sender: Any) {
         DroneController.land()
     }
+    
     @IBAction func Connect_touched(_ sender: Any) {
         if (DroneController.isReady() == false){
         DroneController.droneControllerInit()

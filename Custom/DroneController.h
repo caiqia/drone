@@ -16,7 +16,7 @@
 @interface DroneController : NSObject
 + (NSArray*)getDeviceList;
 + (ARService*)getARService;
-+ (ARCONTROLLER_Device_t*)getDeviceControllerOfApp;
++ (ARCONTROLLER_FEATURE_ARDrone3_t*)getDeviceControllerOfApp;
 + (void) startDiscovery;
 + (void) registerReceivers;
 + (ARDISCOVERY_Device_t *)createDiscoveryDeviceWithService:(ARService*)service;
@@ -30,8 +30,9 @@ void stateChanged (eARCONTROLLER_DEVICE_STATE newState, eARCONTROLLER_ERROR erro
 void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DICTIONARY_ELEMENT_t *elementDictionary, void *customData);
 + (void) land;
 + (void) deleteDeviceController;
-+ (void) send_pilot_data:(int)flag :(int)roll :(int)pitch :(int)yaw :(int)gas;
-+ (bool)isReady;
++ (void) send_pilot_data:(int)flag :(int8_t)roll :(int8_t)pitch :(int8_t)yaw :(int8_t)gas :(int)duringmsecs;
++ (void) emergency_land;
++ (bool) isReady;
 @end
 
 #endif /* DroneController_h */

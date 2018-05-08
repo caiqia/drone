@@ -40,11 +40,19 @@ class PlaybackViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //Play moves with song in realtime
+    func play_in_time()
+    {
+        if(moveArray.count > 0)
+        {
+            
+        }
+    }
+    
     //Playing timer handler
     @objc func updateTimer() {
         self.Timer_val+=1
         self.slider.value+=1
-        var bgwood = true
         let hours = self.Timer_val / 360000;
         let minutes = (self.Timer_val - (hours * 360000)) / 6000;
         let seconds = (self.Timer_val - (hours * 360000) - (minutes * 6000)) / 100;
@@ -52,15 +60,31 @@ class PlaybackViewController: UIViewController {
         inFormatter.dateFormat = "HH:mm:ss"
         self.timer_label.text =
             inFormatter.string(from: inFormatter.date(from: String(hours)+":"+String(minutes)+":"+String(seconds))!)
-        self.moveArray.forEach { onemove in
-            if(Int(onemove.begin) < self.Timer_val && self.Timer_val < (Int(onemove.begin) + onemove.duration)){
-                self.myImage.image = MoveManager.getOptionIcon(name: onemove.name)
-                print("affich!!")
-                bgwood = false
+        for i in 0..<moveArray.count
+        {
+            if moveArray.count == 1 || i == moveArray.count-1
+            {
+                if(Int(moveArray[i].begin) < self.Timer_val && self.Timer_val < (Int(moveArray[i].begin) + moveArray[i].duration)){
+                    self.myImage.image = MoveManager.getOptionIcon(name: moveArray[i].name)
+                    self.myImage.isHidden = false}
+                else
+                {self.myImage.isHidden = true}
+                self.myImage2.isHidden = true
             }
-        }
-        if(bgwood){
-            self.myImage.image = UIImage(named: "bg_wood.png")
+            else
+            {
+                if(Int(moveArray[i].begin) < self.Timer_val && self.Timer_val < (Int(moveArray[i].begin) + moveArray[i].duration)){
+                    self.myImage.image = MoveManager.getOptionIcon(name: moveArray[i].name)
+                    self.myImage.isHidden = false
+                }
+                else
+                {
+                    self.myImage.isHidden = true
+                    self.myImage2.image = MoveManager.getOptionIcon(name: moveArray[i].name)
+                    return
+                }
+                self.myImage2.image = MoveManager.getOptionIcon(name: moveArray[i+1].name)
+            }
         }
     }
     
@@ -79,18 +103,23 @@ class PlaybackViewController: UIViewController {
             playing = true
             let img = UIImage(named: "pause_icon.png")
             playButton.setImage(img, for: .normal)
-            timer = Timer.scheduledTimer(timeInterval: 0.01, target: self,   selector: (#selector(DanceEditorViewController.updateTimer)), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.01, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
         }
     }
     
     
     //Function to make adjusting the slider move through the song.
     @IBAction func slider_value_changed(_ sender: Any) {
-        self.Timer_val = Int(self.slider.value)
-        self.updateTimer()
+        //We're flying user must not change time
+        //self.Timer_val = Int(self.slider.value)
+        //self.updateTimer()
     }
     
     @IBAction func cancelTomain(_ sender: Any) {
+        if playing
+        {
+            if DroneController.isReady() {DroneController.emergency_land()}
+        }
         dismiss(animated: true, completion: nil)
     }
     
@@ -111,7 +140,14 @@ class PlaybackViewController: UIViewController {
                     let name = line[0]
                     let begin = line[1]
                     let duration = line[2]
-                    let newMove = Movement(name: String(name),begin: Float(begin)!,duration: Int(duration)!)
+                    var i = 3
+                    var args : [Int] = []
+                    while( i < line.count)
+                    {
+                        args.append(Int(line[i])!)
+                        i+=1
+                    }
+                    let newMove = Movement(name: String(name),begin: Float(begin)!,duration: Int(duration)!,arglist: args)
                     self.moveArray.append(newMove)
                 }
             }

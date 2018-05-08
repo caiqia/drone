@@ -19,7 +19,7 @@
     - (UIImageView *) getCloveByValue:(int)value;
     - (NSString *) getCloveName:(int)position;
 @end
-
+static int noption_offset = 0;
 static float deltaAngle;
 static float minAlphavalue = 0.6;
 static float maxAlphavalue = 1.0;
@@ -148,7 +148,7 @@ static float maxAlphavalue = 1.0;
         mid -= fanWidth;
         
         
-        NSLog(@"cl is %@", clove);
+       // NSLog(@"cl is %@", clove);
         
         [cloves addObject:clove];
         
@@ -182,7 +182,7 @@ static float maxAlphavalue = 1.0;
                 
         [cloves addObject:clove];
         
-        NSLog(@"cl is %@", clove);
+       // NSLog(@"cl is %@", clove);
         
     }
     
@@ -312,23 +312,23 @@ static float maxAlphavalue = 1.0;
     
     switch (position) {
         case 0:
-            res = @"take off";
+            res = @"take_off";
             break;
             
         case 1:
-            res = @"rotate";
+            res = @"flip";
             break;
         
         case 2:
-            res = @"lockx";
+            res = @"gaz_up";
             break;
             
         case 3:
-            res = @"locky";
+            res = @"move_forward";
             break;
             
         case 4:
-            res = @"lockz";
+            res = @"move_right";
             break;
             
         case 5:
@@ -340,15 +340,15 @@ static float maxAlphavalue = 1.0;
             break;
             
         case 7:
-            res = @"unlockx";
+            res = @"gaz_down";
             break;
             
         case 8:
-            res = @"unlocky";
+            res = @"move_backward";
             break;
             
         case 9:
-            res = @"unlockz";
+            res = @"move_left";
             break;
         
         default:

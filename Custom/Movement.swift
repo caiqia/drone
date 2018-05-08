@@ -13,11 +13,13 @@ class Movement: NSObject {
     var name : String
     var begin : Float
     var duration : Int
-    
-    init(name:String,begin:Float,duration:Int) {
+    var arglist : [Int]
+
+    init(name:String,begin:Float,duration:Int,arglist:[Int]) {
         self.name = name
         self.begin = begin
         self.duration = duration
+        self.arglist = arglist
     }
     
     //Movement to String
@@ -28,6 +30,12 @@ class Movement: NSObject {
         res.append(String(self.begin))
         res.append(";")
         res.append(String(self.duration))
+        if (self.arglist.count > 0)
+        {
+        self.arglist.forEach { (arg) in
+            res.append(";")
+            res.append(String(arg))
+            }}
         res.append("/")
         return res
     }

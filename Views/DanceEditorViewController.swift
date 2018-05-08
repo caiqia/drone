@@ -31,6 +31,8 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     var Timer_val = 0
     var moveArray : [Movement] = []
     var readString = ""
+    var selectedWheelOption = ""
+    
     //Setup after load
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +60,7 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     //Load handling
     func load()
     {
-     FileTools.showloadfilescreen(current_view: self)
+        FileTools.showloadfilescreen(current_view: self)
     }
     //Funciton to load a Dance
     func loaddance(read: String)
@@ -75,11 +77,18 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
                 let line = element.split(separator: ";")
                 if(line.count > 1)
                 {
-                let name = line[0]
-                let begin = line[1]
-                let duration = line[2]
-                let newMove = Movement(name: String(name),begin: Float(begin)!,duration: Int(duration)!)
-                self.moveArray.append(newMove)
+                    let name = line[0]
+                    let begin = line[1]
+                    let duration = line[2]
+                    var i = 3
+                    var args : [Int] = []
+                    while( i < line.count)
+                    {
+                        args.append(Int(line[i])!)
+                        i+=1
+                    }
+                    let newMove = Movement(name: String(name),begin: Float(begin)!,duration: Int(duration)!,arglist: args)
+                    self.moveArray.append(newMove)
                 }
             }
         }
@@ -288,12 +297,14 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
             swheel.alpha = 0.2
             self.wheel.alpha = 1
             curr_wheel=0
+            selectedWheelOption = newValue
         }
         else
         {
             self.wheel.alpha = 0.2
             swheel.alpha = 1
             curr_wheel=1
+            selectedWheelOption = swheel.getCloveName((swheel.currentValue)+5)
         }
     }
     
@@ -312,29 +323,90 @@ class DanceEditorViewController: UIViewController, UIWheelDelegate{
     
     //Option Insertion handling
     @IBAction func insert_option(_ sender: Any) {
+        if selectedWheelOption.contains("take_off") { let newMove = Movement(name:"take_off"
+            ,begin:self.slider.value,duration:1*100, arglist: [1])
+            self.moveArray.append(newMove)
+            self.updateMoves();return}
+        if selectedWheelOption.contains("land") { let newMove = Movement(name:"land"
+            ,begin:self.slider.value,duration:1*100, arglist: [])
+            self.moveArray.append(newMove)
+            self.updateMoves();return}
+        if selectedWheelOption.contains("flip") {
+            let insertAlert = UIAlertController(title: "Choose Flip Direction", message: "Select Direction:", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+            //adding the action to dialog box
+            let forward = UIAlertAction(title: "Forward", style: .default)
+            {
+                (_) in
+                let newMove = Movement(name:"flip"
+                    ,begin:self.slider.value,duration:1*100, arglist: [0])
+                self.moveArray.append(newMove)
+                self.updateMoves()
+            }
+            let backward = UIAlertAction(title: "Backward", style: .default)
+            {
+                (_) in
+                let newMove = Movement(name:"flip"
+                    ,begin:self.slider.value,duration:1*100, arglist: [1])
+                self.moveArray.append(newMove)
+                self.updateMoves()
+            }
+            let left = UIAlertAction(title: "Left", style: .default)
+            {
+                (_) in
+                let newMove = Movement(name:"flip"
+                    ,begin:self.slider.value,duration:1*100, arglist: [2])
+                self.moveArray.append(newMove)
+                self.updateMoves()
+            }
+            let right = UIAlertAction(title: "Right", style: .default)
+            {
+                (_) in
+                let newMove = Movement(name:"flip"
+                    ,begin:self.slider.value,duration:1*100, arglist: [3])
+                self.moveArray.append(newMove)
+                self.updateMoves()
+            }
+            insertAlert.addAction(forward)
+            insertAlert.addAction(backward)
+            insertAlert.addAction(left)
+            insertAlert.addAction(right)
+            insertAlert.addAction(cancelAction)
+            //finally presenting the dialog box
+            self.present(insertAlert, animated: true, completion: nil)
+            return
+        }
         //Ask user for movement duration
         //Setting title and message for the alert dialog
-        let insertAlert = UIAlertController(title: "Movement Time", message: "Enter movement time:", preferredStyle: .alert)
+        let insertAlert = UIAlertController(title: "Insert Movement", message: "Enter movement data:", preferredStyle: .alert)
         //the confirm action taking the inputs
         let confirmAction = UIAlertAction(title: "OK", style: .default)
         {
             (_) in
             //getting the input values from user
             var seconds = Int((insertAlert.textFields?[0].text)!)
-            //Set slider value
-            if(!(seconds != nil)){seconds = 0}
-            let newMove = Movement(name:MoveManager.getOptionName(wheel: self.curr_wheel, value: Int(self.getCurrWheel().currentValue))
-                ,begin:self.slider.value,duration:seconds!*100)
-            self.moveArray.append(newMove)
-            self.updateMoves()
+            let speed = Int((insertAlert.textFields?[1].text)!)
+            if(speed == nil || seconds == nil){return}
+            let args = [speed!]
+            if(seconds != nil && speed != nil){
+                //Set slider value
+                if(!(seconds != nil)){seconds = 0}
+                let newMove = Movement(name:MoveManager.getOptionName(wheel: self.curr_wheel, value: Int(self.getCurrWheel().currentValue))
+                    ,begin:self.slider.value,duration:seconds!*100, arglist: args)
+                self.moveArray.append(newMove)
+                self.updateMoves()}
+        }
+        //adding textfields to our dialog box
+        insertAlert.addTextField { (textField) in
+            textField.placeholder = "Seconds"
+            textField.keyboardType = .numberPad
+        }
+        insertAlert.addTextField { (textField) in
+            textField.placeholder = "Speed percentage"
+            textField.keyboardType = .numberPad
         }
         //the cancel action doing nothing
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-        //adding textfields to our dialog box
-        insertAlert.addTextField { (textField) in
-            textField.placeholder = "seconds"
-            textField.keyboardType = .numberPad
-        }
         //adding the action to dialog box
         insertAlert.addAction(confirmAction)
         insertAlert.addAction(cancelAction)

@@ -25,9 +25,11 @@ static  bool ready = false;
 + (ARService*)getARService{
     return service;
 }
-+ (ARCONTROLLER_Device_t*)getDeviceControllerOfApp
++ (ARCONTROLLER_FEATURE_ARDrone3_t*)getDeviceControllerOfApp
 {
-    return _deviceController;
+    ARCONTROLLER_FEATURE_ARDrone3_t *ar;
+    ar = _deviceController->aRDrone3;
+    return ar;
 }
 
 + (void)startDiscovery
@@ -98,7 +100,7 @@ static  bool ready = false;
         _deviceController = deviceController;
     }
     //[self unregisterReceivers];
-   // [self stopDiscovery];
+    // [self stopDiscovery];
     ready = true;
 }
 
@@ -166,7 +168,7 @@ void stateChanged (eARCONTROLLER_DEVICE_STATE newState, eARCONTROLLER_ERROR erro
 + (void)takeoff
 {
     NSLog(@"Taking Off :) ");
-        _deviceController->aRDrone3->sendPilotingTakeOff(_deviceController->aRDrone3);
+    _deviceController->aRDrone3->sendPilotingTakeOff(_deviceController->aRDrone3);
 }
 
 // called when a command has been received from the drone
@@ -187,7 +189,7 @@ void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DI
             
             if (arg != NULL)
             {
-        eARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE flyingState = arg->value.I32;
+                eARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE flyingState = arg->value.I32;
             }
         }
     }
@@ -195,98 +197,37 @@ void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DI
 
 + (void)land
 {
-    NSLog(@"Landing");
+    
+    eARCONTROLLER_ERROR error = ARCONTROLLER_OK;
+    
+    // if the device controller is not stopped, stop it
+    eARCONTROLLER_DEVICE_STATE state = ARCONTROLLER_Device_GetState(_deviceController, &error);
+    
+    if(!error != ARCONTROLLER_OK ){
+        NSLog(@"Landing");
         _deviceController->aRDrone3->sendPilotingLanding(_deviceController->aRDrone3);
+    }
 }
 
-
-+ (void) send_pilot_data:(int)flag :(int)roll :(int)pitch :(int)yaw :(int)gas {
-/*
-    _deviceController->aRDrone3->setPilotingPCMDFlag(_deviceController->aRDrone3, flag);
++ (void) send_pilot_data:(int)flag :(int8_t)roll :(int8_t)pitch :(int8_t)yaw :(int8_t)gas :(int)duringmsecs {
+    _deviceController->aRDrone3->setPilotingPCMDFlag(_deviceController->aRDrone3, (roll || pitch )?1:0);
     _deviceController->aRDrone3->setPilotingPCMDRoll(_deviceController->aRDrone3, roll);
     _deviceController->aRDrone3->setPilotingPCMDPitch(_deviceController->aRDrone3, pitch);
     _deviceController->aRDrone3->setPilotingPCMDYaw(_deviceController->aRDrone3, yaw);
     _deviceController->aRDrone3->setPilotingPCMDGaz(_deviceController->aRDrone3, gas);
-   */
-   // if(distance < 0){
-   //     distance *= -1;
-   // }
-   // float time = (float) distance/(VMAX*0.5);
-    NSLog(@"roll: %d",roll);
-    eARCONTROLLER_ERROR error = ARCONTROLLER_OK;
-    if(flag != nil){
-    error = _deviceController->aRDrone3->setPilotingPCMDFlag(deviceController->aRDrone3, 1);
-    if(error != ARCONTROLLER_OK) {
-        NSLog(@"send flag data failed");
-        return;
-    }
-    }
-    if(pitch > 0){
-    error = _deviceController->aRDrone3->setPilotingPCMDPitch(deviceController->aRDrone3, 50);
-    if(error != ARCONTROLLER_OK) {
-        NSLog(@"going forward failed");
-        return;
-    }
-    }
-    if(pitch < 0){
-    error = _deviceController->aRDrone3->setPilotingPCMDPitch(deviceController->aRDrone3, -50);
-    if(error != ARCONTROLLER_OK) {
-        NSLog(@"going backward failed");
-        return;
-    }
-    }
-    if(roll > 0){
-    error = _deviceController->aRDrone3->setPilotingPCMDRoll(deviceController->aRDrone3, 50);
-    if(error != ARCONTROLLER_OK) {
-        NSLog(@"turning right failed");
-        return;
-    }
-    }
-    if(roll < 0){
-    error = _deviceController->aRDrone3->setPilotingPCMDRoll(deviceController->aRDrone3, -50);
-    if(error != ARCONTROLLER_OK) {
-        NSLog(@"turning left failed");
-        return;
-    }
-    }
-    if(gas > 0){
-    error = _deviceController->aRDrone3->setPilotingPCMDGaz(deviceController->aRDrone3, 50);
-    if(error != ARCONTROLLER_OK) {
-        NSLog(@"turning up failed");
-        return;
-    }
-    }
-    if(gas < 0){
-    error = _deviceController->aRDrone3->setPilotingPCMDGaz(deviceController->aRDrone3, -50);
-    if(error != ARCONTROLLER_OK) {
-        NSLog(@"turning down failed");
-        return;
-    }
-    }
-    if(yaw > 0){
-    error = _deviceController->aRDrone3->setPilotingPCMDYaw(deviceController->aRDrone3, 50);
-    if(error != ARCONTROLLER_OK) {
-        NSLog(@"clockwise rotation failed");
-        return;
-    }
-    }
-    if(yaw < 0){
-    error = _deviceController->aRDrone3->setPilotingPCMDYaw(deviceController->aRDrone3, -50);
-    if(error != ARCONTROLLER_OK) {
-        NSLog(@"counter clockwise rotation failed");
-        return;
-    }
-    }
-    sleep(3);
-    // distance has been traveled, now we need to stop the movement, send order until it is correctly done
-    error = !error;
+    [NSThread sleepForTimeInterval:duringmsecs];
+    eARCONTROLLER_ERROR error = ARCONTROLLER_ERROR;
     while(error != ARCONTROLLER_OK) {
         error = _deviceController->aRDrone3->setPilotingPCMD(deviceController->aRDrone3, 0, 0, 0, 0, 0, 0);
     }
 }
 
 
-
++ (void)emergency_land
+{
+    NSLog(@"emergency landing");
+    _deviceController->aRDrone3->sendPilotingEmergency(_deviceController->aRDrone3);
+}
 
 - (void)deleteDeviceController
 {

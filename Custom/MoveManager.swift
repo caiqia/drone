@@ -14,25 +14,25 @@ class MoveManager {
     {
         var icon = ""
         switch name {
-        case "takeoff":
+        case "take_off":
             icon = "icon0.png"
-        case "rotate":
+        case "flip":
             icon = "icon1.png"
-        case "lockx":
+        case "gaz_up":
             icon = "icon2.png"
-        case "locky":
+        case "move_forward":
             icon = "icon3.png"
-        case "lockz":
+        case "move_right":
             icon = "icon4.png"
         case "land":
             icon = "sicon0.png"
         case "rotate_default":
             icon = "sicon1.png"
-        case "unlockx":
+        case "gaz_down":
             icon = "sicon2.png"
-        case "unlocky":
+        case "move_backward":
             icon = "sicon3.png"
-        case "unlockz":
+        case "move_left":
             icon = "sicon4.png"
         default:
             icon = "bg_wood"
@@ -47,15 +47,15 @@ class MoveManager {
             switch(value)
             {
             case 0:
-                return "takeoff"
+                return "take_off"
             case 1:
-                return "rotate"
+                return "flip"
             case 2:
-                return "lockx"
+                return "gaz_up"
             case 3:
-                return "locky"
+                return "move_forward"
             case 4:
-                return "lockz"
+                return "move_right"
             default:
                 return ""
             }
@@ -69,11 +69,11 @@ class MoveManager {
             case 1:
                 return "rotate_default"
             case 2:
-                return "unlockx"
+                return "gaz_down"
             case 3:
-                return "unlocky"
+                return "move_backward"
             case 4:
-                return "unlockz"
+                return "move_left"
             default:
                 return ""
             }

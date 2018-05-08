@@ -70,7 +70,7 @@ class FileTools
         do {
             // Get the directory contents urls (including subfolders urls)
             let directoryContents = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: [])
-            print(directoryContents)
+            //print(directoryContents)
             FileNames = directoryContents.map{ $0.deletingPathExtension().lastPathComponent }
             
         } catch {
