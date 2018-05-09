@@ -14,7 +14,9 @@ static  ARCONTROLLER_Device_t *deviceController;
 static  ARCONTROLLER_Device_t *_deviceController;
 static  ARService *service;
 static  NSArray *deviceList;
+static  uint8_t *battLevel;
 static  bool ready = false;
+
 
 + (bool)isReady{
     return ready;
@@ -24,6 +26,9 @@ static  bool ready = false;
 }
 + (ARService*)getARService{
     return service;
+}
++ (uint8_t*)getBattlevel{
+    return battLevel;
 }
 + (ARCONTROLLER_FEATURE_ARDrone3_t*)getDeviceControllerOfApp
 {
@@ -199,6 +204,7 @@ void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DI
                 if (arg != NULL)
                 {
                     uint8_t batteryLevel = arg->value.U8;
+                    battLevel = batteryLevel;
                     // do what you want with the battery level
                     // batLevel = batteryLevel;
                     //  NSLog(batLevel);

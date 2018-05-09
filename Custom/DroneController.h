@@ -16,6 +16,7 @@
 @interface DroneController : NSObject
 + (NSArray*)getDeviceList;
 + (ARService*)getARService;
++ (uint8_t) getBattlevel;
 + (ARCONTROLLER_FEATURE_ARDrone3_t*)getDeviceControllerOfApp;
 + (void) startDiscovery;
 + (void) registerReceivers;

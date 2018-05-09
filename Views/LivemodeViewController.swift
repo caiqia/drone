@@ -36,6 +36,11 @@ class LivemodeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let battery = UIImageView(image: UIImage(named: "ave_bat.png"))
+        battery.frame = CGRect(x: 400, y: 50, width: 100, height: 30)
+        view.addSubview(battery)
+        
+        
         //DroneController.controllerInit()
         // Create gesture recognizers and add them to super view
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(LivemodeViewController.swipeLeftOccured))
@@ -63,12 +68,41 @@ class LivemodeViewController: UIViewController {
         setupAccelero()
         setupMotion()
     }
+    
+    @objc func myupdateTimer(){
+        if(DroneController.isReady())
+        {
+            DroneController.myFunction()
+            var battvalue = DroneController.getBattlevel()
+            print(battvalue)
+            /*
+             
+             if(Double( DroneController.batLevel ) > 0.5){
+             let battery = UIImageView(image: UIImage(named: "full_bat.png"))
+             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
+             view.addSubview(battery)
+             }
+             if(Double( DroneController.batLevel ) < 0.1){
+             let battery = UIImageView(image: UIImage(named: "low_bat.png"))
+             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
+             view.addSubview(battery)
+             }
+             else{
+             let battery = UIImageView(image: UIImage(named: "ave_bat.png"))
+             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
+             view.addSubview(battery)
+             }
+             */
+        }
+        
+    }
     func setupAccelero()
     {
         //If accelerometer ready set timer and start updates
         if(motionManager.isAccelerometerAvailable == true){
             //Set update interval for accelerometer
             motionManager.accelerometerUpdateInterval = 0.05
+            self.comtimer = Timer.scheduledTimer(timeInterval: 10, target: self,   selector: (#selector(LivemodeViewController.myupdateTimer)), userInfo: nil, repeats: true)
             motionManager.startAccelerometerUpdates(to: OperationQueue.current!, withHandler:{
                 data, error in
                 self.xlbl.text = String(format: "%.1f",data!.acceleration.x)
