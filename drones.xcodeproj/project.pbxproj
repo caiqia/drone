@@ -20,6 +20,9 @@
 		6948658B2082AC76006DD6B4 /* CustomOptIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6948658A2082AC76006DD6B4 /* CustomOptIcons.swift */; };
 		694B5DD8207AB65400630CEF /* DroneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 694B5DD7207AB65400630CEF /* DroneController.m */; };
 		697AB2B42087B1630092D6F1 /* FileTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697AB2B32087B1630092D6F1 /* FileTools.swift */; };
+		698C908520A9CFDA00ED5428 /* RunningBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698C908420A9CFDA00ED5428 /* RunningBuffer.swift */; };
+		698C908720A9D03B00ED5428 /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698C908620A9D03B00ED5428 /* MotionManager.swift */; };
+		698C908920A9D4C700ED5428 /* IOS11Wifi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698C908820A9D4C700ED5428 /* IOS11Wifi.swift */; };
 		69DE79742076A9060091DCE4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DE79732076A9060091DCE4 /* QuartzCore.framework */; };
 		69DE798A2076BFC50091DCE4 /* UIWheelSector.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE79882076BFC50091DCE4 /* UIWheelSector.m */; };
 		69DE798B2076BFC50091DCE4 /* UIWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DE79892076BFC50091DCE4 /* UIWheel.m */; };
@@ -67,6 +70,9 @@
 		694B5DD7207AB65400630CEF /* DroneController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DroneController.m; path = Custom/DroneController.m; sourceTree = SOURCE_ROOT; };
 		694B5DDD207ABE0F00630CEF /* DroneController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DroneController.h; path = Custom/DroneController.h; sourceTree = SOURCE_ROOT; };
 		697AB2B32087B1630092D6F1 /* FileTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTools.swift; sourceTree = "<group>"; };
+		698C908420A9CFDA00ED5428 /* RunningBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunningBuffer.swift; sourceTree = "<group>"; };
+		698C908620A9D03B00ED5428 /* MotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
+		698C908820A9D4C700ED5428 /* IOS11Wifi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOS11Wifi.swift; sourceTree = "<group>"; };
 		69DE796D2076A8900091DCE4 /* drones-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "drones-Bridging-Header.h"; sourceTree = "<group>"; };
 		69DE79732076A9060091DCE4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		69DE79852076BFC50091DCE4 /* UIWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWheel.h; sourceTree = "<group>"; };
@@ -114,7 +120,9 @@
 			isa = PBXGroup;
 			children = (
 				229DC690208E00CC00E8AFD5 /* Movement.swift */,
+				698C908420A9CFDA00ED5428 /* RunningBuffer.swift */,
 				6948658A2082AC76006DD6B4 /* CustomOptIcons.swift */,
+				698C908620A9D03B00ED5428 /* MotionManager.swift */,
 				691EE866209F536F001C1A0D /* MoveManager.swift */,
 				697AB2B32087B1630092D6F1 /* FileTools.swift */,
 				694B5DD7207AB65400630CEF /* DroneController.m */,
@@ -141,6 +149,7 @@
 			children = (
 				69F81F9E2056BCCD00DAF74C /* MainMenuViewController.swift */,
 				690A261E20A22EDC00C4E242 /* IOS10Wifi.swift */,
+				698C908820A9D4C700ED5428 /* IOS11Wifi.swift */,
 				69F81FA02056BCCD00DAF74C /* DanceEditorViewController.swift */,
 				691EE864209F39D5001C1A0D /* WifiManager.swift */,
 				2267E0F2205EBF0100463E56 /* PlaybackViewController.swift */,
@@ -503,6 +512,9 @@
 				691EE867209F536F001C1A0D /* MoveManager.swift in Sources */,
 				69F81FA12056BCCD00DAF74C /* DanceEditorViewController.swift in Sources */,
 				6948658B2082AC76006DD6B4 /* CustomOptIcons.swift in Sources */,
+				698C908520A9CFDA00ED5428 /* RunningBuffer.swift in Sources */,
+				698C908920A9D4C700ED5428 /* IOS11Wifi.swift in Sources */,
+				698C908720A9D03B00ED5428 /* MotionManager.swift in Sources */,
 				2267E0F3205EBF0100463E56 /* PlaybackViewController.swift in Sources */,
 				229DC691208E00CD00E8AFD5 /* Movement.swift in Sources */,
 				2267E0EF205EBD2600463E56 /* LivemodeViewController.swift in Sources */,

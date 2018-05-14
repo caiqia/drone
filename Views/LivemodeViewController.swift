@@ -21,8 +21,8 @@ class LivemodeViewController: UIViewController {
     @IBOutlet var crlbl: UILabel!
     @IBOutlet var cylbl: UILabel!
     
-    @IBOutlet var bg: UIImageView!
-    
+
+    @IBOutlet var bg: UILabel!
     var gaz = 0
     var motionManager = CMMotionManager()
     var timer = Timer()
@@ -36,27 +36,26 @@ class LivemodeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let battery = UIImageView(image: UIImage(named: "ave_bat.png"))
-        battery.frame = CGRect(x: 400, y: 50, width: 100, height: 30)
-        view.addSubview(battery)
-        
-        
         //DroneController.controllerInit()
         // Create gesture recognizers and add them to super view
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(LivemodeViewController.swipeLeftOccured))
         swipeLeft.direction = .left
+        swipeLeft.numberOfTouchesRequired = 2
         view.addGestureRecognizer(swipeLeft)
-
+        
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(LivemodeViewController.swipeRightOccured))
         swipeRight.direction = .right
+        swipeRight.numberOfTouchesRequired = 2
         view.addGestureRecognizer(swipeRight)
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(LivemodeViewController.swipeUpOccured))
         swipeUp.direction = .up
+        swipeUp.numberOfTouchesRequired = 2
         view.addGestureRecognizer(swipeUp)
         
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(LivemodeViewController.swipeDownOccured))
         swipeDown.direction = .down
+        swipeDown.numberOfTouchesRequired = 2
         view.addGestureRecognizer(swipeDown)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(LivemodeViewController.TapOccured))
@@ -64,37 +63,9 @@ class LivemodeViewController: UIViewController {
         tap.numberOfTouchesRequired = 2
         view.addGestureRecognizer(tap)
         
-        setupGyro()
-        setupAccelero()
-        setupMotion()
-    }
-    
-    @objc func myupdateTimer(){
-        if(DroneController.isReady())
-        {
-            DroneController.myFunction()
-            var battvalue = DroneController.getBattlevel()
-            print(battvalue)
-            /*
-             
-             if(Double( DroneController.batLevel ) > 0.5){
-             let battery = UIImageView(image: UIImage(named: "full_bat.png"))
-             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
-             view.addSubview(battery)
-             }
-             if(Double( DroneController.batLevel ) < 0.1){
-             let battery = UIImageView(image: UIImage(named: "low_bat.png"))
-             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
-             view.addSubview(battery)
-             }
-             else{
-             let battery = UIImageView(image: UIImage(named: "ave_bat.png"))
-             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
-             view.addSubview(battery)
-             }
-             */
-        }
-        
+        //setupGyro()
+       // setupAccelero()
+       // setupMotion()
     }
     func setupAccelero()
     {
@@ -102,7 +73,6 @@ class LivemodeViewController: UIViewController {
         if(motionManager.isAccelerometerAvailable == true){
             //Set update interval for accelerometer
             motionManager.accelerometerUpdateInterval = 0.05
-            self.comtimer = Timer.scheduledTimer(timeInterval: 10, target: self,   selector: (#selector(LivemodeViewController.myupdateTimer)), userInfo: nil, repeats: true)
             motionManager.startAccelerometerUpdates(to: OperationQueue.current!, withHandler:{
                 data, error in
                 self.xlbl.text = String(format: "%.1f",data!.acceleration.x)
@@ -156,9 +126,9 @@ class LivemodeViewController: UIViewController {
             self.motionManager.deviceMotionUpdateInterval = 1.0 / 60.0
             self.motionManager.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler:{
                 data, error in
-                self.cplbl.text = String(format: "%.1f",data!.attitude.pitch)
-                self.crlbl.text = String(format: "%.1f",data!.attitude.roll)
-                self.cylbl.text = String(format: "%.1f",data!.attitude.yaw)
+                self.cplbl.text = String(format: "%.1f",data!.userAcceleration.x)
+                self.crlbl.text = String(format: "%.1f",data!.userAcceleration.y)
+                self.cylbl.text = String(format: "%.1f",data!.userAcceleration.z)
             }
             )
         }
@@ -179,12 +149,17 @@ class LivemodeViewController: UIViewController {
         print("Back to default")
         self.view.backgroundColor = UIColor.white
         bg.isHidden = false
+        let ops = self.view.subviews.compactMap { $0 as? CustomOpticons }
+        ops.forEach { (op) in
+            op.alpha = 1
+        }
     }
     
     @objc func swipeRightOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped right")
         self.view.backgroundColor = UIColor.yellow
         bg.isHidden = true
+    
     }
     @objc func swipeLeftOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped left")
@@ -196,8 +171,11 @@ class LivemodeViewController: UIViewController {
     @objc func swipeUpOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped up")
         self.view.backgroundColor = UIColor.green
-        gaz+=1
-        print(gaz)
+        let ops = self.view.subviews.compactMap { $0 as? UIButton }
+        ops.forEach { (op) in
+            if op.accessibilityLabel == "up"
+            {op.alpha = 0.2}
+        }
         bg.isHidden = true
     }
     
@@ -231,29 +209,36 @@ class LivemodeViewController: UIViewController {
             {DroneController.land()}
         }
     }
-    @IBAction func start_test(_ sender: Any) {
-        if (started == true)
-        {
-            if(DroneController.isReady())
-            {
-                //flying test
-                isflying = true
-                DroneController.send_pilot_data(1, 10, 0, 0, 0, 50)
-                sleep(1)
-                DroneController.send_pilot_data(1, -10, 0, 0, 0, 50)
-                sleep(1)
-                DroneController.send_pilot_data(0, 0, 10, 0, 0, 50)
-                sleep(1)
-                DroneController.send_pilot_data(0, 0, -10, 0, 0, 50)
-                sleep(1)
-                DroneController.send_pilot_data(0, 0, 0, 10, 0, 50)
-                sleep(1)
-                DroneController.send_pilot_data(0, 0, 0, -10, 0, 50)
-                sleep(1)
-                DroneController.send_pilot_data(0, 0, 0, 0, 5, 50)
-                sleep(1)
-                DroneController.send_pilot_data(0, 0, 0, 0, -5, 50)
-                print("Test OK")
+    @IBAction func tt(_ sender: Any) {
+        DispatchQueue.global(qos: .background).async {
+               print("did")
+    if(DroneController.isReady())
+                {
+                    //flying test
+                    print("Test Debut")
+                    self.isflying = true
+                    print("Test off")
+                    DroneController.takeoff()
+                    print("Test Move1")
+                    DroneController.send_pilot_data(1, 10, 0, 0, 0, 100)
+                    sleep(2)
+                    print("Test Move2")
+                    DroneController.send_pilot_data(1, -10, 0, 0, 0, 100)
+                    sleep(2)
+                    print("Test Move3")
+                    DroneController.send_pilot_data(0, 0, 10, 0, 0, 100)
+                    sleep(2)
+                    DroneController.send_pilot_data(0, 0, -10, 0, 0, 100)
+                    sleep(2)
+                    DroneController.send_pilot_data(0, 0, 0, 10, 0, 100)
+                    sleep(2)
+                    DroneController.send_pilot_data(0, 0, 0, -10, 0, 100)
+                    sleep(2)
+                    DroneController.send_pilot_data(0, 0, 0, 0, 5, 100)
+                    sleep(2)
+                    DroneController.send_pilot_data(0, 0, 0, 0, -50, 100)
+                   // DroneController.land()
+                    print("Tes\t OK")
             }
         }
     }
