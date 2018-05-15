@@ -46,8 +46,8 @@ final class WifiManager: UIViewController {
         super.viewDidLoad()
         print(getInterfaces())
         // Do any additional setup after loading the view, typically from a nib.
-    }
-    
+    }}
+    /*
     @IBAction func connectAction(_ sender: Any) {
         if #available(iOS 11.0, *) {
             let hotspotConfig = NEHotspotConfiguration(ssid: SSID, passphrase: "", isWEP: false)
@@ -88,4 +88,4 @@ final class WifiManager: UIViewController {
     }
     
     
-}
+ }*/

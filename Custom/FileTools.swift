@@ -69,10 +69,10 @@ class FileTools
         var FileNames = [String]()
         do {
             // Get the directory contents urls (including subfolders urls)
-            let directoryContents = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: [])
-            //print(directoryContents)
+            var directoryContents = try FileManager.default.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil, options: [])
+    
+            directoryContents = directoryContents.filter{ $0.pathExtension == "ddnc" }
             FileNames = directoryContents.map{ $0.deletingPathExtension().lastPathComponent }
-            
         } catch {
             print(error.localizedDescription)
         }

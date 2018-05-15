@@ -97,9 +97,12 @@ class PlaybackViewController: UIViewController {
             timer.invalidate()
             let img = UIImage(named: "play_icon.png")
             playButton.setImage(img, for: .normal)
+            MoveManager.pause()
         }
         else
         {
+            DispatchQueue.global(qos: .background).async {
+                MoveManager.playmoves(lstmoves: self.moveArray)}
             playing = true
             let img = UIImage(named: "pause_icon.png")
             playButton.setImage(img, for: .normal)

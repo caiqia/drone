@@ -14,9 +14,7 @@ static  ARCONTROLLER_Device_t *deviceController;
 static  ARCONTROLLER_Device_t *_deviceController;
 static  ARService *service;
 static  NSArray *deviceList;
-static  uint8_t *battLevel;
 static  bool ready = false;
-
 
 + (bool)isReady{
     return ready;
@@ -26,9 +24,6 @@ static  bool ready = false;
 }
 + (ARService*)getARService{
     return service;
-}
-+ (uint8_t*)getBattlevel{
-    return battLevel;
 }
 + (ARCONTROLLER_FEATURE_ARDrone3_t*)getDeviceControllerOfApp
 {
@@ -176,60 +171,27 @@ void stateChanged (eARCONTROLLER_DEVICE_STATE newState, eARCONTROLLER_ERROR erro
     _deviceController->aRDrone3->sendPilotingTakeOff(_deviceController->aRDrone3);
 }
 
-+ (void) myFunction{
-    eARCONTROLLER_ERROR error;
-    error = ARCONTROLLER_Device_AddCommandReceivedCallback(deviceController, onCommandReceived, (__bridge void *)(self));
-}
-
 // called when a command has been received from the drone
 void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DICTIONARY_ELEMENT_t *elementDictionary, void *customData)
 {
-    //SELF_TYPE *selfCpy = (__bridge SELF_TYPE *)customData;
-    
-    if (elementDictionary != NULL)
+    // if the command received is a flying state changed
+    if ((commandKey == ARCONTROLLER_DICTIONARY_KEY_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED) && (elementDictionary != NULL))
     {
-        // if the command received is a battery state changed
-        if (commandKey == ARCONTROLLER_DICTIONARY_KEY_COMMON_COMMONSTATE_BATTERYSTATECHANGED)
+        ARCONTROLLER_DICTIONARY_ARG_t *arg = NULL;
+        ARCONTROLLER_DICTIONARY_ELEMENT_t *element = NULL;
+        
+        // get the command received in the device controller
+        HASH_FIND_STR (elementDictionary, ARCONTROLLER_DICTIONARY_SINGLE_KEY, element);
+        if (element != NULL)
         {
-            ARCONTROLLER_DICTIONARY_ARG_t *arg = NULL;
-            ARCONTROLLER_DICTIONARY_ELEMENT_t *element = NULL;
+            // get the value
+            HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE, arg);
             
-            // get the command received in the device controller
-            HASH_FIND_STR (elementDictionary, ARCONTROLLER_DICTIONARY_SINGLE_KEY, element);
-            if (element != NULL)
+            if (arg != NULL)
             {
-                // get the value
-                HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_COMMON_COMMONSTATE_BATTERYSTATECHANGED_PERCENT, arg);
-                
-                if (arg != NULL)
-                {
-                    uint8_t batteryLevel = arg->value.U8;
-                    battLevel = batteryLevel;
-                    // do what you want with the battery level
-                    // batLevel = batteryLevel;
-                    //  NSLog(batLevel);
-                }
+                eARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE flyingState = arg->value.I32;
             }
         }
-        if ((commandKey == ARCONTROLLER_DICTIONARY_KEY_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED) && (elementDictionary != NULL))
-        {
-            ARCONTROLLER_DICTIONARY_ARG_t *arg = NULL;
-            ARCONTROLLER_DICTIONARY_ELEMENT_t *element = NULL;
-            
-            // get the command received in the device controller
-            HASH_FIND_STR (elementDictionary, ARCONTROLLER_DICTIONARY_SINGLE_KEY, element);
-            if (element != NULL)
-            {
-                // get the value
-                HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE, arg);
-                
-                if (arg != NULL)
-                {
-                    eARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE flyingState = arg->value.I32;
-                }
-            }
-        }
-        // else if (commandKey == THE COMMAND YOU ARE INTERESTED IN)
     }
 }
 
@@ -248,15 +210,24 @@ void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DI
 }
 
 + (void) send_pilot_data:(int)flag :(int8_t)roll :(int8_t)pitch :(int8_t)yaw :(int8_t)gas :(int)duringmsecs {
+    NSLog(@"Flag");
     _deviceController->aRDrone3->setPilotingPCMDFlag(_deviceController->aRDrone3, (roll || pitch )?1:0);
+    NSLog(@"Roll");
     _deviceController->aRDrone3->setPilotingPCMDRoll(_deviceController->aRDrone3, roll);
+    NSLog(@"Pitch");
     _deviceController->aRDrone3->setPilotingPCMDPitch(_deviceController->aRDrone3, pitch);
+    NSLog(@"Yaw");
     _deviceController->aRDrone3->setPilotingPCMDYaw(_deviceController->aRDrone3, yaw);
+    NSLog(@"gas");
     _deviceController->aRDrone3->setPilotingPCMDGaz(_deviceController->aRDrone3, gas);
-    [NSThread sleepForTimeInterval:duringmsecs];
+    NSLog(@"sleeping");
+    usleep(duringmsecs*1000);
+    NSLog(@"awaken");
     eARCONTROLLER_ERROR error = ARCONTROLLER_ERROR;
     while(error != ARCONTROLLER_OK) {
+        NSLog(@"in while");
         error = _deviceController->aRDrone3->setPilotingPCMD(deviceController->aRDrone3, 0, 0, 0, 0, 0, 0);
+        NSLog(@"%s",error);
     }
 }
 

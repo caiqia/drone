@@ -8,6 +8,8 @@
 
 import Foundation
 
+var isplaying = false
+
 class MoveManager {
     //Get Option Icon from Name
     class func getOptionIcon(name: String) -> UIImage
@@ -78,5 +80,52 @@ class MoveManager {
                 return ""
             }
         }
+    }
+    class func playmoves(lstmoves : [Movement]){
+        if !DroneController.isReady()
+        {return}
+        isplaying = true
+        lstmoves.forEach { (m) in
+            if (isplaying == false)
+            {
+                return
+            }
+            switch (m.name)
+            {
+            case "take_off":
+                DroneController.takeoff()
+            case "flip":
+                let C = DroneController.getDeviceControllerOfApp().pointee
+                if m.arglist[0] == 0 {if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_FRONT) == ARCONTROLLER_ERROR){print("error flip")}}
+                if m.arglist[0] == 1 {if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_BACK) == ARCONTROLLER_ERROR){print("error flip")}}
+                if m.arglist[0] == 2 {if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_LEFT) == ARCONTROLLER_ERROR){print("error flip")}}
+                if m.arglist[0] == 3 {if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_RIGHT) == ARCONTROLLER_ERROR){print("error flip")}}
+            case "gaz_up":
+                DroneController.send_pilot_data(0, 0, 0, 0, Int8(m.arglist[0]), Int32(m.duration*1000))
+            case "move_forward":
+                DroneController.send_pilot_data(1, Int8(m.arglist[0]), 0, 0, 0, Int32(m.duration*1000))
+            case "move_right":
+                DroneController.send_pilot_data(1,0, Int8(m.arglist[0]),0,0, Int32(m.duration*1000))
+            case "land":
+                DroneController.land()
+            case "rotate_default":
+                print("rd")
+            case "gaz_down":
+                DroneController.send_pilot_data(0, 0, 0, 0, -Int8(m.arglist[0]), Int32(m.duration*1000))
+            case "move_backward":
+                DroneController.send_pilot_data(1, -Int8(m.arglist[0]), 0, 0, 0, Int32(m.duration*1000))
+            case "move_left":
+                DroneController.send_pilot_data(1,0, -Int8(m.arglist[0]),0,0, Int32(m.duration*1000))
+            default:
+                print("Error understanding move name in playmoves")
+                return
+            }
+            usleep(useconds_t(m.duration*10000))
+        }
+        isplaying = false
+    }
+    class func pause()
+    {
+        isplaying = false
     }
 }
