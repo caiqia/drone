@@ -1451,7 +1451,7 @@ Qiaoshan CAI</string>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBK-x8-noD" userLabel="live_bg">
                                 <rect key="frame" x="0.0" y="-1" width="568" height="321"/>
-                                <color key="backgroundColor" red="0.33439260107311042" green="0.5174535260258083" blue="0.57021335659898476" alpha="0.80870077054794531" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.35380740287278162" green="0.57021335659898476" blue="0.19451556090087671" alpha="0.80870077054794531" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1472,6 +1472,9 @@ Qiaoshan CAI</string>
                                     <constraint firstAttribute="width" constant="96" id="cPc-42-wGy"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="icon2"/>
+                                <connections>
+                                    <action selector="take_off:" destination="K31-JA-a20" eventType="touchDown" id="Svv-kj-Uhs"/>
+                                </connections>
                             </button>
                             <button opaque="NO" alpha="0.20000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fS4-Tq-a7e" userLabel="down">
                                 <rect key="frame" x="56" y="147" width="96" height="96"/>

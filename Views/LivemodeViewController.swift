@@ -10,7 +10,17 @@ import UIKit
 import CoreMotion
 
 
-class LivemodeViewController: UIViewController {
+class LivemodeViewController: UIViewController, MotionManagerDelegate {
+    
+    func didUpdateForehandSwingCount(_ manager: MotionManager, forehandCount: Int) {
+        print ("Forward count %d",forehandCount)
+    }
+    
+    func didUpdateBackhandSwingCount(_ manager: MotionManager, backhandCount: Int) {
+        print ("backward count %d",backhandCount)
+    }
+    
+    
     @IBOutlet var xlbl: UILabel!
     @IBOutlet var ylbl: UILabel!
     @IBOutlet var zlbl: UILabel!
@@ -29,14 +39,27 @@ class LivemodeViewController: UIViewController {
     var comtimer = Timer()
     var started = false
     var isflying = false
+    let mm = MotionManager()
+    var x = 0.0
+    var y = 0.0
+    var z = 0.0
     
     func process_cmdata(){
-        
+        if(x > 0.9 ){print("Forward")}
+        if(x > -0.9 && x < 0) {print("Backward")}
+        if(y > 0.9) {print("left")}
+        if(y > -0.9 && x < 0) { print("right")}
     }
     
+    @IBAction func take_off(_ sender: Any) {
+        if DroneController.isReady()
+        {
+            DroneController.takeoff()
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        //DroneController.controllerInit()
+        DroneController.droneControllerInit()
         // Create gesture recognizers and add them to super view
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(LivemodeViewController.swipeLeftOccured))
         swipeLeft.direction = .left
@@ -63,6 +86,7 @@ class LivemodeViewController: UIViewController {
         tap.numberOfTouchesRequired = 2
         view.addGestureRecognizer(tap)
         
+
 
         setupGyro()
         setupAccelero()
@@ -95,38 +119,7 @@ class LivemodeViewController: UIViewController {
         }
     }
     
-    @objc func myupdateTimer(){
-        if(DroneController.isReady())
-        {
-            DroneController.myFunction()
-            let battvalue = DroneController.getBattlevel()
-            print("battery lucie:")
-            print(battvalue)
-            /*
-             
-             if(Double( DroneController.batLevel ) > 0.5){
-             let battery = UIImageView(image: UIImage(named: "full_bat.png"))
-             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
-             view.addSubview(battery)
-             }
-             if(Double( DroneController.batLevel ) < 0.1){
-             let battery = UIImageView(image: UIImage(named: "low_bat.png"))
-             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
-             view.addSubview(battery)
-             }
-             else{
-             let battery = UIImageView(image: UIImage(named: "ave_bat.png"))
-             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
-             view.addSubview(battery)
-             }
-             */
-        }
-=======
-        //setupGyro()
-       // setupAccelero()
-       // setupMotion()
->>>>>>> a21dd1bd6693f9a15eaa8bbb1adf3a4b879e3871
-    }
+  
     
     func setupAccelero()
     {
@@ -174,9 +167,10 @@ class LivemodeViewController: UIViewController {
             self.motionManager.gyroUpdateInterval = 1.0 / 60.0
             self.motionManager.startGyroUpdates(to: OperationQueue.current!, withHandler:{
                 data, error in
-                self.gxlbl.text = String(format: "%.1f",data!.rotationRate.x)
-                self.gylbl.text = String(format: "%.1f",data!.rotationRate.y)
-                self.gzlbl.text = String(format: "%.1f",data!.rotationRate.z)
+                self.x = data!.rotationRate.x
+                self.y = data!.rotationRate.y
+                self.z = data!.rotationRate.z
+                self.process_cmdata()
             }
             )
         }
@@ -214,6 +208,7 @@ class LivemodeViewController: UIViewController {
         ops.forEach { (op) in
             op.alpha = 1
         }
+        if DroneController.isReady(){DroneController.land()}
     }
     
     @objc func swipeRightOccured(swipe: UISwipeGestureRecognizer){
