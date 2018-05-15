@@ -959,7 +959,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1547,29 +1546,27 @@ Qiaoshan CAI</string>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BPx-zi-Gj9" userLabel="batt">
-                                <rect key="frame" x="507" y="6" width="42" height="42"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="RJD-9t-BfT"/>
-                                    <constraint firstAttribute="width" constant="42" id="x6P-9V-dku"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="bat100"/>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="full_batt" translatesAutoresizingMaskIntoConstraints="NO" id="ReU-e8-emx">
                                 <rect key="frame" x="405" y="11" width="36" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="80%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47f-TB-d9r">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="80%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47f-TB-d9r">
                                 <rect key="frame" x="412" y="12" width="31" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9rF-3p-c9u">
+                                <rect key="frame" x="506" y="12" width="42" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="23" id="K8L-gj-JA9"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="yrg-2G-w8T" firstAttribute="firstBaseline" secondItem="7Ma-YL-EGG" secondAttribute="firstBaseline" id="1aY-87-pEl"/>
+                            <constraint firstItem="9rF-3p-c9u" firstAttribute="trailing" secondItem="J2m-RV-mNj" secondAttribute="trailing" id="2J8-70-Roe"/>
                             <constraint firstItem="sNN-wM-idv" firstAttribute="bottom" secondItem="dnq-5u-kMz" secondAttribute="bottom" id="3iR-Hi-EJk"/>
                             <constraint firstItem="fS4-Tq-a7e" firstAttribute="top" secondItem="o4j-0l-bMg" secondAttribute="top" id="4E7-rt-C0d"/>
                             <constraint firstItem="wHb-7u-vW8" firstAttribute="trailing" secondItem="fS4-Tq-a7e" secondAttribute="trailing" id="5oy-Xb-bLe"/>
@@ -1584,6 +1581,7 @@ Qiaoshan CAI</string>
                             <constraint firstItem="sNN-wM-idv" firstAttribute="baseline" secondItem="wHb-7u-vW8" secondAttribute="baseline" id="AsE-dd-Bh1"/>
                             <constraint firstItem="Bom-HQ-lsI" firstAttribute="baseline" secondItem="fS4-Tq-a7e" secondAttribute="baseline" id="BYE-Yw-aAa"/>
                             <constraint firstItem="Bom-HQ-lsI" firstAttribute="firstBaseline" secondItem="Hxw-GZ-71S" secondAttribute="firstBaseline" id="C2T-Om-Wc3"/>
+                            <constraint firstItem="9rF-3p-c9u" firstAttribute="leading" secondItem="J2m-RV-mNj" secondAttribute="leading" id="CBM-Dw-A4y"/>
                             <constraint firstItem="Wv9-h1-kEz" firstAttribute="baseline" secondItem="sNN-wM-idv" secondAttribute="baseline" id="DuL-30-tIm"/>
                             <constraint firstItem="azp-2z-60F" firstAttribute="leading" secondItem="o6d-mp-hUf" secondAttribute="leading" id="EaI-eI-REz"/>
                             <constraint firstItem="Hxw-GZ-71S" firstAttribute="baseline" secondItem="fS4-Tq-a7e" secondAttribute="baseline" id="G3j-K3-kkI"/>
@@ -1596,6 +1594,7 @@ Qiaoshan CAI</string>
                             <constraint firstItem="wHb-7u-vW8" firstAttribute="leading" secondItem="hML-8m-1rN" secondAttribute="leading" constant="56" id="MCS-o0-O3n"/>
                             <constraint firstItem="7Ma-YL-EGG" firstAttribute="top" secondItem="Wv9-h1-kEz" secondAttribute="bottom" constant="42" id="MRV-g0-Uqq"/>
                             <constraint firstItem="sNN-wM-idv" firstAttribute="baseline" secondItem="dnq-5u-kMz" secondAttribute="baseline" id="NM5-6D-xL0"/>
+                            <constraint firstItem="9rF-3p-c9u" firstAttribute="top" secondItem="hML-8m-1rN" secondAttribute="top" constant="12" id="NVL-eH-MBE"/>
                             <constraint firstItem="wHb-7u-vW8" firstAttribute="top" secondItem="sNN-wM-idv" secondAttribute="top" id="NzR-uk-IOK"/>
                             <constraint firstItem="o4j-0l-bMg" firstAttribute="firstBaseline" secondItem="fS4-Tq-a7e" secondAttribute="firstBaseline" id="O6v-QP-Red"/>
                             <constraint firstItem="o4j-0l-bMg" firstAttribute="firstBaseline" secondItem="Bom-HQ-lsI" secondAttribute="firstBaseline" id="OGj-p7-Pfz"/>
@@ -1605,11 +1604,12 @@ Qiaoshan CAI</string>
                             <constraint firstItem="Wv9-h1-kEz" firstAttribute="firstBaseline" secondItem="dnq-5u-kMz" secondAttribute="firstBaseline" id="Qbt-IH-G5c"/>
                             <constraint firstItem="Wv9-h1-kEz" firstAttribute="centerX" secondItem="Hxw-GZ-71S" secondAttribute="centerX" id="S0C-kr-HKh"/>
                             <constraint firstItem="o4j-0l-bMg" firstAttribute="top" secondItem="Bom-HQ-lsI" secondAttribute="top" id="Tux-Sk-OWX"/>
+                            <constraint firstItem="9rF-3p-c9u" firstAttribute="top" secondItem="47f-TB-d9r" secondAttribute="top" id="U7V-Nx-nl6"/>
                             <constraint firstItem="hML-8m-1rN" firstAttribute="bottom" secondItem="hfJ-Re-zaX" secondAttribute="bottom" constant="60" id="Ujf-LK-KKp"/>
-                            <constraint firstItem="BPx-zi-Gj9" firstAttribute="leading" secondItem="Wv9-h1-kEz" secondAttribute="trailing" constant="8" symbolic="YES" id="WCN-GD-Inx"/>
                             <constraint firstItem="wHb-7u-vW8" firstAttribute="firstBaseline" secondItem="sNN-wM-idv" secondAttribute="firstBaseline" id="WPm-bT-2Ox"/>
                             <constraint firstItem="sNN-wM-idv" firstAttribute="top" secondItem="h9R-t6-XMs" secondAttribute="bottom" constant="8" symbolic="YES" id="Xqo-20-O0V"/>
                             <constraint firstItem="wHb-7u-vW8" firstAttribute="firstBaseline" secondItem="Wv9-h1-kEz" secondAttribute="firstBaseline" id="Yyb-0s-QhV"/>
+                            <constraint firstItem="9rF-3p-c9u" firstAttribute="leading" secondItem="47f-TB-d9r" secondAttribute="trailing" constant="63" id="ZdJ-OX-Xi9"/>
                             <constraint firstItem="azp-2z-60F" firstAttribute="bottom" secondItem="ZBK-x8-noD" secondAttribute="bottom" id="ac2-UA-nes"/>
                             <constraint firstItem="yrg-2G-w8T" firstAttribute="baseline" secondItem="7Ma-YL-EGG" secondAttribute="baseline" id="an5-cZ-8Nv"/>
                             <constraint firstItem="7Ma-YL-EGG" firstAttribute="bottom" secondItem="yrg-2G-w8T" secondAttribute="bottom" id="cL8-yy-1ds"/>
@@ -1641,7 +1641,6 @@ Qiaoshan CAI</string>
                             <constraint firstItem="Wv9-h1-kEz" firstAttribute="leading" secondItem="dnq-5u-kMz" secondAttribute="trailing" constant="20" id="qqf-he-hpM"/>
                             <constraint firstItem="hML-8m-1rN" firstAttribute="trailing" secondItem="yrg-2G-w8T" secondAttribute="trailing" constant="55" id="rA4-Ae-pHM"/>
                             <constraint firstItem="dnq-5u-kMz" firstAttribute="trailing" secondItem="Bom-HQ-lsI" secondAttribute="trailing" id="rF8-vQ-N2D"/>
-                            <constraint firstItem="BPx-zi-Gj9" firstAttribute="top" secondItem="h9R-t6-XMs" secondAttribute="top" id="rUf-VG-l2m"/>
                             <constraint firstItem="Hxw-GZ-71S" firstAttribute="firstBaseline" secondItem="o4j-0l-bMg" secondAttribute="firstBaseline" id="s1c-uw-brc"/>
                             <constraint firstItem="Hxw-GZ-71S" firstAttribute="baseline" secondItem="Bom-HQ-lsI" secondAttribute="baseline" id="saH-0E-dAi"/>
                             <constraint firstItem="hML-8m-1rN" firstAttribute="trailing" secondItem="Wv9-h1-kEz" secondAttribute="trailing" constant="69" id="tGb-2R-hbr"/>
@@ -1654,6 +1653,7 @@ Qiaoshan CAI</string>
                         <viewLayoutGuide key="safeArea" id="hML-8m-1rN"/>
                     </view>
                     <connections>
+                        <outlet property="batteryImage" destination="9rF-3p-c9u" id="Rjg-iL-UgW"/>
                         <outlet property="bg" destination="ZBK-x8-noD" id="bAB-Zd-OKb"/>
                         <segue destination="B0q-u4-2Ls" kind="unwind" identifier="liveTomain" unwindAction="unwindToVC1WithSegue:" id="cBi-6M-1xl"/>
                     </connections>
@@ -1661,13 +1661,12 @@ Qiaoshan CAI</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uKL-T3-SCp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="B0q-u4-2Ls" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5" y="1269"/>
+            <point key="canvasLocation" x="4.225352112676056" y="1267.5"/>
         </scene>
     </scenes>
     <resources>
         <image name="about" width="450" height="450"/>
         <image name="back_icon" width="32" height="32"/>
-        <image name="bat100" width="32" height="32"/>
         <image name="bg_wood" width="626" height="417"/>
         <image name="bg_wood2" width="232" height="160"/>
         <image name="delete_icon" width="32" height="32"/>

@@ -30,6 +30,7 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
     @IBOutlet var cplbl: UILabel!
     @IBOutlet var crlbl: UILabel!
     @IBOutlet var cylbl: UILabel!
+    @IBOutlet var batteryImage: UIImageView!
     
 
     @IBOutlet var bg: UILabel!
@@ -86,37 +87,9 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
         tap.numberOfTouchesRequired = 2
         view.addGestureRecognizer(tap)
         
-
-
         setupGyro()
         setupAccelero()
         setupMotion()
-        DroneController.droneControllerInit()
-        if(DroneController.isReady())
-        {
-           // DroneController.myFunction()
-           // let battvalue = DroneController.getBattlevel()
-            print("battery lucie:")
-           // print(battvalue)
-            /*
-             
-             if(Double( DroneController.batLevel ) > 0.5){
-             let battery = UIImageView(image: UIImage(named: "full_bat.png"))
-             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
-             view.addSubview(battery)
-             }
-             if(Double( DroneController.batLevel ) < 0.1){
-             let battery = UIImageView(image: UIImage(named: "low_bat.png"))
-             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
-             view.addSubview(battery)
-             }
-             else{
-             let battery = UIImageView(image: UIImage(named: "ave_bat.png"))
-             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
-             view.addSubview(battery)
-             }
-             */
-        }
     }
     
   

@@ -66,11 +66,16 @@ class OptionViewController: UIViewController {
             //getting the input values from user
             let speed = insertAlert.textFields?[0].text
             if(speed == nil){return}
-            let speed2 = Int(speed!)! * 5/100
+            let speed2 = Float(speed!)! * 5/100
             var mytext = String(speed2)
             mytext.append("m/s")
             self.mspeed.text = mytext
-            deviceController->aRDrone3->sendSpeedSettingsMaxVerticalSpeed(deviceController->aRDrone3, (float)current);
+            DroneController.droneControllerInit()
+            if(DroneController.isReady())
+            {
+            let C = DroneController.getDeviceControllerOfApp().pointee
+        if( C.sendSpeedSettingsMaxVerticalSpeed(DroneController.getDeviceControllerOfApp(),speed2) == ARCONTROLLER_ERROR){print("error set speed")}
+        }
         }
         //adding textfields to our dialog box
         insertAlert.addTextField { (textField) in
@@ -94,10 +99,16 @@ class OptionViewController: UIViewController {
             //getting the input values from user
             let altitude = insertAlert.textFields?[0].text
             if(altitude == nil){return}
-            let altitude2 = Int(altitude!)! * 15/100
+            let altitude2 = Float(altitude!)! * 15/100
             var mytext = String(altitude2)
-            mytext.append("meter")
+            mytext.append("meters")
             self.matitude.text = mytext
+            DroneController.droneControllerInit()
+            if(DroneController.isReady())
+            {
+                let C = DroneController.getDeviceControllerOfApp().pointee
+                if( C.sendPilotingSettingsMaxAltitude(DroneController.getDeviceControllerOfApp(),altitude2) == ARCONTROLLER_ERROR){print("error set altitude")}
+            }
         }
         //adding textfields to our dialog box
         insertAlert.addTextField { (textField) in
