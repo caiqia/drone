@@ -56,6 +56,8 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
         if DroneController.isReady()
         {
             DroneController.takeoff()
+            sleep(8)
+            mm.startUpdates()
         }
     }
     override func viewDidLoad() {
@@ -83,13 +85,14 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
         view.addGestureRecognizer(swipeDown)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(LivemodeViewController.TapOccured))
-        tap.numberOfTapsRequired = 2
+        tap.numberOfTapsRequired = 1
         tap.numberOfTouchesRequired = 2
         view.addGestureRecognizer(tap)
-        
         setupGyro()
         setupAccelero()
         setupMotion()
+        mm.delegate = self
+
     }
     
   
@@ -181,7 +184,7 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
         ops.forEach { (op) in
             op.alpha = 1
         }
-        if DroneController.isReady(){DroneController.land()}
+        if DroneController.isReady(){DroneController.emergency_land()}
     }
     
     @objc func swipeRightOccured(swipe: UISwipeGestureRecognizer){
@@ -216,11 +219,6 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
         bg.isHidden = true
     }
     
-    
-    
-   
-    
-    
     @IBAction func FlipButton_touched(_ sender: Any) {
         if(isflying)
         {
@@ -236,6 +234,5 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
         started = false
         dismiss(animated: true, completion: nil)
     }
-    
-    
+
 }

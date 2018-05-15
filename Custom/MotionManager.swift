@@ -114,9 +114,10 @@ class MotionManager {
         let accumulatedYRot = rateAlongGravityBuffery.sum() * sampleInterval
         let accumulatedZRot = rateAlongGravityBufferz.sum() * sampleInterval
         
-        if(accumulatedZRot > 0.45)
+        if(accumulatedZRot > 0.8)
         {print ("Moving Left", abs(deviceMotion.userAcceleration.z*10));rateAlongGravityBufferz.reset()
-            DroneController.send_pilot_data(1, 1, 0, 0, 0, Int32(deviceMotion.userAcceleration.z*10))
+            DroneController.send_pilot_data(1, 0, 1, 0, 0, Int32(deviceMotion.userAcceleration.z*100))
+            DroneController.send_pilot_data(0, 0, 0, 0, 0, Int32(deviceMotion.userAcceleration.z*100))
         }
         if(accumulatedZRot < -0.45)
         {print ("Moving Right");rateAlongGravityBufferz.reset()}
