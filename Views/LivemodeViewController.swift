@@ -55,6 +55,8 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
         if DroneController.isReady()
         {
             DroneController.takeoff()
+            sleep(8)
+            mm.startUpdates()
         }
     }
     override func viewDidLoad() {
@@ -82,13 +84,13 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
         view.addGestureRecognizer(swipeDown)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(LivemodeViewController.TapOccured))
-        tap.numberOfTapsRequired = 2
+        tap.numberOfTapsRequired = 1
         tap.numberOfTouchesRequired = 2
         view.addGestureRecognizer(tap)
         
        
         mm.delegate = self
-         mm.startUpdates()
+        
       //  setupGyro()
        // setupAccelero()
        // setupMotion()
@@ -180,7 +182,7 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
         ops.forEach { (op) in
             op.alpha = 1
         }
-        if DroneController.isReady(){DroneController.land()}
+        if DroneController.isReady(){DroneController.emergency_land()}
     }
     
     @objc func swipeRightOccured(swipe: UISwipeGestureRecognizer){
@@ -214,79 +216,5 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
         print (gaz)
         bg.isHidden = true
     }
-    
-    
-    
-    @IBAction func start_touched(_ sender: Any) {
-        if (started == false)
-        {
-            if(DroneController.isReady())
-            {
-                started = true
-                DroneController.takeoff()
-                DroneController.send_pilot_data(0, 0, 0, 0, 0, 50)
-            }
-            else
-            {
-                DroneController.droneControllerInit()
-            }
-        }
-        else
-        {
-            if(DroneController.isReady())
-            {DroneController.land()}
-        }
-    }
-    @IBAction func tt(_ sender: Any) {
-        DispatchQueue.global(qos: .background).async {
-               print("did")
-    if(DroneController.isReady())
-                {
-                    //flying test
-                    print("Test Debut")
-                    self.isflying = true
-                    print("Test off")
-                    DroneController.takeoff()
-                    print("Test Move1")
-                    DroneController.send_pilot_data(1, 10, 0, 0, 0, 100)
-                    sleep(2)
-                    print("Test Move2")
-                    DroneController.send_pilot_data(1, -10, 0, 0, 0, 100)
-                    sleep(2)
-                    print("Test Move3")
-                    DroneController.send_pilot_data(0, 0, 10, 0, 0, 100)
-                    sleep(2)
-                    DroneController.send_pilot_data(0, 0, -10, 0, 0, 100)
-                    sleep(2)
-                    DroneController.send_pilot_data(0, 0, 0, 10, 0, 100)
-                    sleep(2)
-                    DroneController.send_pilot_data(0, 0, 0, -10, 0, 100)
-                    sleep(2)
-                    DroneController.send_pilot_data(0, 0, 0, 0, 5, 100)
-                    sleep(2)
-                    DroneController.send_pilot_data(0, 0, 0, 0, -50, 100)
-                   // DroneController.land()
-                    print("Tes\t OK")
-            }
-        }
-    }
-    
-    
-    @IBAction func FlipButton_touched(_ sender: Any) {
-        if(isflying)
-        {
-            let C = DroneController.getDeviceControllerOfApp().pointee
-            if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_FRONT) == ARCONTROLLER_ERROR){print("error flip")}
-        }
-    }
-    @IBAction func back_touched(_ sender: Any) {
-        if (timer.isValid)
-        {timer.invalidate()}
-        if(started && isflying)
-        {DroneController.emergency_land()}
-        started = false
-        dismiss(animated: true, completion: nil)
-    }
-    
     
 }
