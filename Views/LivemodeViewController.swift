@@ -67,13 +67,12 @@ class LivemodeViewController: UIViewController {
         setupGyro()
         setupAccelero()
         setupMotion()
-    }
-    
-    @objc func myupdateTimer(){
+        DroneController.droneControllerInit()
         if(DroneController.isReady())
         {
             DroneController.myFunction()
-            var battvalue = DroneController.getBattlevel()
+            let battvalue = DroneController.getBattlevel()
+            print("battery lucie:")
             print(battvalue)
             /*
              
@@ -94,8 +93,36 @@ class LivemodeViewController: UIViewController {
              }
              */
         }
-        
     }
+    
+    @objc func myupdateTimer(){
+        if(DroneController.isReady())
+        {
+            DroneController.myFunction()
+            let battvalue = DroneController.getBattlevel()
+            print("battery lucie:")
+            print(battvalue)
+            /*
+             
+             if(Double( DroneController.batLevel ) > 0.5){
+             let battery = UIImageView(image: UIImage(named: "full_bat.png"))
+             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
+             view.addSubview(battery)
+             }
+             if(Double( DroneController.batLevel ) < 0.1){
+             let battery = UIImageView(image: UIImage(named: "low_bat.png"))
+             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
+             view.addSubview(battery)
+             }
+             else{
+             let battery = UIImageView(image: UIImage(named: "ave_bat.png"))
+             battery.frame = CGRect(x: 400, y: 50, width: 100, height: 50)
+             view.addSubview(battery)
+             }
+             */
+        }
+    }
+    
     func setupAccelero()
     {
         //If accelerometer ready set timer and start updates
@@ -231,6 +258,7 @@ class LivemodeViewController: UIViewController {
             {DroneController.land()}
         }
     }
+    
     @IBAction func start_test(_ sender: Any) {
         if (started == true)
         {

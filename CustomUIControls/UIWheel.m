@@ -312,43 +312,43 @@ static float maxAlphavalue = 1.0;
     
     switch (position) {
         case 0:
-            res = @"take_off";
+            res = @"take_off";    //gauche
             break;
             
         case 1:
-            res = @"flip";
+            res = @"flip";        //gauche
             break;
         
         case 2:
-            res = @"gaz_up";
+            res = @"gaz_up";      //gauche
             break;
             
         case 3:
-            res = @"move_forward";
+            res = @"move_forward";     //gauche
             break;
             
         case 4:
-            res = @"move_right";
+            res = @"move_right";       //gauche
             break;
             
         case 5:
-            res = @"land";
+            res = @"land";          //droit
             break;
             
         case 6:
-            res = @"rotate_default";
+            res = @"rotate_default";      //droit
             break;
             
         case 7:
-            res = @"gaz_down";
+            res = @"gaz_down";          //droit
             break;
             
         case 8:
-            res = @"move_backward";
+            res = @"move_backward";         //droit
             break;
             
         case 9:
-            res = @"move_left";
+            res = @"move_left";           //droit
             break;
         
         default:
