@@ -58,16 +58,19 @@ class OptionViewController: UIViewController {
     }
     
     @IBAction func mspeed_touch(_ sender: Any) {
-        let insertAlert = UIAlertController(title: "Max Movement Speed", message: "Enter Max Speed:", preferredStyle: .alert)
+        let insertAlert = UIAlertController(title: "Max Movement Speed percentage", message: "Enter Max Speed percentage:", preferredStyle: .alert)
         //the confirm action taking the inputs
         let confirmAction = UIAlertAction(title: "OK", style: .default)
         {
             (_) in
             //getting the input values from user
-            var speed = insertAlert.textFields?[0].text
+            let speed = insertAlert.textFields?[0].text
             if(speed == nil){return}
-            speed?.append("%")
-            self.mspeed.text = speed
+            let speed2 = Int(speed!)! * 5/100
+            var mytext = String(speed2)
+            mytext.append("m/s")
+            self.mspeed.text = mytext
+            deviceController->aRDrone3->sendSpeedSettingsMaxVerticalSpeed(deviceController->aRDrone3, (float)current);
         }
         //adding textfields to our dialog box
         insertAlert.addTextField { (textField) in
@@ -89,10 +92,12 @@ class OptionViewController: UIViewController {
         {
             (_) in
             //getting the input values from user
-            var speed = insertAlert.textFields?[0].text
-            if(speed == nil){return}
-            speed?.append("%")
-            self.matitude.text = speed
+            let altitude = insertAlert.textFields?[0].text
+            if(altitude == nil){return}
+            let altitude2 = Int(altitude!)! * 15/100
+            var mytext = String(altitude2)
+            mytext.append("meter")
+            self.matitude.text = mytext
         }
         //adding textfields to our dialog box
         insertAlert.addTextField { (textField) in

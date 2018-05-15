@@ -63,17 +63,17 @@ class LivemodeViewController: UIViewController {
         tap.numberOfTouchesRequired = 2
         view.addGestureRecognizer(tap)
         
-<<<<<<< HEAD
+
         setupGyro()
         setupAccelero()
         setupMotion()
         DroneController.droneControllerInit()
         if(DroneController.isReady())
         {
-            DroneController.myFunction()
-            let battvalue = DroneController.getBattlevel()
+           // DroneController.myFunction()
+           // let battvalue = DroneController.getBattlevel()
             print("battery lucie:")
-            print(battvalue)
+           // print(battvalue)
             /*
              
              if(Double( DroneController.batLevel ) > 0.5){
@@ -250,86 +250,7 @@ class LivemodeViewController: UIViewController {
     
     
     
-    @IBAction func start_touched(_ sender: Any) {
-        if (started == false)
-        {
-            if(DroneController.isReady())
-            {
-                started = true
-                DroneController.takeoff()
-                DroneController.send_pilot_data(0, 0, 0, 0, 0, 50)
-            }
-            else
-            {
-                DroneController.droneControllerInit()
-            }
-        }
-        else
-        {
-            if(DroneController.isReady())
-            {DroneController.land()}
-        }
-    }
-<<<<<<< HEAD
-    
-    @IBAction func start_test(_ sender: Any) {
-        if (started == true)
-        {
-            if(DroneController.isReady())
-            {
-                //flying test
-                isflying = true
-                DroneController.send_pilot_data(1, 10, 0, 0, 0, 50)
-                sleep(1)
-                DroneController.send_pilot_data(1, -10, 0, 0, 0, 50)
-                sleep(1)
-                DroneController.send_pilot_data(0, 0, 10, 0, 0, 50)
-                sleep(1)
-                DroneController.send_pilot_data(0, 0, -10, 0, 0, 50)
-                sleep(1)
-                DroneController.send_pilot_data(0, 0, 0, 10, 0, 50)
-                sleep(1)
-                DroneController.send_pilot_data(0, 0, 0, -10, 0, 50)
-                sleep(1)
-                DroneController.send_pilot_data(0, 0, 0, 0, 5, 50)
-                sleep(1)
-                DroneController.send_pilot_data(0, 0, 0, 0, -5, 50)
-                print("Test OK")
-=======
-    @IBAction func tt(_ sender: Any) {
-        DispatchQueue.global(qos: .background).async {
-               print("did")
-    if(DroneController.isReady())
-                {
-                    //flying test
-                    print("Test Debut")
-                    self.isflying = true
-                    print("Test off")
-                    DroneController.takeoff()
-                    print("Test Move1")
-                    DroneController.send_pilot_data(1, 10, 0, 0, 0, 100)
-                    sleep(2)
-                    print("Test Move2")
-                    DroneController.send_pilot_data(1, -10, 0, 0, 0, 100)
-                    sleep(2)
-                    print("Test Move3")
-                    DroneController.send_pilot_data(0, 0, 10, 0, 0, 100)
-                    sleep(2)
-                    DroneController.send_pilot_data(0, 0, -10, 0, 0, 100)
-                    sleep(2)
-                    DroneController.send_pilot_data(0, 0, 0, 10, 0, 100)
-                    sleep(2)
-                    DroneController.send_pilot_data(0, 0, 0, -10, 0, 100)
-                    sleep(2)
-                    DroneController.send_pilot_data(0, 0, 0, 0, 5, 100)
-                    sleep(2)
-                    DroneController.send_pilot_data(0, 0, 0, 0, -50, 100)
-                   // DroneController.land()
-                    print("Tes\t OK")
->>>>>>> a21dd1bd6693f9a15eaa8bbb1adf3a4b879e3871
-            }
-        }
-    }
+   
     
     
     @IBAction func FlipButton_touched(_ sender: Any) {
