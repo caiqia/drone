@@ -27,6 +27,7 @@ class IOS10Wifi : UIViewController
         NT.invalidate()
         dismiss(animated: true, completion: nil)
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

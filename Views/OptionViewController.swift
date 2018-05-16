@@ -58,24 +58,16 @@ class OptionViewController: UIViewController {
     }
     
     @IBAction func mspeed_touch(_ sender: Any) {
-        let insertAlert = UIAlertController(title: "Max Movement Speed percentage", message: "Enter Max Speed percentage:", preferredStyle: .alert)
+        let insertAlert = UIAlertController(title: "Max Movement Speed", message: "Enter Max Speed:", preferredStyle: .alert)
         //the confirm action taking the inputs
         let confirmAction = UIAlertAction(title: "OK", style: .default)
         {
             (_) in
             //getting the input values from user
-            let speed = insertAlert.textFields?[0].text
+            var speed = insertAlert.textFields?[0].text
             if(speed == nil){return}
-            let speed2 = Float(speed!)! * 5/100
-            var mytext = String(speed2)
-            mytext.append("m/s")
-            self.mspeed.text = mytext
-            DroneController.droneControllerInit()
-            if(DroneController.isReady())
-            {
-            let C = DroneController.getDeviceControllerOfApp().pointee
-        if( C.sendSpeedSettingsMaxVerticalSpeed(DroneController.getDeviceControllerOfApp(),speed2) == ARCONTROLLER_ERROR){print("error set speed")}
-        }
+            speed?.append("%")
+            self.mspeed.text = speed
         }
         //adding textfields to our dialog box
         insertAlert.addTextField { (textField) in
@@ -97,18 +89,10 @@ class OptionViewController: UIViewController {
         {
             (_) in
             //getting the input values from user
-            let altitude = insertAlert.textFields?[0].text
-            if(altitude == nil){return}
-            let altitude2 = Float(altitude!)! * 15/100
-            var mytext = String(altitude2)
-            mytext.append("meters")
-            self.matitude.text = mytext
-            DroneController.droneControllerInit()
-            if(DroneController.isReady())
-            {
-                let C = DroneController.getDeviceControllerOfApp().pointee
-                if( C.sendPilotingSettingsMaxAltitude(DroneController.getDeviceControllerOfApp(),altitude2) == ARCONTROLLER_ERROR){print("error set altitude")}
-            }
+            var speed = insertAlert.textFields?[0].text
+            if(speed == nil){return}
+            speed?.append("%")
+            self.matitude.text = speed
         }
         //adding textfields to our dialog box
         insertAlert.addTextField { (textField) in

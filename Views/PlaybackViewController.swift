@@ -23,11 +23,14 @@ class PlaybackViewController: UIViewController {
     var timer = Timer()
     var readString = ""
     var moveArray : [Movement] = []
+    var ma : [Movement] = []
+    var done: [Bool] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.slider.value = 0
         self.slider.maximumValue = 1000
+        DroneController.droneControllerInit()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,16 +43,7 @@ class PlaybackViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    //Play moves with song in realtime
-    func play_in_time()
-    {
-        if(moveArray.count > 0)
-        {
-            
-        }
-    }
-    
-    //Playing timer handler
+    // Playing timer handler
     @objc func updateTimer() {
         self.Timer_val+=1
         self.slider.value+=1
@@ -60,30 +54,36 @@ class PlaybackViewController: UIViewController {
         inFormatter.dateFormat = "HH:mm:ss"
         self.timer_label.text =
             inFormatter.string(from: inFormatter.date(from: String(hours)+":"+String(minutes)+":"+String(seconds))!)
-        for i in 0..<moveArray.count
+        
+        for i in 0..<ma.count
         {
-            if moveArray.count == 1 || i == moveArray.count-1
+            if ((Int(ma[i].begin) + ma[i].duration) < Timer_val) && done[i] == true
             {
-                if(Int(moveArray[i].begin) < self.Timer_val && self.Timer_val < (Int(moveArray[i].begin) + moveArray[i].duration)){
-                    self.myImage.image = MoveManager.getOptionIcon(name: moveArray[i].name)
+                ma.remove(at: i)
+                done.remove(at: i)
+            }
+            if ma.count == 1 || i == ma.count-1
+            {
+                if(Int(ma[i].begin) < self.Timer_val && self.Timer_val < (Int(ma[i].begin) + ma[i].duration)){
+                    self.myImage.image = MoveManager.getOptionIcon(name: ma[i].name)
                     self.myImage.isHidden = false}
                 else
-                {self.myImage.isHidden = true}
-                self.myImage2.isHidden = true
+                {self.myImage.isHidden = true
+                    self.myImage2.isHidden = true}
             }
             else
             {
-                if(Int(moveArray[i].begin) < self.Timer_val && self.Timer_val < (Int(moveArray[i].begin) + moveArray[i].duration)){
-                    self.myImage.image = MoveManager.getOptionIcon(name: moveArray[i].name)
+                if(Int(ma[i].begin) >= self.Timer_val && self.Timer_val < (Int(ma[i].begin) + ma[i].duration)){
+                    self.myImage.image = MoveManager.getOptionIcon(name: ma[i].name)
                     self.myImage.isHidden = false
                 }
                 else
                 {
                     self.myImage.isHidden = true
-                    self.myImage2.image = MoveManager.getOptionIcon(name: moveArray[i].name)
+                    self.myImage2.image = MoveManager.getOptionIcon(name: ma[i].name)
                     return
                 }
-                self.myImage2.image = MoveManager.getOptionIcon(name: moveArray[i+1].name)
+                self.myImage2.image = MoveManager.getOptionIcon(name: ma[i+1].name)
             }
         }
     }
@@ -106,6 +106,12 @@ class PlaybackViewController: UIViewController {
             playing = true
             let img = UIImage(named: "pause_icon.png")
             playButton.setImage(img, for: .normal)
+            for i in 0..<moveArray.count
+            {
+                ma.append(moveArray[i
+                    ])
+                done.append(false)
+            }
             timer = Timer.scheduledTimer(timeInterval: 0.01, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
         }
     }

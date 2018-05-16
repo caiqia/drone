@@ -10,29 +10,8 @@ import UIKit
 import CoreMotion
 
 
-class LivemodeViewController: UIViewController, MotionManagerDelegate {
+class LivemodeViewController: UIViewController {
     
-    func didUpdateForehandSwingCount(_ manager: MotionManager, forehandCount: Int) {
-        print ("Forward count %d",forehandCount)
-    }
-    
-    func didUpdateBackhandSwingCount(_ manager: MotionManager, backhandCount: Int) {
-        print ("backward count %d",backhandCount)
-    }
-    
-    
-    @IBOutlet var xlbl: UILabel!
-    @IBOutlet var ylbl: UILabel!
-    @IBOutlet var zlbl: UILabel!
-    @IBOutlet var gxlbl: UILabel!
-    @IBOutlet var gylbl: UILabel!
-    @IBOutlet var gzlbl: UILabel!
-    @IBOutlet var cplbl: UILabel!
-    @IBOutlet var crlbl: UILabel!
-    @IBOutlet var cylbl: UILabel!
-    @IBOutlet var batteryImage: UIImageView!
-    
-
     @IBOutlet var bg: UILabel!
     var gaz = 0
     var motionManager = CMMotionManager()
@@ -45,21 +24,18 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
     var y = 0.0
     var z = 0.0
     
-    func process_cmdata(){
-        if(x > 0.9 ){print("Forward")}
-        if(x > -0.9 && x < 0) {print("Backward")}
-        if(y > 0.9) {print("left")}
-        if(y > -0.9 && x < 0) { print("right")}
-    }
     
     @IBAction func take_off(_ sender: Any) {
+    }
+    
+    @IBAction func back_touched(_ sender: Any) {
         if DroneController.isReady()
         {
-            DroneController.takeoff()
-            sleep(8)
-            mm.startUpdates()
+            DroneController.land()
         }
+        dismiss(animated: true, completion: nil)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         DroneController.droneControllerInit()
@@ -88,86 +64,7 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
         tap.numberOfTapsRequired = 1
         tap.numberOfTouchesRequired = 2
         view.addGestureRecognizer(tap)
-        setupGyro()
-        setupAccelero()
-        setupMotion()
-        mm.delegate = self
-
-    }
-    
-  
-    
-    func setupAccelero()
-    {
-        //If accelerometer ready set timer and start updates
-        if(motionManager.isAccelerometerAvailable == true){
-            //Set update interval for accelerometer
-            motionManager.accelerometerUpdateInterval = 0.05
-            motionManager.startAccelerometerUpdates(to: OperationQueue.current!, withHandler:{
-                data, error in
-                self.xlbl.text = String(format: "%.1f",data!.acceleration.x)
-                self.ylbl.text = String(format: "%.1f",data!.acceleration.y)
-                self.zlbl.text = String(format: "%.1f",data!.acceleration.z)
-                
-                if data!.acceleration.x < 0 {
-                    //drone will move left.
-                    //print("trun left")
-                }
-                else if data!.acceleration.x > 0 {
-                    //drone will move right.
-                    //print("trun right")
-                }
-                if data!.acceleration.y < 0 {
-                    //drone will move down.
-                    //print(" down")
-                }
-                else if data!.acceleration.y > 0 {
-                    //drone will move up.
-                    //print(" up")
-                }
-                if data!.acceleration.z < 0 {
-                    //drone will move backword.
-                    // print("backward")
-                }
-                else if data!.acceleration.z > 0 {
-                    //drone will move forwardsssss.
-                    // print("forward")
-                }
-            })
-        }
-    }
-    
-    func setupGyro(){
-        //Gyroscope Setup
-        if motionManager.isGyroAvailable {
-            self.motionManager.gyroUpdateInterval = 1.0 / 60.0
-            self.motionManager.startGyroUpdates(to: OperationQueue.current!, withHandler:{
-                data, error in
-                self.x = data!.rotationRate.x
-                self.y = data!.rotationRate.y
-                self.z = data!.rotationRate.z
-                self.process_cmdata()
-            }
-            )
-        }
-    }
-    func setupMotion(){
-        //Motion Setup
-        if motionManager.isDeviceMotionAvailable {
-            self.motionManager.deviceMotionUpdateInterval = 1.0 / 60.0
-            self.motionManager.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler:{
-                data, error in
-                self.cplbl.text = String(format: "%.1f",data!.userAcceleration.x)
-                self.crlbl.text = String(format: "%.1f",data!.userAcceleration.y)
-                self.cylbl.text = String(format: "%.1f",data!.userAcceleration.z)
-            }
-            )
-        }
-    }
-    func stopSensing() {
-        self.motionManager.stopGyroUpdates()
-        self.motionManager.stopAccelerometerUpdates()
-        self.motionManager.stopDeviceMotionUpdates()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -177,62 +74,55 @@ class LivemodeViewController: UIViewController, MotionManagerDelegate {
     
     
     @objc func TapOccured(swipe: UITapGestureRecognizer){
-        print("Back to default")
-        self.view.backgroundColor = UIColor.white
-        bg.isHidden = false
-        let ops = self.view.subviews.compactMap { $0 as? CustomOpticons }
-        ops.forEach { (op) in
-            op.alpha = 1
+        if (started)
+        {
+            print("Live Ending")
+            mm.stopUpdates()
+            if(DroneController.isReady())
+            {DroneController.land()}
+            started = false
         }
-        if DroneController.isReady(){DroneController.emergency_land()}
+        else
+        {
+            if DroneController.isReady()
+            {
+                DroneController.takeoff()
+                sleep(5)
+            }
+            mm.startUpdates()
+            print("Live Starting.. Took off")
+            self.view.backgroundColor = UIColor.white
+            bg.isHidden = false
+            started = true
+            let ops = self.view.subviews.compactMap { $0 as? UIButton }
+            ops.forEach { (op) in
+                op.alpha = 1
+            }
+        }
     }
     
     @objc func swipeRightOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped right")
         self.view.backgroundColor = UIColor.yellow
         bg.isHidden = true
-    
+        
     }
     @objc func swipeLeftOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped left")
         self.view.backgroundColor = UIColor.red
-        stopSensing()
         bg.isHidden = true
     }
     
     @objc func swipeUpOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped up")
         self.view.backgroundColor = UIColor.green
-        let ops = self.view.subviews.compactMap { $0 as? UIButton }
-        ops.forEach { (op) in
-            if op.accessibilityLabel == "up"
-            {op.alpha = 0.2}
-        }
         bg.isHidden = true
     }
     
     @objc func swipeDownOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped down")
         self.view.backgroundColor = UIColor.cyan
-        gaz-=1
-        print (gaz)
         bg.isHidden = true
     }
     
-    @IBAction func FlipButton_touched(_ sender: Any) {
-        if(isflying)
-        {
-            let C = DroneController.getDeviceControllerOfApp().pointee
-            if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_FRONT) == ARCONTROLLER_ERROR){print("error flip")}
-        }
-    }
-    @IBAction func back_touched(_ sender: Any) {
-        if (timer.isValid)
-        {timer.invalidate()}
-        if(started && isflying)
-        {DroneController.emergency_land()}
-        started = false
-        dismiss(animated: true, completion: nil)
-    }
-
 }

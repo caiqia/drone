@@ -171,25 +171,9 @@ void stateChanged (eARCONTROLLER_DEVICE_STATE newState, eARCONTROLLER_ERROR erro
     _deviceController->aRDrone3->sendPilotingTakeOff(_deviceController->aRDrone3);
 }
 
-
 // called when a command has been received from the drone
 void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DICTIONARY_ELEMENT_t *elementDictionary, void *customData)
 {
-    if ((commandKey == ARCONTROLLER_DICTIONARY_KEY_SKYCONTROLLER_SKYCONTROLLERSTATE_BATTERYSTATE) && (elementDictionary != NULL))
-    {
-        ARCONTROLLER_DICTIONARY_ARG_t *arg = NULL;
-        ARCONTROLLER_DICTIONARY_ELEMENT_t *element = NULL;
-        HASH_FIND_STR (elementDictionary, ARCONTROLLER_DICTIONARY_SINGLE_KEY, element);
-        if (element != NULL)
-        {
-            HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_SKYCONTROLLER_SKYCONTROLLERSTATE_BATTERYSTATE_STATE, arg);
-            if (arg != NULL)
-            {
-                eARCOMMANDS_SKYCONTROLLER_SKYCONTROLLERSTATE_BATTERYSTATE_STATE state = arg->value.I32;
-                dump(state)
-            }
-        }
-    }
     // if the command received is a flying state changed
     if ((commandKey == ARCONTROLLER_DICTIONARY_KEY_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED) && (elementDictionary != NULL))
     {
