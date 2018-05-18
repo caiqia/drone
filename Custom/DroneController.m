@@ -209,7 +209,7 @@ void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DI
     }
 }
 
-+ (void) send_pilot_data:(int)flag :(int8_t)roll :(int8_t)pitch :(int8_t)yaw :(int8_t)gas :(int)duringmsecs {
++ (void) send_pilot_data:(int)flag :(int8_t)pitch :(int8_t)roll :(int8_t)yaw :(int8_t)gas :(int)duringmsecs {
     NSLog(@"Flag");
     _deviceController->aRDrone3->setPilotingPCMDFlag(_deviceController->aRDrone3, (roll || pitch )?1:0);
     NSLog(@"Roll");

@@ -24,7 +24,7 @@ class PlaybackViewController: UIViewController {
     var readString = ""
     var moveArray : [Movement] = []
     var ma : [Movement] = []
-    var done: [Bool] = []
+    var done = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,41 +54,47 @@ class PlaybackViewController: UIViewController {
         inFormatter.dateFormat = "HH:mm:ss"
         self.timer_label.text =
             inFormatter.string(from: inFormatter.date(from: String(hours)+":"+String(minutes)+":"+String(seconds))!)
-        
-        for i in 0..<ma.count
+        if self.Timer_val > Int(slider.maximumValue)
+        {stop_playing()}
+        var n = done
+        if(n < ma.count)
         {
-            if ((Int(ma[i].begin) + ma[i].duration) < Timer_val) && done[i] == true
+            self.myImage.image = MoveManager.getOptionIcon(name: ma[n].name)
+            self.myImage.isHidden = false
+            if(Int(ma[n].begin) > Timer_val)
+            {self.myImage.isHidden = true}
+            if(n < ma.count - 1)
             {
-                ma.remove(at: i)
-                done.remove(at: i)
-            }
-            if ma.count == 1 || i == ma.count-1
-            {
-                if(Int(ma[i].begin) < self.Timer_val && self.Timer_val < (Int(ma[i].begin) + ma[i].duration)){
-                    self.myImage.image = MoveManager.getOptionIcon(name: ma[i].name)
-                    self.myImage.isHidden = false}
-                else
-                {self.myImage.isHidden = true
-                    self.myImage2.isHidden = true}
+                self.myImage2.image = MoveManager.getOptionIcon(name: ma[n+1].name)
+                self.myImage2.isHidden = false
             }
             else
             {
-                if(Int(ma[i].begin) >= self.Timer_val && self.Timer_val < (Int(ma[i].begin) + ma[i].duration)){
-                    self.myImage.image = MoveManager.getOptionIcon(name: ma[i].name)
-                    self.myImage.isHidden = false
-                }
-                else
-                {
-                    self.myImage.isHidden = true
-                    self.myImage2.image = MoveManager.getOptionIcon(name: ma[i].name)
-                    return
-                }
-                self.myImage2.image = MoveManager.getOptionIcon(name: ma[i+1].name)
+                self.myImage2.isHidden = true
             }
+            if(self.Timer_val > (Int(ma[n].begin) + ma[n].duration) && Timer_val > (Int(ma[n].begin))){
+                n+=1
+                done+=1
+            }
+        }
+        else
+        {
+            self.myImage.isHidden = true
+            self.myImage2.isHidden = true
         }
     }
     
-    
+    func stop_playing()
+    {
+        Timer_val = 0
+        playing = false
+        timer.invalidate()
+        done = 0
+        slider.value = 0
+        let img = UIImage(named: "play_icon.png")
+        playButton.setImage(img, for: .normal)
+        MoveManager.reset()
+    }
     // Play button touched
     @IBAction func play_touched(_ sender: UIButton) {
         if(playing)
@@ -102,16 +108,13 @@ class PlaybackViewController: UIViewController {
         else
         {
             DispatchQueue.global(qos: .background).async {
-                MoveManager.playmoves(lstmoves: self.moveArray)}
+                 MoveManager.sim(lstmoves: self.moveArray.sorted(by: {$0.begin < $1.begin}))
+                MoveManager.playmoves(lstmoves: self.moveArray.sorted(by: {$0.begin < $1.begin}))
+            }
             playing = true
             let img = UIImage(named: "pause_icon.png")
             playButton.setImage(img, for: .normal)
-            for i in 0..<moveArray.count
-            {
-                ma.append(moveArray[i
-                    ])
-                done.append(false)
-            }
+            ma = moveArray.sorted(by: { $0.begin < $1.begin })
             timer = Timer.scheduledTimer(timeInterval: 0.01, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
         }
     }
@@ -127,7 +130,7 @@ class PlaybackViewController: UIViewController {
     @IBAction func cancelTomain(_ sender: Any) {
         if playing
         {
-            if DroneController.isReady() {DroneController.emergency_land()}
+            if DroneController.isReady() {DroneController.land()}
         }
         dismiss(animated: true, completion: nil)
     }

@@ -1457,7 +1457,7 @@ Qiaoshan CAI</string>
                                     <action selector="take_off:" destination="K31-JA-a20" eventType="touchDown" id="Svv-kj-Uhs"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fS4-Tq-a7e" userLabel="down">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fS4-Tq-a7e" userLabel="down">
                                 <rect key="frame" x="56" y="147" width="96" height="96"/>
                                 <state key="normal" backgroundImage="sicon2"/>
                             </button>
@@ -1468,11 +1468,11 @@ Qiaoshan CAI</string>
                                 </constraints>
                                 <state key="normal" backgroundImage="icon3"/>
                             </button>
-                            <button opaque="NO" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4j-0l-bMg" userLabel="backward">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4j-0l-bMg" userLabel="backward">
                                 <rect key="frame" x="175" y="147" width="96" height="96"/>
                                 <state key="normal" backgroundImage="sicon3"/>
                             </button>
-                            <button opaque="NO" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnq-5u-kMz" userLabel="right">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dnq-5u-kMz" userLabel="right">
                                 <rect key="frame" x="287" y="42" width="96" height="96"/>
                                 <state key="normal" backgroundImage="icon4"/>
                             </button>
@@ -1484,7 +1484,7 @@ Qiaoshan CAI</string>
                                 <rect key="frame" x="403" y="42" width="96" height="96"/>
                                 <state key="normal" backgroundImage="icon1"/>
                             </button>
-                            <button opaque="NO" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hxw-GZ-71S" userLabel="flip_forward">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hxw-GZ-71S" userLabel="flip_forward">
                                 <rect key="frame" x="430" y="147" width="42" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="Sa2-dh-4Vq"/>
@@ -1492,7 +1492,7 @@ Qiaoshan CAI</string>
                                 </constraints>
                                 <state key="normal" backgroundImage="flip_forward"/>
                             </button>
-                            <button opaque="NO" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfJ-Re-zaX" userLabel="flip_backward">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfJ-Re-zaX" userLabel="flip_backward">
                                 <rect key="frame" x="430" y="218" width="42" height="42"/>
                                 <state key="normal" backgroundImage="flip_backward"/>
                             </button>
@@ -1624,7 +1624,19 @@ Qiaoshan CAI</string>
                         <viewLayoutGuide key="safeArea" id="hML-8m-1rN"/>
                     </view>
                     <connections>
+                        <outlet property="backward" destination="o4j-0l-bMg" id="Jbt-qH-yB0"/>
+                        <outlet property="batt_icon" destination="BPx-zi-Gj9" id="rJT-3Q-rGu"/>
                         <outlet property="bg" destination="ZBK-x8-noD" id="bAB-Zd-OKb"/>
+                        <outlet property="down" destination="fS4-Tq-a7e" id="Vvu-s4-JeK"/>
+                        <outlet property="flip_back" destination="hfJ-Re-zaX" id="ZXe-lu-PNz"/>
+                        <outlet property="flip_front" destination="Hxw-GZ-71S" id="OEx-Rr-Onf"/>
+                        <outlet property="flip_left" destination="7Ma-YL-EGG" id="BDI-2x-Umd"/>
+                        <outlet property="flip_right" destination="yrg-2G-w8T" id="IHV-fH-dnx"/>
+                        <outlet property="forward" destination="sNN-wM-idv" id="YVK-3D-bjT"/>
+                        <outlet property="left" destination="Bom-HQ-lsI" id="CzU-Zc-eHL"/>
+                        <outlet property="right" destination="dnq-5u-kMz" id="cgs-5N-6Hg"/>
+                        <outlet property="up" destination="wHb-7u-vW8" id="cKm-W4-MGO"/>
+                        <outlet property="wifi_icon" destination="J2m-RV-mNj" id="uPX-Rb-sxN"/>
                         <segue destination="B0q-u4-2Ls" kind="unwind" identifier="liveTomain" unwindAction="unwindToVC1WithSegue:" id="cBi-6M-1xl"/>
                     </connections>
                 </viewController>

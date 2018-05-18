@@ -30,7 +30,7 @@ void stateChanged (eARCONTROLLER_DEVICE_STATE newState, eARCONTROLLER_ERROR erro
 void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DICTIONARY_ELEMENT_t *elementDictionary, void *customData);
 + (void) land;
 + (void) deleteDeviceController;
-+ (void) send_pilot_data:(int)flag :(int8_t)roll :(int8_t)pitch :(int8_t)yaw :(int8_t)gas :(int)duringmsecs;
++ (void) send_pilot_data:(int)flag :(int8_t)pitch :(int8_t)roll :(int8_t)yaw :(int8_t)gas :(int)duringmsecs;
 + (void) emergency_land;
 + (bool) isReady;
 @end

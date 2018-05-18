@@ -66,6 +66,13 @@ class MotionManager {
         
     }
     
+    func toint8(d:Double) -> Int8
+    {
+        var dd = round(d)
+        if (dd > 128 || dd < -127) {dd = 0}
+        return Int8(dd)
+    }
+    
     // MARK: Motion Manager
     
     func startUpdates() {
@@ -96,6 +103,7 @@ class MotionManager {
         rateAlongGravityBufferx.reset()
         rateAlongGravityBuffery.reset()
         rateAlongGravityBufferz.reset()
+        stablisie()
     }
     
     // MARK: Motion Processing
@@ -166,20 +174,32 @@ class MotionManager {
             drone.setPilotingPCMDPitch(dronec,0)
             drone.setPilotingPCMDRoll(dronec,0)
             drone.setPilotingPCMDGaz(dronec,0)
+            drone.setPilotingPCMDFlag(dronec,0)
         }
         unstable = false
+        recent_forward = false
+        recent_backward = false
+        recent_up = false
+        recent_down = false
+        recent_left = false
+        recent_right = false
+        rateAlongGravityBufferx.reset()
+        rateAlongGravityBuffery.reset()
+        rateAlongGravityBufferz.reset()
     }
     
     func check_forward(accumulatedXRot : Double, deviceMotion : CMDeviceMotion){
-        if(accumulatedXRot < -0.7)
+        if(accumulatedXRot < -0.6)
         {
             if(recent_backward)
             {
                 recent_backward = false
                 let Now = CACurrentMediaTime()
-                if(Now - last_backward_on != 0 && Now - last_backward_on < 1.2)
+                if(Now - last_backward_on != 0 && Now - last_backward_on < 1.0)
                 {
-                    if(DroneController.isReady()) {drone.sendAnimationsFlip(dronec,ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_FRONT)}
+                    if(DroneController.isReady()) {
+                    stablisie()
+                drone.sendAnimationsFlip(dronec,ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_FRONT)}
                     print ("Oh it's a front flip")
                 }
                 else
@@ -194,12 +214,16 @@ class MotionManager {
             {
                 recent_forward = true
                 last_forward_on = CACurrentMediaTime()
-                print ("Moving Forward",abs(deviceMotion.userAcceleration.x*100))
+                var m_value = toint8(d: deviceMotion.userAcceleration.z*10+15)
+                m_value = abs(m_value) * 1
+                if m_value <= 0 || m_value > 100 { m_value = 1 }
+                print ("Moving Forward", m_value)
                 rateAlongGravityBufferx.reset()
                 if (DroneController.isReady())
                 {
+                 
                     drone.setPilotingPCMDFlag(dronec,1)
-                    drone.setPilotingPCMDPitch(dronec,Int8(deviceMotion.userAcceleration.x*100))
+                    drone.setPilotingPCMDPitch(dronec,m_value)
                 }
                 recentxDetection = true
                 last_move = CACurrentMediaTime()
@@ -208,15 +232,18 @@ class MotionManager {
         }
     }
     func check_backward(accumulatedXRot : Double, deviceMotion : CMDeviceMotion){
-        if(accumulatedXRot > 0.7)
+        if(accumulatedXRot > 0.6)
         {
             if(recent_forward)
             {
                 recent_forward = false
                 let Now = CACurrentMediaTime()
-                if(Now - last_forward_on != 0 && Now - last_forward_on < 1.2)
+                if(Now - last_forward_on != 0 && Now - last_forward_on < 1.0)
                 {
-                    if(DroneController.isReady()) {drone.sendAnimationsFlip(dronec,ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_BACK)}
+                    
+                    if(DroneController.isReady()) {
+                        stablisie()
+                        drone.sendAnimationsFlip(dronec,ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_BACK)}
                     print ("Oh it's a back flip")
                 }
                 else
@@ -231,12 +258,16 @@ class MotionManager {
             {
                 recent_backward = true
                 last_backward_on = CACurrentMediaTime()
-                print ("Moving Backwards",abs(deviceMotion.userAcceleration.x*100))
+                var m_value = toint8(d: deviceMotion.userAcceleration.z*10+15)
+                m_value = abs(m_value) * -1
+                if m_value >= 0 || m_value < -100 { m_value = -1 }
+                print ("Moving Backwards",m_value)
                 rateAlongGravityBufferx.reset()
                 if (DroneController.isReady())
                 {
+                    
                     drone.setPilotingPCMDFlag(dronec,1)
-                    drone.setPilotingPCMDPitch(dronec,Int8(deviceMotion.userAcceleration.x*100))
+                    drone.setPilotingPCMDPitch(dronec,m_value)
                 }
                 recentxDetection = true
                 last_move = CACurrentMediaTime()
@@ -260,12 +291,15 @@ class MotionManager {
             else
             {
                 recent_right = true
-                print ("Moving Right", abs(deviceMotion.userAcceleration.z*100))
+                var m_value = toint8(d: deviceMotion.userAcceleration.x*10+15)
+                if m_value <= 0 || m_value > 100 { m_value = 1 }
+                print ("Moving Right",m_value)
                 rateAlongGravityBufferz.reset()
                 if (DroneController.isReady())
                 {
+              
                     drone.setPilotingPCMDFlag(dronec,1)
-                    drone.setPilotingPCMDRoll(dronec,Int8(deviceMotion.userAcceleration.z*100))
+                    drone.setPilotingPCMDRoll(dronec,m_value)
                 }
                 recentzDetection = true
                 last_move = CACurrentMediaTime()
@@ -275,7 +309,7 @@ class MotionManager {
     }
     
     func check_left(accumulatedZRot : Double, deviceMotion : CMDeviceMotion){
-        if(accumulatedZRot > 0.7){
+        if(accumulatedZRot > 0.4){
             if(recent_right)
             {
                 recent_right = false
@@ -288,12 +322,16 @@ class MotionManager {
             else
             {
                 recent_left = true
-                print ("Moving Left", abs(deviceMotion.userAcceleration.z*100))
+                var m_value = toint8(d:deviceMotion.userAcceleration.x*10+15)
+                m_value = abs(m_value) * -1
+                if m_value >= 0 || m_value < -100 { m_value = -1 }
+                print ("Moving Left", m_value)
                 rateAlongGravityBufferz.reset()
                 if (DroneController.isReady())
                 {
                     drone.setPilotingPCMDFlag(dronec,1)
-                    drone.setPilotingPCMDRoll(dronec,Int8(deviceMotion.userAcceleration.z*100))
+                   
+                    drone.setPilotingPCMDRoll(dronec,m_value)
                 }
                 recentzDetection = true
                 last_move = CACurrentMediaTime()
@@ -312,7 +350,9 @@ class MotionManager {
                 let Now = CACurrentMediaTime()
                 if(Now - last_down_on != 0 && Now - last_down_on < 0.5)
                 {
-                    if(DroneController.isReady()) {drone.sendAnimationsFlip(dronec,ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_LEFT)}
+                    if(DroneController.isReady()) {
+                       stablisie()
+                        drone.sendAnimationsFlip(dronec,ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_LEFT)}
                     print ("Oh it's a flip Left")
                 }
                 else
@@ -328,11 +368,14 @@ class MotionManager {
             {
                 recent_up = true
                 last_up_on = CACurrentMediaTime()
-                print ("Moving Up",(deviceMotion.userAcceleration.y*100))
+                var m_value = toint8(d:deviceMotion.userAcceleration.y*10+15)
+                if m_value <= 0 || m_value > 100 { m_value = 1 }
+                
+                print ("Moving Up",m_value)
                 rateAlongGravityBuffery.reset()
                 if (DroneController.isReady())
                 {
-                    drone.setPilotingPCMDGaz(dronec,Int8(deviceMotion.userAcceleration.y*100))
+                    drone.setPilotingPCMDGaz(dronec,m_value)
                 }
                 recentyDetection = true
                 last_move = CACurrentMediaTime()
@@ -351,7 +394,9 @@ class MotionManager {
                 let Now = CACurrentMediaTime()
                 if(Now - last_up_on != 0 && Now - last_up_on < 0.5)
                 {
-                    if(DroneController.isReady()) {drone.sendAnimationsFlip(dronec,ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_RIGHT)}
+                    if(DroneController.isReady()) {
+                       stablisie()
+                        drone.sendAnimationsFlip(dronec,ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_RIGHT)}
                     print ("Oh it's a flip right")
                 }
                 else
@@ -366,11 +411,15 @@ class MotionManager {
             {
                 recent_down = true
                 last_down_on = CACurrentMediaTime()
-                print ("Moving Down",(deviceMotion.userAcceleration.y*100))
+                var m_value = toint8(d:deviceMotion.userAcceleration.y*10+15)
+                m_value = abs(m_value) * -1
+                if m_value >= 0 || m_value < -100 { m_value = -3 }
+                
+                print ("Moving Down",m_value)
                 rateAlongGravityBuffery.reset()
                 if (DroneController.isReady())
                 {
-                    drone.setPilotingPCMDGaz(dronec,Int8(deviceMotion.userAcceleration.y*100))
+                    drone.setPilotingPCMDGaz(dronec,m_value)
                 }
                 recentyDetection = true
                 last_move = CACurrentMediaTime()
