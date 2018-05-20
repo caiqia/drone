@@ -24,6 +24,7 @@ class PlaybackViewController: UIViewController {
     var readString = ""
     var moveArray : [Movement] = []
     var ma : [Movement] = []
+    var mdone : [Movement] = []
     var done = 0
     
     override func viewDidLoad() {
@@ -55,12 +56,13 @@ class PlaybackViewController: UIViewController {
         self.timer_label.text =
             inFormatter.string(from: inFormatter.date(from: String(hours)+":"+String(minutes)+":"+String(seconds))!)
         if self.Timer_val > Int(slider.maximumValue)
-        {stop_playing()}
+        {stop_playing();return}
         var n = done
         if(n < ma.count)
         {
             self.myImage.image = MoveManager.getOptionIcon(name: ma[n].name)
             self.myImage.isHidden = false
+         
             if(Int(ma[n].begin) > Timer_val)
             {self.myImage.isHidden = true}
             if(n < ma.count - 1)
@@ -76,6 +78,15 @@ class PlaybackViewController: UIViewController {
                 n+=1
                 done+=1
             }
+            else
+            {
+                if (!mdone.contains(ma[n]))
+                {
+                    print ("sent ", ma[n].name,ma[n].begin, ma[n].duration, ma[n].arglist)
+                    MoveManager.domove(m: ma[n])
+                    mdone.append(ma[n])
+                }
+            }
         }
         else
         {
@@ -86,7 +97,6 @@ class PlaybackViewController: UIViewController {
     
     func stop_playing()
     {
-        Timer_val = 0
         playing = false
         timer.invalidate()
         done = 0
@@ -94,6 +104,8 @@ class PlaybackViewController: UIViewController {
         let img = UIImage(named: "play_icon.png")
         playButton.setImage(img, for: .normal)
         MoveManager.reset()
+        mdone = []
+        Timer_val = 0
     }
     // Play button touched
     @IBAction func play_touched(_ sender: UIButton) {
@@ -108,7 +120,6 @@ class PlaybackViewController: UIViewController {
         else
         {
             DispatchQueue.global(qos: .background).async {
-                 MoveManager.sim(lstmoves: self.moveArray.sorted(by: {$0.begin < $1.begin}))
                 MoveManager.playmoves(lstmoves: self.moveArray.sorted(by: {$0.begin < $1.begin}))
             }
             playing = true

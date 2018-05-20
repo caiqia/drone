@@ -57,6 +57,7 @@ class LivemodeViewController: UIViewController {
             DroneController.land()
         }
         dismiss(animated: true, completion: nil)
+        ui_will_hide()
     }
     
     @objc func ui_will_hide()
@@ -153,6 +154,7 @@ class LivemodeViewController: UIViewController {
             {DroneController.land()}
             mm.stablisie()
             started = false
+            bg.isHidden = true
         }
         else
         {
@@ -163,7 +165,7 @@ class LivemodeViewController: UIViewController {
             }
             mm.startUpdates()
             print("Live Starting.. Took off")
-            self.view.backgroundColor = UIColor.white
+            bg.backgroundColor = UIColor.white
             bg.isHidden = false
             started = true
             let ops = self.view.subviews.compactMap { $0 as? UIButton }
@@ -180,7 +182,7 @@ class LivemodeViewController: UIViewController {
     
     @objc func swipeRightOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped right")
-        self.view.backgroundColor = UIColor.yellow
+        bg.backgroundColor = UIColor.yellow
         bg.isHidden = false
         if(mm.right_enabled == false)
         {mm.right_enabled = true
@@ -193,7 +195,7 @@ class LivemodeViewController: UIViewController {
     }
     @objc func swipeLeftOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped left")
-        self.view.backgroundColor = UIColor.red
+        bg.backgroundColor = UIColor.red
         bg.isHidden = false
         if(mm.left_enabled == false)
         {mm.left_enabled = true
@@ -207,7 +209,7 @@ class LivemodeViewController: UIViewController {
     
     @objc func swipeUpOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped up")
-        self.view.backgroundColor = UIColor.green
+        bg.backgroundColor = UIColor.green
         bg.isHidden = false
         if(mm.up_enabled == false)
         {mm.up_enabled = true
@@ -221,7 +223,7 @@ class LivemodeViewController: UIViewController {
     
     @objc func swipeDownOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped down")
-        self.view.backgroundColor = UIColor.cyan
+        bg.backgroundColor = UIColor.cyan
         bg.isHidden = false
         if(mm.down_enabled == false)
         {mm.down_enabled = true
@@ -235,7 +237,7 @@ class LivemodeViewController: UIViewController {
     
     @objc func swipeforwardOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped up")
-        self.view.backgroundColor = UIColor.darkGray
+        bg.backgroundColor = UIColor.darkGray
         bg.isHidden = false
         if(mm.forward_enabled == false)
         {mm.forward_enabled = true
@@ -249,7 +251,7 @@ class LivemodeViewController: UIViewController {
     
     @objc func swipebackwardOccured(swipe: UISwipeGestureRecognizer){
         print("screen swiped down")
-        self.view.backgroundColor = UIColor.lightGray
+        bg.backgroundColor = UIColor.lightGray
         bg.isHidden = false
         if(mm.backward_enabled == false)
         {mm.backward_enabled = true

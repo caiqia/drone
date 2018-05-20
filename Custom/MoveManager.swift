@@ -9,8 +9,14 @@
 import Foundation
 
 var isplaying = false
-var i = 0
+var time = 0
+var timer = Timer()
+var moves : [Movement] = []
+var done : [Movement] = []
+
 class MoveManager {
+    
+    
     //Get Option Icon from Name
     class func getOptionIcon(name: String) -> UIImage
     {
@@ -89,93 +95,98 @@ class MoveManager {
         return Int8(dd)
     }
     
-    class func playmoves(lstmoves : [Movement]){
-        if !DroneController.isReady()
-        {return}
-        isplaying = true
-        var j = 0
-        lstmoves.forEach { (m) in
-            if j < i
-            {
-                j+=1
-                print("resuming from i", i)
-            }
-            else
-            {
-                if (isplaying == false)
-                {
-                    return
-                }
-                switch (m.name)
-                {
-                case "take_off":
-                    DroneController.takeoff()
-                case "flip":
-                    let C = DroneController.getDeviceControllerOfApp().pointee
-                    if m.arglist[0] == 0 {if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_FRONT) == ARCONTROLLER_ERROR){print("error flip")}}
-                    if m.arglist[0] == 1 {if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_BACK) == ARCONTROLLER_ERROR){print("error flip")}}
-                    if m.arglist[0] == 2 {if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_LEFT) == ARCONTROLLER_ERROR){print("error flip")}}
-                    if m.arglist[0] == 3 {if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_RIGHT) == ARCONTROLLER_ERROR){print("error flip")}}
-                case "gaz_up":
-                    DroneController.send_pilot_data(0, 0, 0, 0, toint8(d: m.arglist[0]), Int32(m.duration*1000))
-                case "move_forward":
-                    DroneController.send_pilot_data(1, toint8(d: m.arglist[0]), 0, 0, 0, Int32(m.duration*1000))
-                case "move_right":
-                    DroneController.send_pilot_data(1,0, toint8(d:(m.arglist[0])),0,0, Int32(m.duration*1000))
-                case "land":
-                    DroneController.land()
-                case "rotate_default":
-                    print("rd")
-                case "gaz_down":
-                    DroneController.send_pilot_data(0, 0, 0, 0, -toint8(d:m.arglist[0]), Int32(m.duration*1000))
-                case "move_backward":
-                    DroneController.send_pilot_data(1, -toint8(d:m.arglist[0]), 0, 0, 0, Int32(m.duration*1000))
-                case "move_left":
-                    print("well its posit",m.arglist[0])
-                    DroneController.send_pilot_data(1,0, -toint8(d:m.arglist[0]),0,0, Int32(m.duration*1000))
-                default:
-                    print("Error understanding move name in playmoves")
-                    return
-                }
-                usleep(useconds_t(m.duration*10000))
-                i+=1
-                j+=1
-            }
+    @objc class func updateVal()
+    {
+        if (isplaying == false)
+        {
+            timer.invalidate()
+            return
         }
-        isplaying = false
+        time+=1
+        var i = 0
+        while i < moves.count {
+            let m = moves[i]
+            if Int(m.begin) < time && !done.contains(m)
+            {
+                print("processing m",m.name,m.begin,m.duration,m.arglist)
+                done.append(m)
+            }
+            i+=1
+            }
+        if moves.count == 0
+        {
+            isplaying = false
+            MoveManager.reset()
+        }
     }
     
-    class func sim(lstmoves : [Movement]){
-        isplaying = true
-        var j = 0
-        lstmoves.forEach { (m) in
-            if j < i
-            {
-                j+=1
-                print("resuming from i", i)
-            }
-            else
-            {
-                print(m.name, m.begin, m.duration, m.arglist)
-                if (isplaying == false)
-                {
-                    return
-                }
-                usleep(useconds_t(m.duration*10000))
-                i+=1
-                j+=1
-            }
-        }
-        isplaying = false
+    class func playmoves(lstmoves : [Movement]){
+          time = 0
+         isplaying = true
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self,   selector: (#selector(self.updateVal)), userInfo: nil, repeats: true)
+        moves.append(contentsOf: lstmoves)
     }
     
     class func pause()
     {
         isplaying = false
+        timer.invalidate()
     }
     class func reset()
     {
         isplaying = false
-        i = 0
+        time = 0
+        timer.invalidate()
+    }
+    class func domove(m : Movement)
+    {
+        switch (m.name)
+        {
+        case "take_off":
+            if DroneController.isReady()
+            {DroneController.takeoff()}
+        case "flip":
+            if DroneController.isReady()
+            {
+                let C = DroneController.getDeviceControllerOfApp().pointee
+                if m.arglist[0] == 0 {if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_FRONT) == ARCONTROLLER_ERROR){print("error flip")}}
+                if m.arglist[0] == 1 {if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_BACK) == ARCONTROLLER_ERROR){print("error flip")}}
+                if m.arglist[0] == 2 {if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_LEFT) == ARCONTROLLER_ERROR){print("error flip")}}
+                if m.arglist[0] == 3 {if( C.sendAnimationsFlip(DroneController.getDeviceControllerOfApp(),ARCOMMANDS_ARDRONE3_ANIMATIONS_FLIP_DIRECTION_RIGHT) == ARCONTROLLER_ERROR){print("error flip")}}
+            }
+        case "gaz_up":
+            if DroneController.isReady()
+            {
+                DroneController.send_pilot_data(0, 0, 0, 0, toint8(d: m.arglist[0]), Int32(m.duration*1000))}
+        case "move_forward":
+            if DroneController.isReady()
+            {
+                DroneController.send_pilot_data(1, toint8(d: m.arglist[0]), 0, 0, 0, Int32(m.duration*1000))}
+        case "move_right":
+            if DroneController.isReady()
+            {
+                DroneController.send_pilot_data(1,0, toint8(d:(m.arglist[0])),0,0, Int32(m.duration*1000))}
+        case "land":
+            if DroneController.isReady()
+            {
+                DroneController.land()}
+        case "rotate_default":
+            print("rd")
+        case "gaz_down":
+            if DroneController.isReady()
+            {
+                DroneController.send_pilot_data(0, 0, 0, 0, -toint8(d:m.arglist[0]), Int32(m.duration*1000))}
+        case "move_backward":
+            if DroneController.isReady()
+            {
+                DroneController.send_pilot_data(1, -toint8(d:m.arglist[0]), 0, 0, 0, Int32(m.duration*1000))}
+        case "move_left":
+            if DroneController.isReady()
+            {
+                DroneController.send_pilot_data(1,0, -toint8(d:m.arglist[0]),0,0, Int32(m.duration*1000))}
+        default:
+            print("Error understanding move name in playmoves")
+            return
+        }
     }
 }

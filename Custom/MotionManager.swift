@@ -8,7 +8,7 @@ import CoreMotion
 
 var drone = DroneController.getDeviceControllerOfApp().pointee
 var dronec = DroneController.getDeviceControllerOfApp()
-
+var started = false
 class MotionManager {
     // MARK: Properties
     
@@ -63,7 +63,6 @@ class MotionManager {
         // Serial queue for sample handling and calculations.
         queue.maxConcurrentOperationCount = 1
         queue.name = "MotionManagerQueue"
-        
     }
     
     func toint8(d:Double) -> Int8
@@ -76,14 +75,14 @@ class MotionManager {
     // MARK: Motion Manager
     
     func startUpdates() {
-        if !motionManager.isDeviceMotionAvailable {
+        if !motionManager.isDeviceMotionAvailable || started {
             print("Device Motion is not available.")
             return
         }
         
         // Reset everything when we start.
         //resetAllState()
-        
+        started  = true
         motionManager.deviceMotionUpdateInterval = sampleInterval
         motionManager.startDeviceMotionUpdates(to: queue) { (deviceMotion: CMDeviceMotion?, error: Error?) in
             if error != nil {
@@ -97,9 +96,11 @@ class MotionManager {
     }
     
     func stopUpdates() {
-        if motionManager.isDeviceMotionAvailable {
-            motionManager.stopDeviceMotionUpdates()
+        if !motionManager.isDeviceMotionAvailable {
+            return
         }
+        started = false
+        motionManager.stopDeviceMotionUpdates()
         rateAlongGravityBufferx.reset()
         rateAlongGravityBuffery.reset()
         rateAlongGravityBufferz.reset()
