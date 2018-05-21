@@ -48,9 +48,6 @@ class LivemodeViewController: UIViewController {
     var z = 0.0
     
     
-    @IBAction func take_off(_ sender: Any) {
-    }
-    
     @IBAction func back_touched(_ sender: Any) {
         if DroneController.isReady()
         {
@@ -64,6 +61,7 @@ class LivemodeViewController: UIViewController {
     {
         mm.stopUpdates()
         mm.stablisie()
+        timer.invalidate()
     }
     
     override func viewDidLoad() {
@@ -115,6 +113,20 @@ class LivemodeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector (self.ui_will_hide), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector (self.ui_will_hide), name: NSNotification.Name.UIWindowDidResignKey, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector (self.ui_will_hide), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        timer = Timer.scheduledTimer(timeInterval: 10, target: self,   selector: (#selector(self.check_batt)), userInfo: nil, repeats: true)
+    }
+    
+    @objc func check_batt()
+    {
+        let bp = DroneController.getBatt()
+        if (bp < 50){self.batt_icon.setBackgroundImage(UIImage(named: "bat25.png"), for: .normal)}
+        if bp < 25{
+            self.batt_icon.setBackgroundImage(UIImage(named: "bat0.png"), for: .normal)}
+        if bp > 50{
+            self.batt_icon.setBackgroundImage(UIImage(named: "bat75.png"), for: .normal)}
+        if bp > 90{
+            self.batt_icon.setBackgroundImage(UIImage(named: "bat100.png"), for: .normal)}
+        if (DroneController.isReady()){ self.wifi_icon.alpha = 1} else {self.wifi_icon.alpha = 0.2}
     }
     
     override func didReceiveMemoryWarning() {
@@ -144,11 +156,12 @@ class LivemodeViewController: UIViewController {
             flip_right.alpha = 0.2
             flip_back.alpha = 0.2
         }
+        print("flips movements: ",mm.flip_back_enabled ? "Enabled" : "Disabled")
     }
     @objc func TapOccured(swipe: UITapGestureRecognizer){
         if (started)
         {
-            print("Live Ending")
+            print("Live Ending...Landing")
             mm.stopUpdates()
             if(DroneController.isReady())
             {DroneController.land()}
@@ -181,7 +194,6 @@ class LivemodeViewController: UIViewController {
     }
     
     @objc func swipeRightOccured(swipe: UISwipeGestureRecognizer){
-        print("screen swiped right")
         bg.backgroundColor = UIColor.yellow
         bg.isHidden = false
         if(mm.right_enabled == false)
@@ -192,9 +204,9 @@ class LivemodeViewController: UIViewController {
         {mm.right_enabled = false
             right.alpha = 0.2
         }
+        print("right movement: ",mm.right_enabled ? "Enabled" : "Disabled")
     }
     @objc func swipeLeftOccured(swipe: UISwipeGestureRecognizer){
-        print("screen swiped left")
         bg.backgroundColor = UIColor.red
         bg.isHidden = false
         if(mm.left_enabled == false)
@@ -205,10 +217,10 @@ class LivemodeViewController: UIViewController {
         {mm.left_enabled = false
             left.alpha = 0.2
         }
+        print("left movement: ",mm.left_enabled ? "Enabled" : "Disabled")
     }
     
     @objc func swipeUpOccured(swipe: UISwipeGestureRecognizer){
-        print("screen swiped up")
         bg.backgroundColor = UIColor.green
         bg.isHidden = false
         if(mm.up_enabled == false)
@@ -219,10 +231,10 @@ class LivemodeViewController: UIViewController {
         {mm.up_enabled = false
             up.alpha = 0.2
         }
+        print("up movement: ",(mm.up_enabled) ? "Enabled" : "Disabled")
     }
     
     @objc func swipeDownOccured(swipe: UISwipeGestureRecognizer){
-        print("screen swiped down")
         bg.backgroundColor = UIColor.cyan
         bg.isHidden = false
         if(mm.down_enabled == false)
@@ -233,10 +245,10 @@ class LivemodeViewController: UIViewController {
         {mm.down_enabled = false
             down.alpha = 0.2
         }
+        print("down movement: ",(mm.down_enabled) ? "Enabled" : "Disabled")
     }
     
     @objc func swipeforwardOccured(swipe: UISwipeGestureRecognizer){
-        print("screen swiped up")
         bg.backgroundColor = UIColor.darkGray
         bg.isHidden = false
         if(mm.forward_enabled == false)
@@ -247,6 +259,7 @@ class LivemodeViewController: UIViewController {
         {mm.forward_enabled = false
             forward.alpha = 0.2
         }
+        print("Forward movement: ",(mm.forward_enabled) ? "Enabled" : "Disabled")
     }
     
     @objc func swipebackwardOccured(swipe: UISwipeGestureRecognizer){
@@ -261,5 +274,6 @@ class LivemodeViewController: UIViewController {
         {mm.backward_enabled = false
             backward.alpha = 0.2
         }
+        print("Backward movement: ",(mm.backward_enabled) ? "Enabled" : "Disabled")
     }
 }

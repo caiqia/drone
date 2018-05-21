@@ -12,10 +12,18 @@
 @implementation DroneController
 static  ARCONTROLLER_Device_t *deviceController;
 static  ARCONTROLLER_Device_t *_deviceController;
+static  eARCONTROLLER_DEVICE_STATE cstate;
 static  ARService *service;
 static  NSArray *deviceList;
+static  int batt;
 static  bool ready = false;
 
++ (eARCONTROLLER_DEVICE_STATE)getState{
+    return cstate;
+}
++ (int)getBatt{
+    return batt;
+}
 + (bool)isReady{
     return ready;
 }
@@ -88,25 +96,27 @@ static  bool ready = false;
     NSLog(@"Passed Device of discovery");
     NSLog(@"%@",error);
     //NSLog(@"%@",deviceController);
-    //error =    ARCONTROLLER_Device_AddStateChangedCallback(deviceController, stateChanged, (__bridge void *)(self));
+    error =    ARCONTROLLER_Device_AddStateChangedCallback(deviceController, stateChanged, (__bridge void *)(self));
     NSLog(@"%@",error);
-    //error = ARCONTROLLER_Device_AddCommandReceivedCallback(deviceController, onCommandReceived, (__bridge void *)(self));
+    error = ARCONTROLLER_Device_AddCommandReceivedCallback(deviceController, onCommandReceived, (__bridge void *)(self));
     error = ARCONTROLLER_Device_Start (deviceController);
     
     NSLog(@"%@",error);
     if (error == ARCONTROLLER_OK)
     {
-        NSLog(@"error is ok, should fly");
+        NSLog(@"error is ok, drone controller started");
         _deviceController = deviceController;
     }
-    //[self unregisterReceivers];
-    // [self stopDiscovery];
+    [self unregisterReceivers];
+    [self stopDiscovery];
     ready = true;
 }
 
 + (void) DroneControllerInit
 {
     @try {
+        cstate = ARCONTROLLER_DEVICE_STATE_STOPPED;
+        batt = -1;
         [self startDiscovery];
         NSLog(@"passed discovery");
         [self registerReceivers];
@@ -121,7 +131,7 @@ void stateChanged (eARCONTROLLER_DEVICE_STATE newState, eARCONTROLLER_ERROR erro
 {
     // SELF_TYPE is the class name of self
     DroneController *selfCpy = (__bridge DroneController *)customData;
-    
+    cstate = newState;
     switch (newState)
     {
         case ARCONTROLLER_DEVICE_STATE_RUNNING:
@@ -190,6 +200,22 @@ void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DI
             if (arg != NULL)
             {
                 eARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE flyingState = arg->value.I32;
+            }
+        }
+    }
+    
+    if ((commandKey == ARCONTROLLER_DICTIONARY_KEY_COMMON_COMMONSTATE_BATTERYSTATECHANGED) && (elementDictionary != NULL))
+    {
+        ARCONTROLLER_DICTIONARY_ARG_t *arg = NULL;
+        ARCONTROLLER_DICTIONARY_ELEMENT_t *element = NULL;
+        HASH_FIND_STR (elementDictionary, ARCONTROLLER_DICTIONARY_SINGLE_KEY, element);
+        if (element != NULL)
+        {
+            HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_COMMON_COMMONSTATE_BATTERYSTATECHANGED_PERCENT, arg);
+            if (arg != NULL)
+            {
+                uint8_t percent = arg->value.U8;
+                batt = percent;
             }
         }
     }

@@ -33,6 +33,7 @@ void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTROLLER_DI
 + (void) send_pilot_data:(int)flag :(int8_t)pitch :(int8_t)roll :(int8_t)yaw :(int8_t)gas :(int)duringmsecs;
 + (void) emergency_land;
 + (bool) isReady;
++ (int) getBatt;
 @end
 
 #endif /* DroneController_h */
