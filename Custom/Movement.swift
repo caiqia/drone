@@ -3,7 +3,7 @@
 //  drones
 //
 //  Created by Qiaoshan Cai on 23/04/2018.
-//  Copyright © 2018 PSAR. All rights reserved.
+
 //
 
 import UIKit

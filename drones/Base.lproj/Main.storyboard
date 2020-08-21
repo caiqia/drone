@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="703-4V-yAM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="703-4V-yAM">
     <device id="retina4_0" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -1002,7 +1002,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about" translatesAutoresizingMaskIntoConstraints="NO" id="HsU-Uv-7mh">
-                                <rect key="frame" x="308" y="124" width="149" height="120"/>
+                                <rect key="frame" x="308" y="124" width="149" height="450"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbj-gg-Q7E">
                                 <rect key="frame" x="133" y="76" width="302" height="28"/>
@@ -1061,24 +1061,6 @@ Qiaoshan CAI</string>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vhq-I8-UCT">
-                                <rect key="frame" x="133" y="215" width="302" height="29"/>
-                                <color key="backgroundColor" red="0.99408258329999999" green="1" blue="0.98589510810000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Copyright © 2018 All Rights Reserved">
-                                        <attributes>
-                                            <color key="NSColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" size="10" name="ArialMT"/>
-                                            <real key="NSKern" value="0.0"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                <tabStops/>
-                                            </paragraphStyle>
-                                            <color key="NSStrokeColor" red="0.10196" green="0.050979999999999998" blue="0.67059000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1090,20 +1072,15 @@ Qiaoshan CAI</string>
                             <constraint firstItem="NH4-0L-UDg" firstAttribute="leading" secondItem="hbj-gg-Q7E" secondAttribute="leading" id="Acj-Jr-4NV"/>
                             <constraint firstItem="NNU-T8-0Kb" firstAttribute="top" secondItem="x5R-TB-jI6" secondAttribute="top" constant="60" id="AlN-rg-fxc"/>
                             <constraint firstItem="HsU-Uv-7mh" firstAttribute="top" secondItem="hbj-gg-Q7E" secondAttribute="bottom" constant="20" id="FbG-4a-Hpw"/>
-                            <constraint firstItem="NH4-0L-UDg" firstAttribute="leading" secondItem="Vhq-I8-UCT" secondAttribute="leading" id="Fe5-R7-1ta"/>
                             <constraint firstItem="x5R-TB-jI6" firstAttribute="bottom" secondItem="sEL-ve-6IP" secondAttribute="bottom" constant="113" id="HIL-Hn-UHr"/>
                             <constraint firstItem="sEL-ve-6IP" firstAttribute="leading" secondItem="x5R-TB-jI6" secondAttribute="leading" constant="140" id="O3l-ag-gVC"/>
-                            <constraint firstItem="Vhq-I8-UCT" firstAttribute="top" secondItem="sEL-ve-6IP" secondAttribute="bottom" constant="8" symbolic="YES" id="RFH-kV-JFW"/>
                             <constraint firstItem="NH4-0L-UDg" firstAttribute="trailing" secondItem="hbj-gg-Q7E" secondAttribute="trailing" id="SRn-Vz-Il1"/>
                             <constraint firstAttribute="trailing" secondItem="RxJ-Bj-Bpc" secondAttribute="trailing" id="TVC-S0-eho"/>
                             <constraint firstItem="nP7-Lz-p4l" firstAttribute="top" secondItem="hbj-gg-Q7E" secondAttribute="top" id="TdC-XE-kAF"/>
-                            <constraint firstItem="Vhq-I8-UCT" firstAttribute="bottom" secondItem="nP7-Lz-p4l" secondAttribute="bottom" id="UEb-b7-XRK"/>
                             <constraint firstItem="hbj-gg-Q7E" firstAttribute="top" secondItem="x5R-TB-jI6" secondAttribute="top" constant="76" id="Uqy-hw-9UV"/>
                             <constraint firstItem="nP7-Lz-p4l" firstAttribute="leading" secondItem="x5R-TB-jI6" secondAttribute="leading" constant="125" id="VPZ-LW-7G2"/>
                             <constraint firstItem="sEL-ve-6IP" firstAttribute="top" secondItem="hbj-gg-Q7E" secondAttribute="bottom" constant="42" id="Vqq-iB-C4u"/>
-                            <constraint firstItem="Vhq-I8-UCT" firstAttribute="bottom" secondItem="HsU-Uv-7mh" secondAttribute="bottom" id="Z6v-m7-6pD"/>
                             <constraint firstItem="nP7-Lz-p4l" firstAttribute="centerX" secondItem="sEL-ve-6IP" secondAttribute="centerX" constant="93.5" id="fbG-xD-C9h"/>
-                            <constraint firstItem="NH4-0L-UDg" firstAttribute="trailing" secondItem="Vhq-I8-UCT" secondAttribute="trailing" id="gHe-ua-cqQ"/>
                             <constraint firstItem="hbj-gg-Q7E" firstAttribute="leading" secondItem="x5R-TB-jI6" secondAttribute="leading" constant="133" id="ix9-kd-vAS"/>
                             <constraint firstItem="NH4-0L-UDg" firstAttribute="top" secondItem="hbj-gg-Q7E" secondAttribute="bottom" constant="5" id="mgh-LP-ePJ"/>
                             <constraint firstItem="RxJ-Bj-Bpc" firstAttribute="top" secondItem="x5R-TB-jI6" secondAttribute="top" id="qJL-yJ-ADO"/>

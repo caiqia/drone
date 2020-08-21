@@ -3,7 +3,7 @@
 //  drones
 //
 //  Created by Shawky on 06/05/2018.
-//  Copyright © 2018 PSAR. All rights reserved.
+
 //
 
 import Foundation

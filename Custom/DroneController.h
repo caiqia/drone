@@ -3,7 +3,7 @@
 //  drones
 //
 //  Created by Shawky on 08/04/2018.
-//  Copyright © 2018 PSAR. All rights reserved.
+
 //
 
 #ifndef DroneController_h
